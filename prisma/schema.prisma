@@ -9,18 +9,50 @@ datasource db {
 }
 
 model Tenant {
-  id        Int          @id @default(autoincrement())
+  id        Int @id @default(autoincrement())
   name      String
-  email     String       @unique
+  email     String @unique
+  phone     String?
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   payments  RentPayment[]
+  invoices  Invoice[]
 }
 
 model RentPayment {
-  id        Int     @id @default(autoincrement())
-  tenantId  Int
-  amount    Decimal @db.Decimal
-  status    String  @default("pending")
-  createdAt DateTime @default(now())
+  id        Int           @id @default(autoincrement())
+  tenantId Int
+  amount    Decimal       @db.Decimal(10,2)
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  tenant    Tenant        @relation(fields: [tenantId], references: [id])
+  invoiceId Int?
+  invoice   Invoice?      @relation(fields: [invoiceId], references: [id])
+}
 
-  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+}
+
+model Invoice {
+  id          Int              @id @default(autoincrement())
+  tenantId    Int 
+  amount      Decimal          @db.Decimal(10,2)
+  paidAmount  Decimal          @default("0.0") @db.Decimal(10,2)
+  dueDate     DateTime
+  status      InvoiceStatus    @default(UNPAID)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  tenant      Tenant           @relation(fields: [tenantId], references: [id])
+  payments    RentPayment[]
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  OVERDUE
 }
