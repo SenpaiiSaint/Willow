@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Tenant {
+  id        Int          @id @default(autoincrement())
+  name      String
+  email     String       @unique
+  payments  RentPayment[]
+}
+
+model RentPayment {
+  id        Int     @id @default(autoincrement())
+  tenantId  Int
+  amount    Decimal @db.Decimal
+  status    String  @default("pending")
+  createdAt DateTime @default(now())
+
+  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
