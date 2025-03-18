@@ -1,103 +1,218 @@
-import Image from "next/image";
+// app/page.tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* Header */}
+      <header className="bg-white shadow py-4">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-gray-900">RentPay</h1>
+          <nav>
+            <ul className="flex space-x-6">
+              <li>
+                <Link
+                  href="/dashboard"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      {/* Main Content */}
+      <motion.main
+        className="container mx-auto px-4 py-16"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        {/* Hero Section */}
+        <section className="text-center mb-16">
+          <motion.h2
+            className="text-4xl md:text-6xl font-bold text-gray-900 mb-4"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+          >
+            Simplify Your Rent Payments
+          </motion.h2>
+          <p className="text-lg md:text-xl text-gray-600 mb-8">
+            A seamless platform for managing and tracking your rent payments.
+          </p>
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <Link
+              href="/dashboard"
+              className="inline-block px-8 py-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+            >
+              Get Started
+            </Link>
+          </motion.div>
+        </section>
+
+        {/* Features Section */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <motion.div
+            className="p-6 bg-white shadow rounded"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Manage Invoices
+            </h3>
+            <p className="text-gray-600">
+              Generate and track invoices with real-time updates.
+            </p>
+          </motion.div>
+          <motion.div
+            className="p-6 bg-white shadow rounded"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Secure Payments
+            </h3>
+            <p className="text-gray-600">
+              Safe and reliable transactions with robust security.
+            </p>
+          </motion.div>
+          <motion.div
+            className="p-6 bg-white shadow rounded"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Instant Notifications
+            </h3>
+            <p className="text-gray-600">
+              Get immediate updates on payment statuses and invoice settlements.
+            </p>
+          </motion.div>
+        </section>
+
+        {/* About Our Platform Section */}
+        <section className="mb-16">
+          <motion.h3
+            className="text-3xl font-bold text-gray-900 mb-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            About Our Platform
+          </motion.h3>
+          <motion.p
+            className="text-gray-600 mb-4 leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            RentPay is designed to make rent payments hassle-free and efficient.
+            Our platform automates invoice generation, provides secure payment
+            processing, and offers real-time notifications to ensure you never
+            miss a due date.
+          </motion.p>
+          <motion.p
+            className="text-gray-600 leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            With a user-friendly interface and robust backend, RentPay is the smart
+            solution for property managers and tenants alike.
+          </motion.p>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="mb-16">
+          <motion.h3
+            className="text-3xl font-bold text-gray-900 mb-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Testimonials
+          </motion.h3>
+          <div className="space-y-8">
+            <motion.div
+              className="p-6 bg-white shadow rounded"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <p className="text-gray-600 italic">
+                "RentPay has completely transformed the way we manage rent payments.
+                The interface is intuitive and the real-time updates have made a huge
+                difference in our operations."
+              </p>
+              <p className="mt-2 text-gray-900 font-semibold">
+                - Alex Johnson
+              </p>
+            </motion.div>
+            <motion.div
+              className="p-6 bg-white shadow rounded"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <p className="text-gray-600 italic">
+                "I love how secure and efficient the payment process is. RentPay
+                offers a seamless experience for both tenants and property managers."
+              </p>
+              <p className="mt-2 text-gray-900 font-semibold">
+                - Maria Rodriguez
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      </motion.main>
+
+      {/* Footer */}
+      <footer className="bg-white py-8 border-t">
+        <div className="container mx-auto px-4 text-center text-gray-600">
+          <p className="mt-4">
+            &copy; {new Date().getFullYear()} RentPay. All rights reserved.
+          </p>
+          <p className="text-sm mt-2">
+            Designed by{" "}
+            <a
+              href="https://www.blueskylabs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              BlueSky Labs
+            </a>
+          </p>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }

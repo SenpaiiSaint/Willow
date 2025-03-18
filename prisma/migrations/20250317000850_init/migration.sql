@@ -23,3 +23,5 @@ CREATE UNIQUE INDEX "Tenant_email_key" ON "Tenant"("email");
 
 -- AddForeignKey
 ALTER TABLE "RentPayment" ADD CONSTRAINT "RentPayment_tenantId_fkey" FOREIGN KEY ("tenantId") REFERENCES "Tenant"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+
