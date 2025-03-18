@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import PaymentForm from '../components/PaymentForm';
 import InvoiceList from '../components/InvoiceList';
 import { motion } from 'framer-motion';
@@ -31,7 +32,8 @@ export default function Dashboard() {
     setError(null);
 
     try {
-      const res = await fetch('/api/tenant/1'); // Example for tenant ID 1
+      // For demonstration, we're using tenant ID 1
+      const res = await fetch('/api/tenant/1');
       if (!res.ok) throw new Error('Failed to fetch tenant data');
       const data = await res.json();
       setTenant(data);
@@ -40,6 +42,25 @@ export default function Dashboard() {
       setError((err as Error).message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  // Reset invoice to unpaid
+  async function handleResetInvoice(invoiceId: number) {
+    try {
+      const res = await fetch('/api/invoice/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ invoiceId }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to reset invoice');
+      }
+      await fetchData(); // Refresh the invoice list
+      alert('Invoice reset successfully!');
+    } catch (err: any) {
+      alert(`Error: ${err.message}`);
     }
   }
 
@@ -54,6 +75,13 @@ export default function Dashboard() {
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 100 }}
     >
+      {/* Simple Navigation */}
+      <div className="mb-4">
+        <Link href="/" className="text-blue-600 hover:underline">
+          &larr; Back to Home
+        </Link>
+      </div>
+
       <h1 className="text-3xl font-bold mb-6 text-stone-900">Tenant Dashboard</h1>
 
       {loading && <p className="text-center text-stone-600">Loading...</p>}
@@ -90,7 +118,30 @@ export default function Dashboard() {
 
           {/* Invoice List */}
           {invoices.length > 0 ? (
-            <InvoiceList invoices={invoices} />
+            <div className="mt-4">
+              <h2 className="text-xl font-semibold mb-2">Invoices</h2>
+              {invoices.map((inv) => (
+                <div
+                  key={inv.id}
+                  className="p-4 border rounded bg-white shadow mb-2 flex justify-between items-center"
+                >
+                  <div>
+                    <p><strong>Amount:</strong> ${inv.amount}</p>
+                    <p><strong>Paid:</strong> ${inv.paidAmount}</p>
+                    <p><strong>Status:</strong> {inv.status}</p>
+                  </div>
+                  {/* Reset Button if invoice is PAID */}
+                  {inv.status === 'PAID' && (
+                    <button
+                      onClick={() => handleResetInvoice(inv.id)}
+                      className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                    >
+                      Reset Invoice
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           ) : (
             <p className="text-center text-stone-600">No invoices found.</p>
           )}
