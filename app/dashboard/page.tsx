@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PaymentForm from '../components/PaymentForm';
-import { motion } from 'framer-motion';
+import { motion } from "motion/react";
 
 interface Invoice {
   id: number;
