@@ -16,7 +16,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600  hover:text-gray-900 transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -68,7 +68,7 @@ export default function Home() {
           >
             <Link
               href="/dashboard"
-              className="inline-block px-8 py-4 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+              className="inline-block px-8 py-4 bg-stone-400 text-white font-semibold rounded hover:bg-stone-700 transition-colors"
             >
               Get Started
             </Link>
