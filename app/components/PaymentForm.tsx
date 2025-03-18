@@ -39,13 +39,19 @@ export default function PaymentForm({ tenantId, refreshData }: PaymentFormProps)
       if (res.ok) {
         setStatusMessage('✅ Payment processed successfully!');
         setAmount('');
-        refreshData && refreshData(); // Refresh data after successful payment
+        if (refreshData) {
+          refreshData(); // Refresh data after successful payment
+        }
       } else {
         const error = await res.json();
         setStatusMessage(`❌ Payment failed: ${error.error}`);
       }
-    } catch (error) {
-      setStatusMessage(`❌ Payment failed: ${error}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setStatusMessage(`❌ Payment failed: ${error.message}`);
+      } else {
+        setStatusMessage(`❌ Payment failed: An unknown error occurred`);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +83,9 @@ export default function PaymentForm({ tenantId, refreshData }: PaymentFormProps)
       {/* Submit Button */}
       <motion.button
         type="submit"
-        className={`w-full py-3 mt-4 rounded-lg text-white font-semibold ${isLoading ? 'bg-stone-500 cursor-not-allowed' : 'bg-stone-700 hover:bg-stone-800'}`}
+        className={`w-full py-3 mt-4 rounded-lg text-white font-semibold ${
+          isLoading ? 'bg-stone-500 cursor-not-allowed' : 'bg-stone-700 hover:bg-stone-800'
+        }`}
         whileHover={{ scale: isLoading ? 1 : 1.05 }}
         whileTap={{ scale: isLoading ? 1 : 0.95 }}
         disabled={isLoading}
@@ -88,7 +96,9 @@ export default function PaymentForm({ tenantId, refreshData }: PaymentFormProps)
       {/* Status Message */}
       {statusMessage && (
         <motion.div
-          className={`mt-4 text-center text-sm ${statusMessage.startsWith('✅') ? 'text-green-600' : 'text-red-600'}`}
+          className={`mt-4 text-center text-sm ${
+            statusMessage.startsWith('✅') ? 'text-green-600' : 'text-red-600'
+          }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
