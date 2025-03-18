@@ -58,8 +58,12 @@ export default function Dashboard() {
       }
       await fetchData(); // Refresh the invoice list
       alert('Invoice reset successfully!');
-    } catch (err: any) {
-      alert(`Error: ${err.message}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   }
 
