@@ -1,8 +1,7 @@
-import type { PrismaClient as PrismaClientType } from '@prisma/client';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client/extension";
 
 const globalForPrisma = global as unknown as {
-  prisma: PrismaClientType | undefined;
+  prisma: PrismaClient | undefined;
 };
 
 const prisma = globalForPrisma.prisma || new PrismaClient();
