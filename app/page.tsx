@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -16,7 +15,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-gray-600  hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -168,9 +167,9 @@ export default function Home() {
               transition={{ delay: 0.3 }}
             >
               <p className="text-gray-600 italic">
-                "RentPay has completely transformed the way we manage rent payments.
+                &quot;RentPay has completely transformed the way we manage rent payments.
                 The interface is intuitive and the real-time updates have made a huge
-                difference in our operations."
+                difference in our operations.&quot;
               </p>
               <p className="mt-2 text-gray-900 font-semibold">
                 - Alex Johnson
@@ -183,8 +182,8 @@ export default function Home() {
               transition={{ delay: 0.4 }}
             >
               <p className="text-gray-600 italic">
-                "I love how secure and efficient the payment process is. RentPay
-                offers a seamless experience for both tenants and property managers."
+                &quot;I love how secure and efficient the payment process is. RentPay
+                offers a seamless experience for both tenants and property managers.&quot;
               </p>
               <p className="mt-2 text-gray-900 font-semibold">
                 - Maria Rodriguez
@@ -201,7 +200,7 @@ export default function Home() {
             &copy; {new Date().getFullYear()} RentPay. All rights reserved.
           </p>
           <p className="text-sm mt-2">
-            Designed by{" "}
+            Designed by{' '}
             <a
               href="https://www.blueskylabs.com"
               target="_blank"
