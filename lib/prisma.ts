@@ -1,12 +1,14 @@
-import { PrismaClient } from "@prisma/client/extension";
+import type { PrismaClient as PrismaClientType } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = global as unknown as {
-  prisma: PrismaClient | undefined;
+  prisma: PrismaClientType | undefined;
 };
 
-// Use a singleton in development to avoid new connections
 const prisma = globalForPrisma.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma;
+}
 
 export default prisma;
