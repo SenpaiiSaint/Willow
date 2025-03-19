@@ -3,11 +3,11 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string | string[] } }
 ) {
   try {
-    //Convert ID to a number and validate
-    const tenantId = Number(params.id);
+    const tenantIdStr = Array.isArray(params.id) ? params.id[0] : params.id;
+    const tenantId = Number(tenantIdStr);
     if(isNaN(tenantId)) {
       return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
     } 
