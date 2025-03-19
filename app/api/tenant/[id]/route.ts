@@ -3,16 +3,18 @@ import prisma from '@/lib/prisma';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const tenantId = Number(params.id);
-    if (isNaN(tenantId)) {
-      return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
-    }
-    
-    console.log(`➡️ Fetching tenant with ID: ${tenantId}`);
+  // Await the params promise to get the id value
+  const { id } = await params;
+  const tenantId = Number(id);
+  if (isNaN(tenantId)) {
+    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  }
 
+  console.log(`➡️ Fetching tenant with ID: ${tenantId}`);
+
+  try {
     const tenant = await prisma.tenant.findUnique({
       where: { id: tenantId },
       include: { invoices: true, payments: true },
@@ -33,6 +35,7 @@ export async function GET(
     );
   }
 }
+
 
 export async function POST(req: Request) {
   try {
