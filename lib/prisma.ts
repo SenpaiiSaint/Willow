@@ -1,12 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 
-const globalForPrisma = global as unknown as {
-  prisma: PrismaClient | undefined;
-};
+declare global {
+  // allow global 'prisma' variable
+  var prisma: PrismaClient | undefined;
+}
 
-// Use a singleton in development to avoid new connections
-const prisma = globalForPrisma.prisma || new PrismaClient();
+const prisma = globalThis.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.prisma = prisma;
+}
 
 export default prisma;
