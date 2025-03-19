@@ -68,22 +68,22 @@ export async function POST(req: Request) {
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const tenantId = Number(params.id);
-    if (isNaN(tenantId)) {
-      return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
-    }
+  // Await the params promise to extract the id
+  const { id } = await params;
+  const tenantId = Number(id);
+  if (isNaN(tenantId)) {
+    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  }
 
+  try {
     const deletedTenant = await prisma.tenant.delete({
       where: { id: tenantId },
     });
 
-    console.log(`✅ Tenant deleted successfully:`, deletedTenant);
     return NextResponse.json(deletedTenant, { status: 200 });
   } catch (error) {
-    console.error('❌ Error deleting tenant:', error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'An unknown error occurred' },
       { status: 500 }
