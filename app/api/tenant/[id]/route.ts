@@ -2,20 +2,19 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 export async function GET(
-  _req: Request,
-  context: { params: Promise<{ id: string }> }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  // Await the params promise to get the id value
+  const { id } = await params;
+  const tenantId = Number(id);
+  if (isNaN(tenantId)) {
+    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  }
+
+  console.log(`➡️ Fetching tenant with ID: ${tenantId}`);
+
   try {
-    // 1) await the entire params object
-    const { id } = await context.params;
-    const tenantId = Number(id);
-    if (!tenantId) {
-      return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
-    }
-
-    console.log(`➡️ Fetching tenant with ID: ${tenantId}`);
-
-    // 2) Query with Prisma
     const tenant = await prisma.tenant.findUnique({
       where: { id: tenantId },
       include: { invoices: true, payments: true },
@@ -28,13 +27,66 @@ export async function GET(
 
     console.log(`✅ Tenant fetched successfully:`, tenant);
     return NextResponse.json(tenant);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error fetching tenant:', error.message);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    } else {
-      console.error('Unexpected error fetching tenant:', error);
-      return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
+  } catch (error) {
+    console.error('❌ Error fetching tenant:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+
+    if (!body.name || !body.email) {
+      return NextResponse.json(
+        { error: 'Missing name or email field' },
+        { status: 400 }
+      );
     }
+
+    const newTenant = await prisma.tenant.create({
+      data: {
+        name: body.name,
+        email: body.email,
+      },
+    });
+
+    console.log(`✅ Tenant created successfully:`, newTenant);
+    return NextResponse.json(newTenant, { status: 201 });
+  } catch (error) {
+    console.error('❌ Error creating tenant:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  // Await the params promise to extract the id
+  const { id } = await params;
+  const tenantId = Number(id);
+  if (isNaN(tenantId)) {
+    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  }
+
+  try {
+    const deletedTenant = await prisma.tenant.delete({
+      where: { id: tenantId },
+    });
+
+    return NextResponse.json(deletedTenant, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { status: 500 }
+    );
   }
 }
