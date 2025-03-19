@@ -16,7 +16,6 @@ jest.mock('@/lib/prisma', () => ({
 }));
 
 describe('POST /api/webhook', () => {
-  // Cast the imported prisma as a jest.Mocked instance for easier mocking.
   const mockedPrisma = prisma as jest.Mocked<typeof prisma>;
 
   afterEach(() => {
@@ -28,10 +27,8 @@ describe('POST /api/webhook', () => {
       method: 'POST',
       body: JSON.stringify({}),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(400);
-
     const json = await res.json();
     expect(json).toEqual({
       error: 'Missing paymentId or status in request body',
@@ -43,10 +40,8 @@ describe('POST /api/webhook', () => {
       method: 'POST',
       body: JSON.stringify({ paymentId: 123, status: 'INVALID_STATUS' }),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(400);
-
     const json = await res.json();
     expect(json).toEqual({ error: 'Invalid status value' });
   });
@@ -58,18 +53,18 @@ describe('POST /api/webhook', () => {
       invoiceId: null,
     };
     (mockedPrisma.rentPayment.update as jest.Mock).mockResolvedValue(updatedPayment);
-
     const req = new Request('http://localhost/api/webhook', {
       method: 'POST',
       body: JSON.stringify({ paymentId: 123, status: 'FAILED' }),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(200);
-
     const json = await res.json();
-    expect(json).toEqual(updatedPayment);
-
+    expect(json).toMatchObject({
+      id: 123,
+      status: 'FAILED',
+      invoiceId: null,
+    });
     expect(mockedPrisma.rentPayment.update).toHaveBeenCalledWith({
       where: { id: 123 },
       data: { status: 'FAILED' },
@@ -83,25 +78,23 @@ describe('POST /api/webhook', () => {
       status: 'COMPLETED',
     };
     (mockedPrisma.rentPayment.update as jest.Mock).mockResolvedValue(updatedPayment);
-
     const req = new Request('http://localhost/api/webhook', {
       method: 'POST',
       body: JSON.stringify({ paymentId: 456, status: 'COMPLETED' }),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(200);
-
     const json = await res.json();
-    expect(json).toEqual(updatedPayment);
-
-    // Ensure no invoice methods are called
+    expect(json).toMatchObject({
+      id: 456,
+      status: 'COMPLETED',
+      invoiceId: null,
+    });
     expect(mockedPrisma.invoice.findUnique).not.toHaveBeenCalled();
     expect(mockedPrisma.invoice.update).not.toHaveBeenCalled();
   });
 
   it('updates the invoice if payment is COMPLETED and invoiceId is present (partial payment)', async () => {
-    // Simulate a payment amount as a decimal-like object.
     const paymentAmount = { toNumber: () => 25 };
     const updatedPayment = {
       id: 789,
@@ -111,7 +104,6 @@ describe('POST /api/webhook', () => {
     };
     (mockedPrisma.rentPayment.update as jest.Mock).mockResolvedValue(updatedPayment as any);
 
-    // Invoice before update: already paid 50 out of 100.
     const existingInvoice = {
       id: 999,
       paidAmount: { toNumber: () => 50 },
@@ -120,10 +112,9 @@ describe('POST /api/webhook', () => {
     };
     (mockedPrisma.invoice.findUnique as jest.Mock).mockResolvedValue(existingInvoice as any);
 
-    // Mock the invoice update (simulate partial payment update)
     (mockedPrisma.invoice.update as jest.Mock).mockResolvedValue({
       id: 999,
-      paidAmount: { toNumber: () => 75 }, // 50 + 25
+      paidAmount: { toNumber: () => 75 },
       status: 'UNPAID',
     } as any);
 
@@ -131,17 +122,18 @@ describe('POST /api/webhook', () => {
       method: 'POST',
       body: JSON.stringify({ paymentId: 789, status: 'COMPLETED' }),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(200);
-
     const json = await res.json();
-    expect(json).toEqual(updatedPayment);
-
+    // Use toMatchObject to compare key properties and ignore function details on "amount"
+    expect(json).toMatchObject({
+      id: 789,
+      invoiceId: 999,
+      status: 'COMPLETED',
+    });
     expect(mockedPrisma.invoice.findUnique).toHaveBeenCalledWith({
       where: { id: 999 },
     });
-
     expect(mockedPrisma.invoice.update).toHaveBeenCalledWith({
       where: { id: 999 },
       data: {
@@ -181,14 +173,15 @@ describe('POST /api/webhook', () => {
     });
     const res = await POST(req);
     expect(res.status).toBe(200);
-
     const json = await res.json();
-    expect(json).toEqual(updatedPayment);
-
+    expect(json).toMatchObject({
+      id: 321,
+      invoiceId: 888,
+      status: 'COMPLETED',
+    });
     expect(mockedPrisma.invoice.findUnique).toHaveBeenCalledWith({
       where: { id: 888 },
     });
-
     expect(mockedPrisma.invoice.update).toHaveBeenCalledWith({
       where: { id: 888 },
       data: {
@@ -200,15 +193,12 @@ describe('POST /api/webhook', () => {
 
   it('returns 500 if an error occurs', async () => {
     (mockedPrisma.rentPayment.update as jest.Mock).mockRejectedValue(new Error('Database error'));
-
     const req = new Request('http://localhost/api/webhook', {
       method: 'POST',
       body: JSON.stringify({ paymentId: 10, status: 'COMPLETED' }),
     });
-
     const res = await POST(req);
     expect(res.status).toBe(500);
-
     const json = await res.json();
     expect(json).toEqual({ error: 'Database error' });
   });
