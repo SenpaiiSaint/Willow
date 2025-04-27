@@ -117,10 +117,10 @@ export default function Home() {
             </Link>
           </motion.div>
           <nav className="hidden md:flex space-x-8">
-            {["Home", "Features", "Pricing", "Contact", "Dashboard"].map((item) => (
+            {["About Us", "Features", "Pricing", "Contact", "Dashboard"].map((item) => (
               <Link
                 key={item}
-                href={item === "Dashboard" ? "/dashboard" : `/${item.toLowerCase()}`}
+                href={item === "Dashboard" ? "/dashboard" : item === "About Us" ? "/about-us" : `/${item.toLowerCase()}`}
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
                 {item}
@@ -329,7 +329,7 @@ export default function Home() {
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.map((testimonial) => (
-                <motion.div
+                <motion.figure
                   key={testimonial.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -362,7 +362,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic">&ldquo;{testimonial.text}&rdquo;</p>
-                </motion.div>
+                </motion.figure>
               ))}
             </div>
           </div>
@@ -411,10 +411,10 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                {["Home", "Features", "Pricing", "Contact"].map((item) => (
+                {["About Us", "Features", "Pricing", "Contact"].map((item) => (
                   <li key={item}>
                     <Link
-                      href={`/${item.toLowerCase()}`}
+                      href={item === "About Us" ? "/about-us" : `/${item.toLowerCase()}`}
                       className="text-gray-600 hover:text-blue-600 transition-colors"
                     >
                       {item}
