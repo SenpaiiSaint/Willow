@@ -136,7 +136,7 @@ export default function AboutPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll('section[id]');
+      const sections = document.querySelectorAll('section[id]') as NodeListOf<HTMLElement>;
       const scrollPosition = window.scrollY + 100;
 
       sections.forEach((section) => {
@@ -145,7 +145,7 @@ export default function AboutPage() {
         const sectionId = section.getAttribute('id');
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId || 'mission');
+          setActiveSection(sectionId || 'contact-methods');
         }
       });
     };
