@@ -8,7 +8,7 @@ export const revalidate = 0;
 
 // Zod schema for the `id` path parameter
 const idParamSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string().uuid('Invalid tenant ID'),
 });
 
 // Zod schema for tenant creation
@@ -19,22 +19,22 @@ const createTenantSchema = z.object({
 
 // GET /api/tenant/[id]
 export async function GET(
-  _request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  // Validate and coerce the `id` param
-  const parseId = idParamSchema.safeParse(params);
-  if (!parseId.success) {
+  const { id } = await context.params;
+  // Validate it
+  const parsed = idParamSchema.safeParse({ id });
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Invalid tenant ID', details: parseId.error.errors },
+      { error: parsed.error.errors.map(e => e.message).join(', ') },
       { status: 400 }
     );
   }
-  const tenantId = parseId.data.id;
 
   try {
     const tenant = await prisma.tenant.findUnique({
-      where: { id: tenantId },
+      where: { id },
       include: {
         invoices: { orderBy: { dueDate: 'asc' } },
         payments: { orderBy: { createdAt: 'desc' } },
@@ -42,10 +42,7 @@ export async function GET(
     });
 
     if (!tenant) {
-      return NextResponse.json(
-        { error: 'Tenant not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Tenant not found' }, { status: 404 });
     }
 
     return NextResponse.json(tenant);
@@ -58,7 +55,7 @@ export async function GET(
   }
 }
 
-// POST /api/tenant
+// POST /api/tenant/[id]
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -74,14 +71,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(newTenant, { status: 201 });
   } catch (err) {
     console.error('Error creating tenant:', err);
-
     if (err instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid input data', details: err.errors },
         { status: 400 }
       );
     }
-
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Unknown error' },
       { status: 500 }
@@ -92,22 +87,19 @@ export async function POST(request: NextRequest) {
 // DELETE /api/tenant/[id]
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  // Validate and coerce the `id` param
-  const parseId = idParamSchema.safeParse(params);
-  if (!parseId.success) {
+  const { id } = await context.params;
+  const parsed = idParamSchema.safeParse({ id });
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Invalid tenant ID', details: parseId.error.errors },
+      { error: parsed.error.errors.map(e => e.message).join(', ') },
       { status: 400 }
     );
   }
-  const tenantId = parseId.data.id;
 
   try {
-    const deleted = await prisma.tenant.delete({
-      where: { id: tenantId },
-    });
+    const deleted = await prisma.tenant.delete({ where: { id } });
     return NextResponse.json(deleted);
   } catch (err) {
     console.error('Error deleting tenant:', err);

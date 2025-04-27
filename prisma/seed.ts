@@ -1,6 +1,12 @@
 import { PrismaClient } from '../lib/generated/prisma'
+import { formatCurrency } from '../lib/utils/format'
 
 const prisma = new PrismaClient()
+
+// Helper function to convert formatted currency string to number
+function parseCurrency(formattedAmount: string): number {
+  return Number(formattedAmount.replace(/[^0-9.-]+/g, ''))
+}
 
 async function main() {
   // USA Tenants (25)
@@ -415,18 +421,18 @@ async function main() {
       data: {
         tenantId: usaTenants[0].id,
         propertyId: property1.id,
-        amount: 1500.00,
+        amount: parseCurrency(formatCurrency(1500)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 1500.00,
+        paidAmount: parseCurrency(formatCurrency(1500)),
       },
     }),
     prisma.invoice.create({
       data: {
         tenantId: usaTenants[1].id,
         propertyId: property2.id,
-        amount: 2000.00,
+        amount: parseCurrency(formatCurrency(2000)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'UNPAID',
@@ -436,11 +442,11 @@ async function main() {
       data: {
         tenantId: usaTenants[2].id,
         propertyId: property1.id,
-        amount: 1800.00,
+        amount: parseCurrency(formatCurrency(1800)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PARTIALLY_PAID',
-        paidAmount: 900.00,
+        paidAmount: parseCurrency(formatCurrency(900)),
       },
     }),
     // West Coast
@@ -448,18 +454,18 @@ async function main() {
       data: {
         tenantId: usaTenants[5].id,
         propertyId: property2.id,
-        amount: 2500.00,
+        amount: parseCurrency(formatCurrency(2500)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 2500.00,
+        paidAmount: parseCurrency(formatCurrency(2500)),
       },
     }),
     prisma.invoice.create({
       data: {
         tenantId: usaTenants[6].id,
         propertyId: property1.id,
-        amount: 3000.00,
+        amount: parseCurrency(formatCurrency(3000)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'UNPAID',
@@ -473,18 +479,18 @@ async function main() {
       data: {
         tenantId: caribbeanTenants[0].id,
         propertyId: property1.id,
-        amount: 1200.00,
+        amount: parseCurrency(formatCurrency(1200)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 1200.00,
+        paidAmount: parseCurrency(formatCurrency(1200)),
       },
     }),
     prisma.invoice.create({
       data: {
         tenantId: caribbeanTenants[1].id,
         propertyId: property2.id,
-        amount: 1500.00,
+        amount: parseCurrency(formatCurrency(1500)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'UNPAID',
@@ -499,22 +505,22 @@ async function main() {
       data: {
         tenantId: internationalTenants[0].id,
         propertyId: property1.id,
-        amount: 2000.00,
+        amount: parseCurrency(formatCurrency(2000)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 2000.00,
+        paidAmount: parseCurrency(formatCurrency(2000)),
       },
     }),
     prisma.invoice.create({
       data: {
         tenantId: internationalTenants[1].id,
         propertyId: property2.id,
-        amount: 1800.00,
+        amount: parseCurrency(formatCurrency(1800)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PARTIALLY_PAID',
-        paidAmount: 900.00,
+        paidAmount: parseCurrency(formatCurrency(900)),
       },
     }),
     // Asia
@@ -522,18 +528,18 @@ async function main() {
       data: {
         tenantId: internationalTenants[6].id,
         propertyId: property1.id,
-        amount: 2500.00,
+        amount: parseCurrency(formatCurrency(2500)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 2500.00,
+        paidAmount: parseCurrency(formatCurrency(2500)),
       },
     }),
     prisma.invoice.create({
       data: {
         tenantId: internationalTenants[7].id,
         propertyId: property2.id,
-        amount: 2200.00,
+        amount: parseCurrency(formatCurrency(2200)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'UNPAID',
@@ -544,11 +550,11 @@ async function main() {
       data: {
         tenantId: internationalTenants[11].id,
         propertyId: property1.id,
-        amount: 3000.00,
+        amount: parseCurrency(formatCurrency(3000)),
         dueDate: new Date('2024-05-01'),
         description: 'Monthly rent for April 2024',
         status: 'PAID',
-        paidAmount: 3000.00,
+        paidAmount: parseCurrency(formatCurrency(3000)),
       },
     }),
   ]);
@@ -560,7 +566,7 @@ async function main() {
       data: {
         invoiceId: usaInvoices[0].id,
         tenantId: usaTenants[0].id,
-        amount: 1500.00,
+        amount: parseCurrency(formatCurrency(1500)),
         status: 'COMPLETED',
         method: 'Credit Card',
         reference: 'PAY-123456',
@@ -570,7 +576,7 @@ async function main() {
       data: {
         invoiceId: usaInvoices[3].id,
         tenantId: usaTenants[5].id,
-        amount: 2500.00,
+        amount: parseCurrency(formatCurrency(2500)),
         status: 'COMPLETED',
         method: 'Bank Transfer',
         reference: 'PAY-123457',
@@ -581,7 +587,7 @@ async function main() {
       data: {
         invoiceId: caribbeanInvoices[0].id,
         tenantId: caribbeanTenants[0].id,
-        amount: 1200.00,
+        amount: parseCurrency(formatCurrency(1200)),
         status: 'COMPLETED',
         method: 'Credit Card',
         reference: 'PAY-123458',
@@ -592,7 +598,7 @@ async function main() {
       data: {
         invoiceId: internationalInvoices[0].id,
         tenantId: internationalTenants[0].id,
-        amount: 2000.00,
+        amount: parseCurrency(formatCurrency(2000)),
         status: 'COMPLETED',
         method: 'Bank Transfer',
         reference: 'PAY-123459',
@@ -602,7 +608,7 @@ async function main() {
       data: {
         invoiceId: internationalInvoices[2].id,
         tenantId: internationalTenants[6].id,
-        amount: 2500.00,
+        amount: parseCurrency(formatCurrency(2500)),
         status: 'COMPLETED',
         method: 'Credit Card',
         reference: 'PAY-123460',
@@ -612,7 +618,7 @@ async function main() {
       data: {
         invoiceId: internationalInvoices[4].id,
         tenantId: internationalTenants[11].id,
-        amount: 3000.00,
+        amount: parseCurrency(formatCurrency(3000)),
         status: 'COMPLETED',
         method: 'Bank Transfer',
         reference: 'PAY-123461',
@@ -629,8 +635,8 @@ async function main() {
         propertyId: property1.id,
         startDate: new Date('2024-01-01'),
         endDate: new Date('2024-12-31'),
-        rentAmount: 1500.00,
-        securityDeposit: 3000.00,
+        rentAmount: parseCurrency(formatCurrency(1500)),
+        securityDeposit: parseCurrency(formatCurrency(3000)),
         terms: 'Standard 1-year lease agreement',
         status: 'ACTIVE',
       },
@@ -641,8 +647,8 @@ async function main() {
         propertyId: property2.id,
         startDate: new Date('2024-02-01'),
         endDate: new Date('2025-01-31'),
-        rentAmount: 2000.00,
-        securityDeposit: 4000.00,
+        rentAmount: parseCurrency(formatCurrency(2000)),
+        securityDeposit: parseCurrency(formatCurrency(4000)),
         terms: 'Standard 1-year lease agreement',
         status: 'ACTIVE',
       },
@@ -654,8 +660,8 @@ async function main() {
         propertyId: property1.id,
         startDate: new Date('2024-03-01'),
         endDate: new Date('2025-02-28'),
-        rentAmount: 1200.00,
-        securityDeposit: 2400.00,
+        rentAmount: parseCurrency(formatCurrency(1200)),
+        securityDeposit: parseCurrency(formatCurrency(2400)),
         terms: 'Standard 1-year lease agreement',
         status: 'ACTIVE',
       },
@@ -667,8 +673,8 @@ async function main() {
         propertyId: property2.id,
         startDate: new Date('2024-01-15'),
         endDate: new Date('2025-01-14'),
-        rentAmount: 2000.00,
-        securityDeposit: 4000.00,
+        rentAmount: parseCurrency(formatCurrency(2000)),
+        securityDeposit: parseCurrency(formatCurrency(4000)),
         terms: 'Standard 1-year lease agreement',
         status: 'ACTIVE',
       },

@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { motion } from "motion/react";
+import { formatCurrency, parseCurrency } from '@/lib/utils/format';
 
 interface PaymentFormProps {
-  tenantId: number;
+  tenantId: string;
   refreshData?: () => void; // Optionally refresh data after payment
 }
 
@@ -37,7 +38,7 @@ export default function PaymentForm({ tenantId, refreshData }: PaymentFormProps)
       });
 
       if (res.ok) {
-        setStatusMessage('✅ Payment processed successfully!');
+        setStatusMessage(`✅ Payment of ${formatCurrency(parseFloat(amount))} processed successfully!`);
         setAmount('');
         if (refreshData) {
           refreshData(); // Refresh data after successful payment

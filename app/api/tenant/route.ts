@@ -1,3 +1,5 @@
+// app/api/tenant/route.ts
+
 import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
@@ -6,173 +8,193 @@ import {
   updateTenantSchema,
 } from '@/lib/validations/tenant';
 
-// Force truly dynamic rendering
-export const dynamic = 'force-dynamic';
+// truly dynamic + no caching
+export const dynamic    = 'force-dynamic';
 export const revalidate = 0;
 
-// Zod schemas for query parameters
+//–– Zod schemas for query params
+
 const getTenantsQuery = z.object({
   propertyId: z.string().uuid().optional(),
 });
+
 const deleteTenantQuery = z.object({
-  id: z.string().uuid(),
+  id: z.string().uuid('Invalid tenant ID'),
 });
 
-// GET /api/tenant
-export async function GET(request: NextRequest) {
-  // Validate `propertyId` if present
-  const query = Object.fromEntries(request.nextUrl.searchParams);
-  const qResult = getTenantsQuery.safeParse(query);
-  if (!qResult.success) {
+//–– Shared Prisma include definitions
+
+const listInclude = {
+  properties: {
+    select: { id: true, address: true, type: true, status: true },
+  },
+  leaseAgreements: {
+    select: {
+      id: true,
+      startDate: true,
+      endDate: true,
+      rentAmount: true,
+      status: true,
+      terms: true,
+    },
+  },
+  invoices: {
+    select: {
+      id: true,
+      amount: true,
+      paidAmount: true,
+      status: true,
+      dueDate: true,
+      createdAt: true,
+    },
+    orderBy: { dueDate: 'asc' as const },
+  },
+  payments: {
+    select: {
+      id: true,
+      amount: true,
+      status: true,
+      createdAt: true,
+      method: true,
+    },
+    orderBy: { createdAt: 'desc' as const },
+  },
+  maintenanceRequests: {
+    select: {
+      id: true,
+      type: true,
+      priority: true,
+      status: true,
+      description: true,
+      createdAt: true,
+    },
+  },
+};
+
+const detailInclude = {
+  properties: { select: { address: true } },
+  invoices: {
+    select: { id: true, amount: true, paidAmount: true, status: true, dueDate: true },
+    orderBy: { dueDate: 'asc' as const },
+  },
+  payments: {
+    select: { id: true, amount: true, status: true, createdAt: true },
+    orderBy: { createdAt: 'desc' as const },
+  },
+};
+
+//–– Error utilities
+
+class ApiError extends Error {
+  status: number;
+  details?: unknown;
+  constructor(status: number, message: string, details?: unknown) {
+    super(message);
+    this.status  = status;
+    this.details = details;
+  }
+}
+
+function handleError(err: unknown) {
+  if (err instanceof ApiError) {
     return NextResponse.json(
-      { error: 'Invalid query parameters', details: qResult.error.errors },
+      { error: err.message, details: err.details },
+      { status: err.status }
+    );
+  }
+  if (err instanceof z.ZodError) {
+    return NextResponse.json(
+      { error: 'Validation error', details: err.errors },
       { status: 400 }
     );
   }
+  console.error(err);
+  return NextResponse.json(
+    { error: 'Internal Server Error' },
+    { status: 500 }
+  );
+}
 
+//–– Handlers
+
+/**
+ * GET /api/tenant
+ * → Optionally filter by ?propertyId=…
+ */
+export async function GET(request: NextRequest) {
   try {
+    const rawQuery = Object.fromEntries(request.nextUrl.searchParams);
+    const q = getTenantsQuery.parse(rawQuery);
+
+    // build `where` only if propertyId is provided
+    const where = q.propertyId
+      ? { properties: { some: { id: q.propertyId } } }
+      : {};
+
     const tenants = await prisma.tenant.findMany({
-      where: qResult.data.propertyId
-        ? { properties: { some: { id: qResult.data.propertyId } } }
-        : {},
-      include: {
-        properties: { select: { address: true } },
-        invoices: {
-          select: {
-            id: true,
-            amount: true,
-            paidAmount: true,
-            status: true,
-            dueDate: true,
-          },
-          orderBy: { dueDate: 'asc' },
-        },
-        payments: {
-          select: {
-            id: true,
-            amount: true,
-            status: true,
-            createdAt: true,
-          },
-          orderBy: { createdAt: 'desc' },
-        },
-      },
+      where,
+      include: listInclude,
       orderBy: { createdAt: 'desc' },
     });
 
     return NextResponse.json(tenants);
   } catch (err) {
-    console.error('Error fetching tenants:', err);
-    return NextResponse.json(
-      {
-        error: 'Failed to fetch tenants',
-        details: err instanceof Error ? err.message : 'Unknown error',
-      },
-      { status: 500 }
-    );
+    return handleError(err);
   }
 }
 
-// POST /api/tenant
+/**
+ * POST /api/tenant
+ * → Create a new tenant
+ */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const validated = createTenantSchema.parse(body);
+    const dto = createTenantSchema.parse(await request.json());
 
     const tenant = await prisma.tenant.create({
-      data: validated,
-      include: {
-        properties: { select: { address: true } },
-      },
+      data: dto,
+      include: detailInclude,
     });
 
     return NextResponse.json(tenant, { status: 201 });
   } catch (err) {
-    console.error('Error creating tenant:', err);
-    if (err instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Invalid input data', details: err.errors },
-        { status: 400 }
-      );
-    }
-    return NextResponse.json(
-      { error: 'Failed to create tenant' },
-      { status: 500 }
-    );
+    return handleError(err);
   }
 }
 
-// PATCH /api/tenant
+/**
+ * PATCH /api/tenant
+ * → Update an existing tenant
+ */
 export async function PATCH(request: NextRequest) {
   try {
-    const body = await request.json();
-    const validated = updateTenantSchema.parse(body);
+    const dto = updateTenantSchema.parse(await request.json());
+    const { id, ...updates } = dto;
 
     const tenant = await prisma.tenant.update({
-      where: { id: validated.id },
-      data: validated,
-      include: {
-        properties: { select: { address: true } },
-        invoices: {
-          select: {
-            id: true,
-            amount: true,
-            paidAmount: true,
-            status: true,
-            dueDate: true,
-          },
-          orderBy: { dueDate: 'asc' },
-        },
-        payments: {
-          select: {
-            id: true,
-            amount: true,
-            status: true,
-            createdAt: true,
-          },
-          orderBy: { createdAt: 'desc' },
-        },
-      },
+      where: { id },
+      data: updates,
+      include: detailInclude,
     });
 
     return NextResponse.json(tenant);
   } catch (err) {
-    console.error('Error updating tenant:', err);
-    if (err instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Invalid input data', details: err.errors },
-        { status: 400 }
-      );
-    }
-    return NextResponse.json(
-      { error: 'Failed to update tenant' },
-      { status: 500 }
-    );
+    return handleError(err);
   }
 }
 
-// DELETE /api/tenant
+/**
+ * DELETE /api/tenant?id=…
+ * → Remove a tenant by ID
+ */
 export async function DELETE(request: NextRequest) {
-  const query = Object.fromEntries(request.nextUrl.searchParams);
-  const dResult = deleteTenantQuery.safeParse(query);
-
-  if (!dResult.success) {
-    return NextResponse.json(
-      { error: 'A valid tenant ID (UUID) is required', details: dResult.error.errors },
-      { status: 400 }
-    );
-  }
-
   try {
-    const deleted = await prisma.tenant.delete({
-      where: { id: dResult.data.id },
-    });
+    const rawQuery = Object.fromEntries(request.nextUrl.searchParams);
+    const { id } = deleteTenantQuery.parse(rawQuery);
+
+    const deleted = await prisma.tenant.delete({ where: { id } });
     return NextResponse.json(deleted);
   } catch (err) {
-    console.error('Error deleting tenant:', err);
-    return NextResponse.json(
-      { error: 'Failed to delete tenant', details: err instanceof Error ? err.message : 'Unknown error' },
-      { status: 500 }
-    );
+    return handleError(err);
   }
 }
