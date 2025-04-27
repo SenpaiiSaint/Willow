@@ -39,7 +39,7 @@ export default function DashboardLayout({
   const SidebarContent = () => (
     <>
       <div className="flex-shrink-0 flex items-center px-4">
-        <Link href="/dashboard" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <h1 className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
             RentPay
           </h1>
