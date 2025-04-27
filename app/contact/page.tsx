@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
@@ -20,7 +20,7 @@ export default function ContactPage() {
       </p>
       <p className="mb-4">
         You can also find us on social media (Twitter, LinkedIn) for updates on
-        improvements to this dummy project. We’re always open to feedback and
+        improvements to this dummy project. We're always open to feedback and
         contributions!
       </p>
       <Link href="/" className="text-blue-600 hover:underline">

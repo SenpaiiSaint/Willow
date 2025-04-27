@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export default function AboutPage() {
   return (
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <p className="mb-4">
         The application includes a basic dashboard where tenants can view
         invoices, make payments, and reset invoices to see payment flows again.
-        Additionally, we’ve integrated Framer Motion for smooth animations and
+        Additionally, we've integrated Framer Motion for smooth animations and
         transitions.
       </p>
       <Link href="/" className="text-blue-600 hover:underline">
