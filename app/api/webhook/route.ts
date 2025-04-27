@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const updatedPayment = await prisma.$transaction(async (tx) => {
+    const updatedPayment = await prisma.$transaction(async (tx: typeof prisma) => {
       // 1️⃣ Update payment status
       const payment = await tx.payment.update({
         where: { id: data.paymentId },

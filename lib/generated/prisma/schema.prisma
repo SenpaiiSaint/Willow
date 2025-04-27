@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -22,13 +16,13 @@ model Tenant {
   address             String?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
+  documents           Document[]
   invoices            Invoice[]
-  payments            Payment[]
-  properties          Property[]
   leaseAgreements     LeaseAgreement[]
   maintenanceRequests MaintenanceRequest[]
-  documents           Document[]
   notifications       Notification[]
+  payments            Payment[]
+  properties          Property[]           @relation("PropertyToTenant")
 
   @@map("tenants")
 }
@@ -36,20 +30,20 @@ model Tenant {
 model Property {
   id                  String               @id @default(uuid())
   address             String
-  type                String // apartment, house, etc.
-  size                Float? // in square feet/meters
+  type                String
+  size                Float?
   bedrooms            Int?
   bathrooms           Float?
-  amenities           String[] // array of amenities
-  status              String               @default("VACANT") // VACANT, OCCUPIED
+  amenities           String[]
+  status              String               @default("VACANT")
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
-  tenants             Tenant[]
-  invoices            Invoice[]
-  maintenanceRequests MaintenanceRequest[]
   documents           Document[]
+  invoices            Invoice[]
   leaseAgreements     LeaseAgreement[]
+  maintenanceRequests MaintenanceRequest[]
   notifications       Notification[]
+  tenants             Tenant[]             @relation("PropertyToTenant")
 
   @@map("properties")
 }
@@ -65,8 +59,8 @@ model Invoice {
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  tenant      Tenant    @relation(fields: [tenantId], references: [id])
   property    Property  @relation(fields: [propertyId], references: [id])
+  tenant      Tenant    @relation(fields: [tenantId], references: [id])
   payments    Payment[]
 
   @@map("invoices")
@@ -98,11 +92,11 @@ model LeaseAgreement {
   rentAmount      Float
   securityDeposit Float
   terms           String?
-  status          String   @default("ACTIVE") // ACTIVE, EXPIRED, TERMINATED
+  status          String   @default("ACTIVE")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  tenant          Tenant   @relation(fields: [tenantId], references: [id])
   property        Property @relation(fields: [propertyId], references: [id])
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
 
   @@map("lease_agreements")
 }
@@ -111,9 +105,9 @@ model MaintenanceRequest {
   id          String   @id @default(uuid())
   propertyId  String
   tenantId    String
-  type        String // plumbing, electrical, etc.
-  priority    String // LOW, MEDIUM, HIGH, URGENT
-  status      String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  type        String
+  priority    String
+  status      String   @default("PENDING")
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -125,30 +119,30 @@ model MaintenanceRequest {
 
 model Document {
   id         String    @id @default(uuid())
-  type       String // lease, id, invoice, etc.
+  type       String
   filePath   String
   fileName   String
   uploadDate DateTime  @default(now())
   status     String    @default("ACTIVE")
   tenantId   String?
   propertyId String?
-  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
   property   Property? @relation(fields: [propertyId], references: [id])
+  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
 
   @@map("documents")
 }
 
 model Notification {
   id         String    @id @default(uuid())
-  type       String // payment, maintenance, lease, etc.
+  type       String
   message    String
   read       Boolean   @default(false)
-  priority   String    @default("NORMAL") // LOW, NORMAL, HIGH
+  priority   String    @default("NORMAL")
   createdAt  DateTime  @default(now())
   tenantId   String?
   propertyId String?
-  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
   property   Property? @relation(fields: [propertyId], references: [id])
+  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
 
   @@map("notifications")
 }

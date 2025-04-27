@@ -1,740 +1,606 @@
 import { PrismaClient } from '../lib/generated/prisma'
-import { formatCurrency } from '../lib/utils/format'
 
 const prisma = new PrismaClient()
 
-// Helper function to convert formatted currency string to number
-function parseCurrency(formattedAmount: string): number {
-  return Number(formattedAmount.replace(/[^0-9.-]+/g, ''))
-}
-
 async function main() {
-  // USA Tenants (25)
-  const usaTenants = await Promise.all([
-    // Northeast
-    prisma.tenant.create({
-      data: {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+1234567890',
-        address: '123 Main St, Apt 4B, New York, NY',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        phone: '+1987654321',
-        address: '456 Oak Ave, Unit 2, Boston, MA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Michael Brown',
-        email: 'michael.b@example.com',
-        phone: '+1234567891',
-        address: '789 Pine St, Philadelphia, PA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Sarah Wilson',
-        email: 'sarah.w@example.com',
-        phone: '+1234567892',
-        address: '321 Maple Ave, Providence, RI',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'David Miller',
-        email: 'david.m@example.com',
-        phone: '+1234567893',
-        address: '654 Birch St, Hartford, CT',
-      },
-    }),
-    // West Coast
-    prisma.tenant.create({
-      data: {
-        name: 'Emily Davis',
-        email: 'emily.d@example.com',
-        phone: '+1234567894',
-        address: '987 Palm Ave, Los Angeles, CA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'James Wilson',
-        email: 'james.w@example.com',
-        phone: '+1234567895',
-        address: '741 Beach Rd, San Francisco, CA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Lisa Anderson',
-        email: 'lisa.a@example.com',
-        phone: '+1234567896',
-        address: '852 Rain St, Seattle, WA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Robert Taylor',
-        email: 'robert.t@example.com',
-        phone: '+1234567897',
-        address: '963 Cloud Ave, Portland, OR',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Jennifer Martinez',
-        email: 'jennifer.m@example.com',
-        phone: '+1234567898',
-        address: '159 Sun Blvd, San Diego, CA',
-      },
-    }),
-    // Midwest
-    prisma.tenant.create({
-      data: {
-        name: 'William Johnson',
-        email: 'william.j@example.com',
-        phone: '+1234567899',
-        address: '753 Lake St, Chicago, IL',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Patricia Brown',
-        email: 'patricia.b@example.com',
-        phone: '+1234567800',
-        address: '951 River Rd, Detroit, MI',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Thomas Moore',
-        email: 'thomas.m@example.com',
-        phone: '+1234567801',
-        address: '357 Forest Ave, Minneapolis, MN',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Elizabeth Clark',
-        email: 'elizabeth.c@example.com',
-        phone: '+1234567802',
-        address: '246 Prairie Ln, Milwaukee, WI',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Kevin White',
-        email: 'kevin.w@example.com',
-        phone: '+1234567803',
-        address: '135 Field St, Cleveland, OH',
-      },
-    }),
-    // South
-    prisma.tenant.create({
-      data: {
-        name: 'Margaret Lee',
-        email: 'margaret.l@example.com',
-        phone: '+1234567804',
-        address: '864 Peach St, Atlanta, GA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Daniel Harris',
-        email: 'daniel.h@example.com',
-        phone: '+1234567805',
-        address: '975 Orange Ave, Miami, FL',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Nancy Rodriguez',
-        email: 'nancy.r@example.com',
-        phone: '+1234567806',
-        address: '753 Palm Blvd, Houston, TX',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Christopher Lee',
-        email: 'chris.l@example.com',
-        phone: '+1234567807',
-        address: '159 Magnolia Dr, New Orleans, LA',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Amanda Walker',
-        email: 'amanda.w@example.com',
-        phone: '+1234567808',
-        address: '951 Cotton Rd, Nashville, TN',
-      },
-    }),
-    // Mountain/Southwest
-    prisma.tenant.create({
-      data: {
-        name: 'Joseph King',
-        email: 'joseph.k@example.com',
-        phone: '+1234567809',
-        address: '357 Desert Ave, Phoenix, AZ',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Michelle Scott',
-        email: 'michelle.s@example.com',
-        phone: '+1234567810',
-        address: '246 Mountain Rd, Denver, CO',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Steven Green',
-        email: 'steven.g@example.com',
-        phone: '+1234567811',
-        address: '135 Canyon St, Salt Lake City, UT',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Rebecca Adams',
-        email: 'rebecca.a@example.com',
-        phone: '+1234567812',
-        address: '864 Mesa Blvd, Albuquerque, NM',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Ryan Baker',
-        email: 'ryan.b@example.com',
-        phone: '+1234567813',
-        address: '975 Valley Rd, Las Vegas, NV',
-      },
-    }),
-  ]);
+  try {
+    console.log('Starting seed...')
+    
+    // First, try to delete existing data
+    console.log('Cleaning up existing data...')
+    await prisma.payment.deleteMany()
+    await prisma.invoice.deleteMany()
+    await prisma.maintenanceRequest.deleteMany()
+    await prisma.leaseAgreement.deleteMany()
+    await prisma.document.deleteMany()
+    await prisma.notification.deleteMany()
+    await prisma.property.deleteMany()
+    await prisma.tenant.deleteMany()
+    console.log('Cleanup completed')
 
-  // Caribbean Tenants (5)
-  const caribbeanTenants = await Promise.all([
-    prisma.tenant.create({
-      data: {
-        name: 'Carlos Rivera',
-        email: 'carlos.r@example.com',
-        phone: '+1787123456',
-        address: '123 Flamboyant St, San Juan, Puerto Rico',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Maria Santos',
-        email: 'maria.s@example.com',
-        phone: '+1809234567',
-        address: '456 Palm Beach Dr, Santo Domingo, Dominican Republic',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'John Baptiste',
-        email: 'john.b@example.com',
-        phone: '+1868345678',
-        address: '789 Marina Way, Port of Spain, Trinidad',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Sophie Martin',
-        email: 'sophie.m@example.com',
-        phone: '+590123456',
-        address: '321 Beach Front, Gustavia, St. Barthélemy',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Marcus Johnson',
-        email: 'marcus.j@example.com',
-        phone: '+1242456789',
-        address: '654 Paradise Dr, Nassau, Bahamas',
-      },
-    }),
-  ]);
+    // Create tenants
+    console.log('Creating tenants...')
+    const usaTenants = await Promise.all([
+      // Northeast
+      prisma.tenant.create({
+        data: {
+          name: 'John Doe',
+          email: 'john.doe@example.com',
+          phone: '+1234567890',
+          address: '123 Main St, New York, NY'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Jane Smith',
+          email: 'jane.smith@example.com',
+          phone: '+1987654321',
+          address: '456 Oak Ave, Boston, MA'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Michael Brown',
+          email: 'michael.b@example.com',
+          phone: '+1234567891',
+          address: '789 Pine St, Philadelphia, PA'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Sarah Wilson',
+          email: 'sarah.w@example.com',
+          phone: '+1234567892',
+          address: '321 Maple Ave, Providence, RI'
+        }
+      }),
+      // West Coast
+      prisma.tenant.create({
+        data: {
+          name: 'Emily Davis',
+          email: 'emily.d@example.com',
+          phone: '+1234567894',
+          address: '987 Palm Ave, Los Angeles, CA'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'James Wilson',
+          email: 'james.w@example.com',
+          phone: '+1234567895',
+          address: '741 Beach Rd, San Francisco, CA'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Lisa Anderson',
+          email: 'lisa.a@example.com',
+          phone: '+1234567896',
+          address: '852 Rain St, Seattle, WA'
+        }
+      }),
+      // South
+      prisma.tenant.create({
+        data: {
+          name: 'Sarah Johnson',
+          email: 'sarah.j@example.com',
+          phone: '+1234567897',
+          address: '852 Palm Blvd, Miami, FL'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Robert Taylor',
+          email: 'robert.t@example.com',
+          phone: '+1234567898',
+          address: '963 Oak St, Houston, TX'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Patricia Brown',
+          email: 'patricia.b@example.com',
+          phone: '+1234567899',
+          address: '159 Magnolia Dr, New Orleans, LA'
+        }
+      }),
+      // Midwest
+      prisma.tenant.create({
+        data: {
+          name: 'William Johnson',
+          email: 'william.j@example.com',
+          phone: '+1234567800',
+          address: '753 Lake St, Chicago, IL'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Elizabeth Clark',
+          email: 'elizabeth.c@example.com',
+          phone: '+1234567801',
+          address: '246 Prairie Ln, Milwaukee, WI'
+        }
+      })
+    ])
+    console.log('Created USA tenants:', usaTenants.length)
 
-  // Europe, Asia, and Japan Tenants (15)
-  const internationalTenants = await Promise.all([
-    // Europe (6)
-    prisma.tenant.create({
-      data: {
-        name: 'Pierre Dubois',
-        email: 'pierre.d@example.com',
-        phone: '+33123456789',
-        address: '123 Rue de la Paix, Paris, France',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Anna Schmidt',
-        email: 'anna.s@example.com',
-        phone: '+49987654321',
-        address: '456 Hauptstraße, Berlin, Germany',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Marco Rossi',
-        email: 'marco.r@example.com',
-        phone: '+39123456789',
-        address: '789 Via Roma, Rome, Italy',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Sofia Garcia',
-        email: 'sofia.g@example.com',
-        phone: '+34612345678',
-        address: '321 Calle Mayor, Madrid, Spain',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Eva Andersson',
-        email: 'eva.a@example.com',
-        phone: '+46701234567',
-        address: '654 Kungsgatan, Stockholm, Sweden',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Liam O\'Connor',
-        email: 'liam.o@example.com',
-        phone: '+353871234567',
-        address: '987 O\'Connell St, Dublin, Ireland',
-      },
-    }),
-    // Asia (5)
-    prisma.tenant.create({
-      data: {
-        name: 'Wei Chen',
-        email: 'wei.c@example.com',
-        phone: '+861234567890',
-        address: '741 Nanjing Rd, Shanghai, China',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Priya Patel',
-        email: 'priya.p@example.com',
-        phone: '+919876543210',
-        address: '852 Marine Drive, Mumbai, India',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Min-jun Kim',
-        email: 'minjun.k@example.com',
-        phone: '+821012345678',
-        address: '963 Gangnam-daero, Seoul, South Korea',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Ahmad Rahman',
-        email: 'ahmad.r@example.com',
-        phone: '+60123456789',
-        address: '159 Jalan Sultan, Kuala Lumpur, Malaysia',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Somchai Suk',
-        email: 'somchai.s@example.com',
-        phone: '+66891234567',
-        address: '753 Sukhumvit Rd, Bangkok, Thailand',
-      },
-    }),
-    // Japan (4)
-    prisma.tenant.create({
-      data: {
-        name: 'Yuki Tanaka',
-        email: 'yuki.t@example.com',
-        phone: '+81312345678',
-        address: '951 Ginza, Tokyo, Japan',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Hiroshi Sato',
-        email: 'hiroshi.s@example.com',
-        phone: '+81612345678',
-        address: '357 Dotonbori, Osaka, Japan',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Akiko Yamamoto',
-        email: 'akiko.y@example.com',
-        phone: '+81227654321',
-        address: '246 Kawaramachi, Kyoto, Japan',
-      },
-    }),
-    prisma.tenant.create({
-      data: {
-        name: 'Kenji Nakamura',
-        email: 'kenji.n@example.com',
-        phone: '+81452345678',
-        address: '135 Sakae, Nagoya, Japan',
-      },
-    }),
-  ]);
+    const internationalTenants = await Promise.all([
+      // Europe
+      prisma.tenant.create({
+        data: {
+          name: 'Sophie Martin',
+          email: 'sophie.m@example.com',
+          phone: '+33123456789',
+          address: '321 Rue de Paris, Paris, France'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Hans Schmidt',
+          email: 'hans.s@example.com',
+          phone: '+49123456789',
+          address: '654 Berliner Str, Berlin, Germany'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Marco Rossi',
+          email: 'marco.r@example.com',
+          phone: '+39123456789',
+          address: '789 Via Roma, Rome, Italy'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Sofia Garcia',
+          email: 'sofia.g@example.com',
+          phone: '+34612345678',
+          address: '456 Calle Mayor, Madrid, Spain'
+        }
+      }),
+      // Asia
+      prisma.tenant.create({
+        data: {
+          name: 'Yuki Tanaka',
+          email: 'yuki.t@example.com',
+          phone: '+81312345678',
+          address: '159 Ginza, Tokyo, Japan'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Li Wei',
+          email: 'li.w@example.com',
+          phone: '+861234567890',
+          address: '753 Nanjing Rd, Shanghai, China'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Priya Patel',
+          email: 'priya.p@example.com',
+          phone: '+919876543210',
+          address: '852 Marine Drive, Mumbai, India'
+        }
+      }),
+      prisma.tenant.create({
+        data: {
+          name: 'Min-jun Kim',
+          email: 'minjun.k@example.com',
+          phone: '+821012345678',
+          address: '963 Gangnam-daero, Seoul, South Korea'
+        }
+      })
+    ])
+    console.log('Created international tenants:', internationalTenants.length)
 
-  // Create sample properties
-  const property1 = await prisma.property.create({
-    data: {
-      address: '123 Main St',
-      type: 'Apartment',
-      size: 1200,
-      bedrooms: 2,
-      bathrooms: 1.5,
-      amenities: ['Parking', 'Gym', 'Pool'],
-      status: 'OCCUPIED',
-    },
-  });
+    // Create properties
+    console.log('Creating properties...')
+    const properties = await Promise.all([
+      // Apartments
+      prisma.property.create({
+        data: {
+          address: '123 Main St, New York, NY',
+          type: 'Apartment',
+          size: 1200,
+          bedrooms: 2,
+          bathrooms: 1.5,
+          amenities: ['Parking', 'Gym', 'Pool'],
+          status: 'OCCUPIED'
+        }
+      }),
+      prisma.property.create({
+        data: {
+          address: '456 Oak Ave, Boston, MA',
+          type: 'Apartment',
+          size: 1000,
+          bedrooms: 1,
+          bathrooms: 1,
+          amenities: ['Parking', 'Laundry'],
+          status: 'OCCUPIED'
+        }
+      }),
+      prisma.property.create({
+        data: {
+          address: '789 Pine St, Los Angeles, CA',
+          type: 'Apartment',
+          size: 1500,
+          bedrooms: 2,
+          bathrooms: 2,
+          amenities: ['Parking', 'Gym', 'Pool', 'Doorman'],
+          status: 'OCCUPIED'
+        }
+      }),
+      // Houses
+      prisma.property.create({
+        data: {
+          address: '321 Beach Rd, Miami, FL',
+          type: 'House',
+          size: 2500,
+          bedrooms: 4,
+          bathrooms: 3,
+          amenities: ['Pool', 'Garden', 'Garage', 'Beach Access'],
+          status: 'VACANT'
+        }
+      }),
+      prisma.property.create({
+        data: {
+          address: '654 Market St, San Francisco, CA',
+          type: 'House',
+          size: 3000,
+          bedrooms: 5,
+          bathrooms: 3.5,
+          amenities: ['Garage', 'Garden', 'Fireplace', 'View'],
+          status: 'OCCUPIED'
+        }
+      }),
+      // Condos
+      prisma.property.create({
+        data: {
+          address: '987 High St, Chicago, IL',
+          type: 'Condo',
+          size: 1800,
+          bedrooms: 3,
+          bathrooms: 2,
+          amenities: ['Parking', 'Gym', 'Doorman', 'Roof Deck'],
+          status: 'OCCUPIED'
+        }
+      }),
+      prisma.property.create({
+        data: {
+          address: '753 River Rd, Seattle, WA',
+          type: 'Condo',
+          size: 1600,
+          bedrooms: 2,
+          bathrooms: 2,
+          amenities: ['Parking', 'Gym', 'Security', 'View'],
+          status: 'VACANT'
+        }
+      }),
+      // Townhouses
+      prisma.property.create({
+        data: {
+          address: '159 Garden Ave, Austin, TX',
+          type: 'Townhouse',
+          size: 2200,
+          bedrooms: 3,
+          bathrooms: 2.5,
+          amenities: ['Garage', 'Garden', 'Community Pool'],
+          status: 'OCCUPIED'
+        }
+      })
+    ])
+    console.log('Created properties:', properties.length)
 
-  const property2 = await prisma.property.create({
-    data: {
-      address: '456 Oak Ave',
-      type: 'House',
-      size: 2000,
-      bedrooms: 3,
-      bathrooms: 2,
-      amenities: ['Garage', 'Garden', 'Fireplace'],
-      status: 'OCCUPIED',
-    },
-  });
+    // Create lease agreements
+    console.log('Creating lease agreements...')
+    const leases = await Promise.all([
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: usaTenants[0].id,
+          propertyId: properties[0].id,
+          startDate: new Date('2024-01-01'),
+          endDate: new Date('2024-12-31'),
+          rentAmount: 2500,
+          securityDeposit: 5000,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      }),
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: usaTenants[1].id,
+          propertyId: properties[1].id,
+          startDate: new Date('2024-02-01'),
+          endDate: new Date('2025-01-31'),
+          rentAmount: 2000,
+          securityDeposit: 4000,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      }),
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: usaTenants[4].id,
+          propertyId: properties[2].id,
+          startDate: new Date('2024-03-01'),
+          endDate: new Date('2025-02-28'),
+          rentAmount: 3500,
+          securityDeposit: 7000,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      }),
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: internationalTenants[0].id,
+          propertyId: properties[4].id,
+          startDate: new Date('2024-01-15'),
+          endDate: new Date('2025-01-14'),
+          rentAmount: 3000,
+          securityDeposit: 6000,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      }),
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: usaTenants[10].id,
+          propertyId: properties[5].id,
+          startDate: new Date('2024-02-15'),
+          endDate: new Date('2025-02-14'),
+          rentAmount: 2800,
+          securityDeposit: 5600,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      }),
+      prisma.leaseAgreement.create({
+        data: {
+          tenantId: internationalTenants[4].id,
+          propertyId: properties[7].id,
+          startDate: new Date('2024-03-15'),
+          endDate: new Date('2025-03-14'),
+          rentAmount: 3200,
+          securityDeposit: 6400,
+          terms: 'Standard 1-year lease agreement',
+          status: 'ACTIVE'
+        }
+      })
+    ])
+    console.log('Created lease agreements:', leases.length)
 
-  // Create sample invoices for USA tenants
-  const usaInvoices = await Promise.all([
-    // Northeast
-    prisma.invoice.create({
-      data: {
-        tenantId: usaTenants[0].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(1500)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(1500)),
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: usaTenants[1].id,
-        propertyId: property2.id,
-        amount: parseCurrency(formatCurrency(2000)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'UNPAID',
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: usaTenants[2].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(1800)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PARTIALLY_PAID',
-        paidAmount: parseCurrency(formatCurrency(900)),
-      },
-    }),
-    // West Coast
-    prisma.invoice.create({
-      data: {
-        tenantId: usaTenants[5].id,
-        propertyId: property2.id,
-        amount: parseCurrency(formatCurrency(2500)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(2500)),
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: usaTenants[6].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(3000)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'UNPAID',
-      },
-    }),
-  ]);
+    // Create invoices
+    console.log('Creating invoices...')
+    const invoices = await Promise.all([
+      prisma.invoice.create({
+        data: {
+          tenantId: usaTenants[0].id,
+          propertyId: properties[0].id,
+          amount: 2500,
+          dueDate: new Date('2024-05-01'),
+          description: 'Monthly rent for May 2024',
+          status: 'UNPAID'
+        }
+      }),
+      prisma.invoice.create({
+        data: {
+          tenantId: usaTenants[1].id,
+          propertyId: properties[1].id,
+          amount: 2000,
+          dueDate: new Date('2024-05-01'),
+          description: 'Monthly rent for May 2024',
+          status: 'PAID',
+          paidAmount: 2000
+        }
+      }),
+      prisma.invoice.create({
+        data: {
+          tenantId: usaTenants[4].id,
+          propertyId: properties[2].id,
+          amount: 3500,
+          dueDate: new Date('2024-05-01'),
+          description: 'Monthly rent for May 2024',
+          status: 'PARTIALLY_PAID',
+          paidAmount: 2000
+        }
+      }),
+      prisma.invoice.create({
+        data: {
+          tenantId: internationalTenants[0].id,
+          propertyId: properties[4].id,
+          amount: 3000,
+          dueDate: new Date('2024-05-01'),
+          description: 'Monthly rent for May 2024',
+          status: 'UNPAID'
+        }
+      }),
+      prisma.invoice.create({
+        data: {
+          tenantId: usaTenants[10].id,
+          propertyId: properties[5].id,
+          amount: 2800,
+          dueDate: new Date('2024-05-01'),
+          description: 'Monthly rent for May 2024',
+          status: 'PAID',
+          paidAmount: 2800
+        }
+      })
+    ])
+    console.log('Created invoices:', invoices.length)
 
-  // Create invoices for Caribbean tenants
-  const caribbeanInvoices = await Promise.all([
-    prisma.invoice.create({
-      data: {
-        tenantId: caribbeanTenants[0].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(1200)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(1200)),
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: caribbeanTenants[1].id,
-        propertyId: property2.id,
-        amount: parseCurrency(formatCurrency(1500)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'UNPAID',
-      },
-    }),
-  ]);
+    // Create maintenance requests
+    console.log('Creating maintenance requests...')
+    const maintenance = await Promise.all([
+      prisma.maintenanceRequest.create({
+        data: {
+          propertyId: properties[0].id,
+          tenantId: usaTenants[0].id,
+          type: 'Plumbing',
+          priority: 'MEDIUM',
+          status: 'PENDING',
+          description: 'Kitchen sink is leaking'
+        }
+      }),
+      prisma.maintenanceRequest.create({
+        data: {
+          propertyId: properties[1].id,
+          tenantId: usaTenants[1].id,
+          type: 'Electrical',
+          priority: 'HIGH',
+          status: 'IN_PROGRESS',
+          description: 'Power outage in living room'
+        }
+      }),
+      prisma.maintenanceRequest.create({
+        data: {
+          propertyId: properties[2].id,
+          tenantId: usaTenants[4].id,
+          type: 'HVAC',
+          priority: 'HIGH',
+          status: 'PENDING',
+          description: 'AC not cooling properly'
+        }
+      }),
+      prisma.maintenanceRequest.create({
+        data: {
+          propertyId: properties[4].id,
+          tenantId: internationalTenants[0].id,
+          type: 'Appliance',
+          priority: 'LOW',
+          status: 'PENDING',
+          description: 'Dishwasher not draining properly'
+        }
+      }),
+      prisma.maintenanceRequest.create({
+        data: {
+          propertyId: properties[5].id,
+          tenantId: usaTenants[10].id,
+          type: 'Structural',
+          priority: 'HIGH',
+          status: 'IN_PROGRESS',
+          description: 'Crack in living room wall'
+        }
+      })
+    ])
+    console.log('Created maintenance requests:', maintenance.length)
 
-  // Create invoices for international tenants
-  const internationalInvoices = await Promise.all([
-    // Europe
-    prisma.invoice.create({
-      data: {
-        tenantId: internationalTenants[0].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(2000)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(2000)),
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: internationalTenants[1].id,
-        propertyId: property2.id,
-        amount: parseCurrency(formatCurrency(1800)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PARTIALLY_PAID',
-        paidAmount: parseCurrency(formatCurrency(900)),
-      },
-    }),
-    // Asia
-    prisma.invoice.create({
-      data: {
-        tenantId: internationalTenants[6].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(2500)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(2500)),
-      },
-    }),
-    prisma.invoice.create({
-      data: {
-        tenantId: internationalTenants[7].id,
-        propertyId: property2.id,
-        amount: parseCurrency(formatCurrency(2200)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'UNPAID',
-      },
-    }),
-    // Japan
-    prisma.invoice.create({
-      data: {
-        tenantId: internationalTenants[11].id,
-        propertyId: property1.id,
-        amount: parseCurrency(formatCurrency(3000)),
-        dueDate: new Date('2024-05-01'),
-        description: 'Monthly rent for April 2024',
-        status: 'PAID',
-        paidAmount: parseCurrency(formatCurrency(3000)),
-      },
-    }),
-  ]);
+    // Create payments
+    console.log('Creating payments...')
+    const payments = await Promise.all([
+      prisma.payment.create({
+        data: {
+          invoiceId: invoices[1].id,
+          tenantId: usaTenants[1].id,
+          amount: 2000,
+          status: 'COMPLETED',
+          method: 'Credit Card',
+          reference: 'PAY-123456'
+        }
+      }),
+      prisma.payment.create({
+        data: {
+          invoiceId: invoices[2].id,
+          tenantId: usaTenants[4].id,
+          amount: 2000,
+          status: 'COMPLETED',
+          method: 'Bank Transfer',
+          reference: 'PAY-123457'
+        }
+      }),
+      prisma.payment.create({
+        data: {
+          invoiceId: invoices[4].id,
+          tenantId: usaTenants[10].id,
+          amount: 2800,
+          status: 'COMPLETED',
+          method: 'Credit Card',
+          reference: 'PAY-123458'
+        }
+      })
+    ])
+    console.log('Created payments:', payments.length)
 
-  // Create sample payments for paid invoices
-  await Promise.all([
-    // USA payments
-    prisma.payment.create({
-      data: {
-        invoiceId: usaInvoices[0].id,
-        tenantId: usaTenants[0].id,
-        amount: parseCurrency(formatCurrency(1500)),
-        status: 'COMPLETED',
-        method: 'Credit Card',
-        reference: 'PAY-123456',
-      },
-    }),
-    prisma.payment.create({
-      data: {
-        invoiceId: usaInvoices[3].id,
-        tenantId: usaTenants[5].id,
-        amount: parseCurrency(formatCurrency(2500)),
-        status: 'COMPLETED',
-        method: 'Bank Transfer',
-        reference: 'PAY-123457',
-      },
-    }),
-    // Caribbean payments
-    prisma.payment.create({
-      data: {
-        invoiceId: caribbeanInvoices[0].id,
-        tenantId: caribbeanTenants[0].id,
-        amount: parseCurrency(formatCurrency(1200)),
-        status: 'COMPLETED',
-        method: 'Credit Card',
-        reference: 'PAY-123458',
-      },
-    }),
-    // International payments
-    prisma.payment.create({
-      data: {
-        invoiceId: internationalInvoices[0].id,
-        tenantId: internationalTenants[0].id,
-        amount: parseCurrency(formatCurrency(2000)),
-        status: 'COMPLETED',
-        method: 'Bank Transfer',
-        reference: 'PAY-123459',
-      },
-    }),
-    prisma.payment.create({
-      data: {
-        invoiceId: internationalInvoices[2].id,
-        tenantId: internationalTenants[6].id,
-        amount: parseCurrency(formatCurrency(2500)),
-        status: 'COMPLETED',
-        method: 'Credit Card',
-        reference: 'PAY-123460',
-      },
-    }),
-    prisma.payment.create({
-      data: {
-        invoiceId: internationalInvoices[4].id,
-        tenantId: internationalTenants[11].id,
-        amount: parseCurrency(formatCurrency(3000)),
-        status: 'COMPLETED',
-        method: 'Bank Transfer',
-        reference: 'PAY-123461',
-      },
-    }),
-  ]);
+    // Create documents
+    console.log('Creating documents...')
+    const documents = await Promise.all([
+      prisma.document.create({
+        data: {
+          type: 'Lease Agreement',
+          filePath: '/documents/leases/lease1.pdf',
+          fileName: 'lease1.pdf',
+          status: 'ACTIVE',
+          tenantId: usaTenants[0].id,
+          propertyId: properties[0].id
+        }
+      }),
+      prisma.document.create({
+        data: {
+          type: 'ID',
+          filePath: '/documents/ids/id1.pdf',
+          fileName: 'id1.pdf',
+          status: 'ACTIVE',
+          tenantId: usaTenants[0].id
+        }
+      }),
+      prisma.document.create({
+        data: {
+          type: 'Invoice',
+          filePath: '/documents/invoices/invoice1.pdf',
+          fileName: 'invoice1.pdf',
+          status: 'ACTIVE',
+          tenantId: usaTenants[1].id,
+          propertyId: properties[1].id
+        }
+      })
+    ])
+    console.log('Created documents:', documents.length)
 
-  // Create sample lease agreements
-  await Promise.all([
-    // USA leases
-    prisma.leaseAgreement.create({
-      data: {
-        tenantId: usaTenants[0].id,
-        propertyId: property1.id,
-        startDate: new Date('2024-01-01'),
-        endDate: new Date('2024-12-31'),
-        rentAmount: parseCurrency(formatCurrency(1500)),
-        securityDeposit: parseCurrency(formatCurrency(3000)),
-        terms: 'Standard 1-year lease agreement',
-        status: 'ACTIVE',
-      },
-    }),
-    prisma.leaseAgreement.create({
-      data: {
-        tenantId: usaTenants[1].id,
-        propertyId: property2.id,
-        startDate: new Date('2024-02-01'),
-        endDate: new Date('2025-01-31'),
-        rentAmount: parseCurrency(formatCurrency(2000)),
-        securityDeposit: parseCurrency(formatCurrency(4000)),
-        terms: 'Standard 1-year lease agreement',
-        status: 'ACTIVE',
-      },
-    }),
-    // Caribbean leases
-    prisma.leaseAgreement.create({
-      data: {
-        tenantId: caribbeanTenants[0].id,
-        propertyId: property1.id,
-        startDate: new Date('2024-03-01'),
-        endDate: new Date('2025-02-28'),
-        rentAmount: parseCurrency(formatCurrency(1200)),
-        securityDeposit: parseCurrency(formatCurrency(2400)),
-        terms: 'Standard 1-year lease agreement',
-        status: 'ACTIVE',
-      },
-    }),
-    // International leases
-    prisma.leaseAgreement.create({
-      data: {
-        tenantId: internationalTenants[0].id,
-        propertyId: property2.id,
-        startDate: new Date('2024-01-15'),
-        endDate: new Date('2025-01-14'),
-        rentAmount: parseCurrency(formatCurrency(2000)),
-        securityDeposit: parseCurrency(formatCurrency(4000)),
-        terms: 'Standard 1-year lease agreement',
-        status: 'ACTIVE',
-      },
-    }),
-  ]);
+    // Create notifications
+    console.log('Creating notifications...')
+    const notifications = await Promise.all([
+      prisma.notification.create({
+        data: {
+          type: 'Payment',
+          message: 'Payment of $2000.00 has been received',
+          priority: 'NORMAL',
+          tenantId: usaTenants[1].id,
+          propertyId: properties[1].id
+        }
+      }),
+      prisma.notification.create({
+        data: {
+          type: 'Maintenance',
+          message: 'Your maintenance request has been assigned',
+          priority: 'NORMAL',
+          tenantId: usaTenants[0].id,
+          propertyId: properties[0].id
+        }
+      }),
+      prisma.notification.create({
+        data: {
+          type: 'Lease',
+          message: 'Your lease agreement is expiring in 30 days',
+          priority: 'HIGH',
+          tenantId: usaTenants[0].id,
+          propertyId: properties[0].id
+        }
+      })
+    ])
+    console.log('Created notifications:', notifications.length)
 
-  // Create sample maintenance requests
-  await Promise.all([
-    prisma.maintenanceRequest.create({
-      data: {
-        propertyId: property1.id,
-        tenantId: usaTenants[0].id,
-        type: 'Plumbing',
-        priority: 'MEDIUM',
-        status: 'PENDING',
-        description: 'Kitchen sink is leaking',
-      },
-    }),
-    prisma.maintenanceRequest.create({
-      data: {
-        propertyId: property2.id,
-        tenantId: caribbeanTenants[0].id,
-        type: 'Electrical',
-        priority: 'HIGH',
-        status: 'IN_PROGRESS',
-        description: 'Power outage in living room',
-      },
-    }),
-  ]);
-
-  // Create sample notifications
-  await Promise.all([
-    prisma.notification.create({
-      data: {
-        type: 'Payment',
-        message: 'Payment of $1500.00 has been received',
-        priority: 'NORMAL',
-        tenantId: usaTenants[0].id,
-        propertyId: property1.id,
-      },
-    }),
-    prisma.notification.create({
-      data: {
-        type: 'Maintenance',
-        message: 'Maintenance request has been assigned',
-        priority: 'NORMAL',
-        tenantId: caribbeanTenants[0].id,
-        propertyId: property2.id,
-      },
-    }),
-  ]);
-
-  console.log('Sample data has been created successfully!');
+    console.log('Seed completed successfully!')
+  } catch (error) {
+    console.error('Error during seeding:', error)
+    throw error
+  }
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  }); 
+    await prisma.$disconnect()
+  })

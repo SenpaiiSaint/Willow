@@ -1506,23 +1506,23 @@ export namespace Prisma {
    */
 
   export type TenantCountOutputType = {
+    documents: number
     invoices: number
-    payments: number
-    properties: number
     leaseAgreements: number
     maintenanceRequests: number
-    documents: number
     notifications: number
+    payments: number
+    properties: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | TenantCountOutputTypeCountDocumentsArgs
     invoices?: boolean | TenantCountOutputTypeCountInvoicesArgs
-    payments?: boolean | TenantCountOutputTypeCountPaymentsArgs
-    properties?: boolean | TenantCountOutputTypeCountPropertiesArgs
     leaseAgreements?: boolean | TenantCountOutputTypeCountLeaseAgreementsArgs
     maintenanceRequests?: boolean | TenantCountOutputTypeCountMaintenanceRequestsArgs
-    documents?: boolean | TenantCountOutputTypeCountDocumentsArgs
     notifications?: boolean | TenantCountOutputTypeCountNotificationsArgs
+    payments?: boolean | TenantCountOutputTypeCountPaymentsArgs
+    properties?: boolean | TenantCountOutputTypeCountPropertiesArgs
   }
 
   // Custom InputTypes
@@ -1539,22 +1539,15 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
+  export type TenantCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
   export type TenantCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoiceWhereInput
-  }
-
-  /**
-   * TenantCountOutputType without action
-   */
-  export type TenantCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PaymentWhereInput
-  }
-
-  /**
-   * TenantCountOutputType without action
-   */
-  export type TenantCountOutputTypeCountPropertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PropertyWhereInput
   }
 
   /**
@@ -1574,15 +1567,22 @@ export namespace Prisma {
   /**
    * TenantCountOutputType without action
    */
-  export type TenantCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DocumentWhereInput
+  export type TenantCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
   /**
    * TenantCountOutputType without action
    */
-  export type TenantCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
+  export type TenantCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPropertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PropertyWhereInput
   }
 
 
@@ -1591,21 +1591,21 @@ export namespace Prisma {
    */
 
   export type PropertyCountOutputType = {
-    tenants: number
-    invoices: number
-    maintenanceRequests: number
     documents: number
+    invoices: number
     leaseAgreements: number
+    maintenanceRequests: number
     notifications: number
+    tenants: number
   }
 
   export type PropertyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenants?: boolean | PropertyCountOutputTypeCountTenantsArgs
-    invoices?: boolean | PropertyCountOutputTypeCountInvoicesArgs
-    maintenanceRequests?: boolean | PropertyCountOutputTypeCountMaintenanceRequestsArgs
     documents?: boolean | PropertyCountOutputTypeCountDocumentsArgs
+    invoices?: boolean | PropertyCountOutputTypeCountInvoicesArgs
     leaseAgreements?: boolean | PropertyCountOutputTypeCountLeaseAgreementsArgs
+    maintenanceRequests?: boolean | PropertyCountOutputTypeCountMaintenanceRequestsArgs
     notifications?: boolean | PropertyCountOutputTypeCountNotificationsArgs
+    tenants?: boolean | PropertyCountOutputTypeCountTenantsArgs
   }
 
   // Custom InputTypes
@@ -1622,8 +1622,8 @@ export namespace Prisma {
   /**
    * PropertyCountOutputType without action
    */
-  export type PropertyCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantWhereInput
+  export type PropertyCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
   }
 
   /**
@@ -1636,20 +1636,6 @@ export namespace Prisma {
   /**
    * PropertyCountOutputType without action
    */
-  export type PropertyCountOutputTypeCountMaintenanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MaintenanceRequestWhereInput
-  }
-
-  /**
-   * PropertyCountOutputType without action
-   */
-  export type PropertyCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DocumentWhereInput
-  }
-
-  /**
-   * PropertyCountOutputType without action
-   */
   export type PropertyCountOutputTypeCountLeaseAgreementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeaseAgreementWhereInput
   }
@@ -1657,8 +1643,22 @@ export namespace Prisma {
   /**
    * PropertyCountOutputType without action
    */
+  export type PropertyCountOutputTypeCountMaintenanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceRequestWhereInput
+  }
+
+  /**
+   * PropertyCountOutputType without action
+   */
   export type PropertyCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+  /**
+   * PropertyCountOutputType without action
+   */
+  export type PropertyCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantWhereInput
   }
 
 
@@ -1877,13 +1877,13 @@ export namespace Prisma {
     address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    documents?: boolean | Tenant$documentsArgs<ExtArgs>
     invoices?: boolean | Tenant$invoicesArgs<ExtArgs>
-    payments?: boolean | Tenant$paymentsArgs<ExtArgs>
-    properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     leaseAgreements?: boolean | Tenant$leaseAgreementsArgs<ExtArgs>
     maintenanceRequests?: boolean | Tenant$maintenanceRequestsArgs<ExtArgs>
-    documents?: boolean | Tenant$documentsArgs<ExtArgs>
     notifications?: boolean | Tenant$notificationsArgs<ExtArgs>
+    payments?: boolean | Tenant$paymentsArgs<ExtArgs>
+    properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -1919,13 +1919,13 @@ export namespace Prisma {
 
   export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "address" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | Tenant$documentsArgs<ExtArgs>
     invoices?: boolean | Tenant$invoicesArgs<ExtArgs>
-    payments?: boolean | Tenant$paymentsArgs<ExtArgs>
-    properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     leaseAgreements?: boolean | Tenant$leaseAgreementsArgs<ExtArgs>
     maintenanceRequests?: boolean | Tenant$maintenanceRequestsArgs<ExtArgs>
-    documents?: boolean | Tenant$documentsArgs<ExtArgs>
     notifications?: boolean | Tenant$notificationsArgs<ExtArgs>
+    payments?: boolean | Tenant$paymentsArgs<ExtArgs>
+    properties?: boolean | Tenant$propertiesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1934,13 +1934,13 @@ export namespace Prisma {
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tenant"
     objects: {
+      documents: Prisma.$DocumentPayload<ExtArgs>[]
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
-      payments: Prisma.$PaymentPayload<ExtArgs>[]
-      properties: Prisma.$PropertyPayload<ExtArgs>[]
       leaseAgreements: Prisma.$LeaseAgreementPayload<ExtArgs>[]
       maintenanceRequests: Prisma.$MaintenanceRequestPayload<ExtArgs>[]
-      documents: Prisma.$DocumentPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      payments: Prisma.$PaymentPayload<ExtArgs>[]
+      properties: Prisma.$PropertyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2344,13 +2344,13 @@ export namespace Prisma {
    */
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    documents<T extends Tenant$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Tenant$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    payments<T extends Tenant$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    properties<T extends Tenant$propertiesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$propertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leaseAgreements<T extends Tenant$leaseAgreementsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$leaseAgreementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaseAgreementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     maintenanceRequests<T extends Tenant$maintenanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$maintenanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    documents<T extends Tenant$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends Tenant$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    payments<T extends Tenant$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    properties<T extends Tenant$propertiesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$propertiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2775,6 +2775,30 @@ export namespace Prisma {
   }
 
   /**
+   * Tenant.documents
+   */
+  export type Tenant$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
    * Tenant.invoices
    */
   export type Tenant$invoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2796,54 +2820,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoiceScalarFieldEnum | InvoiceScalarFieldEnum[]
-  }
-
-  /**
-   * Tenant.payments
-   */
-  export type Tenant$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Payment
-     */
-    select?: PaymentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Payment
-     */
-    omit?: PaymentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PaymentInclude<ExtArgs> | null
-    where?: PaymentWhereInput
-    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
-    cursor?: PaymentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
-  }
-
-  /**
-   * Tenant.properties
-   */
-  export type Tenant$propertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Property
-     */
-    select?: PropertySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Property
-     */
-    omit?: PropertyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PropertyInclude<ExtArgs> | null
-    where?: PropertyWhereInput
-    orderBy?: PropertyOrderByWithRelationInput | PropertyOrderByWithRelationInput[]
-    cursor?: PropertyWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PropertyScalarFieldEnum | PropertyScalarFieldEnum[]
   }
 
   /**
@@ -2895,30 +2871,6 @@ export namespace Prisma {
   }
 
   /**
-   * Tenant.documents
-   */
-  export type Tenant$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentInclude<ExtArgs> | null
-    where?: DocumentWhereInput
-    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
-    cursor?: DocumentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
-  }
-
-  /**
    * Tenant.notifications
    */
   export type Tenant$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2940,6 +2892,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.payments
+   */
+  export type Tenant$paymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    where?: PaymentWhereInput
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    cursor?: PaymentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.properties
+   */
+  export type Tenant$propertiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Property
+     */
+    select?: PropertySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Property
+     */
+    omit?: PropertyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyInclude<ExtArgs> | null
+    where?: PropertyWhereInput
+    orderBy?: PropertyOrderByWithRelationInput | PropertyOrderByWithRelationInput[]
+    cursor?: PropertyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PropertyScalarFieldEnum | PropertyScalarFieldEnum[]
   }
 
   /**
@@ -3203,12 +3203,12 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenants?: boolean | Property$tenantsArgs<ExtArgs>
-    invoices?: boolean | Property$invoicesArgs<ExtArgs>
-    maintenanceRequests?: boolean | Property$maintenanceRequestsArgs<ExtArgs>
     documents?: boolean | Property$documentsArgs<ExtArgs>
+    invoices?: boolean | Property$invoicesArgs<ExtArgs>
     leaseAgreements?: boolean | Property$leaseAgreementsArgs<ExtArgs>
+    maintenanceRequests?: boolean | Property$maintenanceRequestsArgs<ExtArgs>
     notifications?: boolean | Property$notificationsArgs<ExtArgs>
+    tenants?: boolean | Property$tenantsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
 
@@ -3253,12 +3253,12 @@ export namespace Prisma {
 
   export type PropertyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "address" | "type" | "size" | "bedrooms" | "bathrooms" | "amenities" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["property"]>
   export type PropertyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenants?: boolean | Property$tenantsArgs<ExtArgs>
-    invoices?: boolean | Property$invoicesArgs<ExtArgs>
-    maintenanceRequests?: boolean | Property$maintenanceRequestsArgs<ExtArgs>
     documents?: boolean | Property$documentsArgs<ExtArgs>
+    invoices?: boolean | Property$invoicesArgs<ExtArgs>
     leaseAgreements?: boolean | Property$leaseAgreementsArgs<ExtArgs>
+    maintenanceRequests?: boolean | Property$maintenanceRequestsArgs<ExtArgs>
     notifications?: boolean | Property$notificationsArgs<ExtArgs>
+    tenants?: boolean | Property$tenantsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PropertyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3267,12 +3267,12 @@ export namespace Prisma {
   export type $PropertyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Property"
     objects: {
-      tenants: Prisma.$TenantPayload<ExtArgs>[]
-      invoices: Prisma.$InvoicePayload<ExtArgs>[]
-      maintenanceRequests: Prisma.$MaintenanceRequestPayload<ExtArgs>[]
       documents: Prisma.$DocumentPayload<ExtArgs>[]
+      invoices: Prisma.$InvoicePayload<ExtArgs>[]
       leaseAgreements: Prisma.$LeaseAgreementPayload<ExtArgs>[]
+      maintenanceRequests: Prisma.$MaintenanceRequestPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      tenants: Prisma.$TenantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3679,12 +3679,12 @@ export namespace Prisma {
    */
   export interface Prisma__PropertyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenants<T extends Property$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Property$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    invoices<T extends Property$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Property$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    maintenanceRequests<T extends Property$maintenanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Property$maintenanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Property$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Property$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invoices<T extends Property$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Property$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leaseAgreements<T extends Property$leaseAgreementsArgs<ExtArgs> = {}>(args?: Subset<T, Property$leaseAgreementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaseAgreementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceRequests<T extends Property$maintenanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Property$maintenanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends Property$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Property$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tenants<T extends Property$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Property$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4112,27 +4112,27 @@ export namespace Prisma {
   }
 
   /**
-   * Property.tenants
+   * Property.documents
    */
-  export type Property$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Property$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Tenant
+     * Select specific fields to fetch from the Document
      */
-    select?: TenantSelect<ExtArgs> | null
+    select?: DocumentSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Tenant
+     * Omit specific fields from the Document
      */
-    omit?: TenantOmit<ExtArgs> | null
+    omit?: DocumentOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantInclude<ExtArgs> | null
-    where?: TenantWhereInput
-    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
-    cursor?: TenantWhereUniqueInput
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
   }
 
   /**
@@ -4160,54 +4160,6 @@ export namespace Prisma {
   }
 
   /**
-   * Property.maintenanceRequests
-   */
-  export type Property$maintenanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MaintenanceRequest
-     */
-    select?: MaintenanceRequestSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MaintenanceRequest
-     */
-    omit?: MaintenanceRequestOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MaintenanceRequestInclude<ExtArgs> | null
-    where?: MaintenanceRequestWhereInput
-    orderBy?: MaintenanceRequestOrderByWithRelationInput | MaintenanceRequestOrderByWithRelationInput[]
-    cursor?: MaintenanceRequestWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MaintenanceRequestScalarFieldEnum | MaintenanceRequestScalarFieldEnum[]
-  }
-
-  /**
-   * Property.documents
-   */
-  export type Property$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Document
-     */
-    select?: DocumentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Document
-     */
-    omit?: DocumentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DocumentInclude<ExtArgs> | null
-    where?: DocumentWhereInput
-    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
-    cursor?: DocumentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
-  }
-
-  /**
    * Property.leaseAgreements
    */
   export type Property$leaseAgreementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4232,6 +4184,30 @@ export namespace Prisma {
   }
 
   /**
+   * Property.maintenanceRequests
+   */
+  export type Property$maintenanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceRequest
+     */
+    select?: MaintenanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceRequest
+     */
+    omit?: MaintenanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceRequestInclude<ExtArgs> | null
+    where?: MaintenanceRequestWhereInput
+    orderBy?: MaintenanceRequestOrderByWithRelationInput | MaintenanceRequestOrderByWithRelationInput[]
+    cursor?: MaintenanceRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceRequestScalarFieldEnum | MaintenanceRequestScalarFieldEnum[]
+  }
+
+  /**
    * Property.notifications
    */
   export type Property$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4253,6 +4229,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Property.tenants
+   */
+  export type Property$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    cursor?: TenantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
   }
 
   /**
@@ -4516,8 +4516,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
@@ -4533,8 +4533,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4548,8 +4548,8 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
   export type InvoiceSelectScalar = {
@@ -4567,25 +4567,25 @@ export namespace Prisma {
 
   export type InvoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "propertyId" | "amount" | "paidAmount" | "dueDate" | "status" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
   export type InvoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
 
   export type $InvoicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Invoice"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs>
       property: Prisma.$PropertyPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
       payments: Prisma.$PaymentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4993,8 +4993,8 @@ export namespace Prisma {
    */
   export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     property<T extends PropertyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PropertyDefaultArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6888,8 +6888,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaseAgreement"]>
 
   export type LeaseAgreementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6904,8 +6904,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaseAgreement"]>
 
   export type LeaseAgreementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6920,8 +6920,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaseAgreement"]>
 
   export type LeaseAgreementSelectScalar = {
@@ -6940,23 +6940,23 @@ export namespace Prisma {
 
   export type LeaseAgreementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "propertyId" | "startDate" | "endDate" | "rentAmount" | "securityDeposit" | "terms" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["leaseAgreement"]>
   export type LeaseAgreementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
   export type LeaseAgreementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
   export type LeaseAgreementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     property?: boolean | PropertyDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
 
   export type $LeaseAgreementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LeaseAgreement"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs>
       property: Prisma.$PropertyPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7364,8 +7364,8 @@ export namespace Prisma {
    */
   export interface Prisma__LeaseAgreementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     property<T extends PropertyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PropertyDefaultArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9126,8 +9126,8 @@ export namespace Prisma {
     status?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9139,8 +9139,8 @@ export namespace Prisma {
     status?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9152,8 +9152,8 @@ export namespace Prisma {
     status?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectScalar = {
@@ -9169,23 +9169,23 @@ export namespace Prisma {
 
   export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "filePath" | "fileName" | "uploadDate" | "status" | "tenantId" | "propertyId", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }
   export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }
   export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Document$tenantArgs<ExtArgs>
     property?: boolean | Document$propertyArgs<ExtArgs>
+    tenant?: boolean | Document$tenantArgs<ExtArgs>
   }
 
   export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Document"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs> | null
       property: Prisma.$PropertyPayload<ExtArgs> | null
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9590,8 +9590,8 @@ export namespace Prisma {
    */
   export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends Document$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Document$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     property<T extends Document$propertyArgs<ExtArgs> = {}>(args?: Subset<T, Document$propertyArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends Document$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Document$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10025,25 +10025,6 @@ export namespace Prisma {
   }
 
   /**
-   * Document.tenant
-   */
-  export type Document$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Tenant
-     */
-    select?: TenantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Tenant
-     */
-    omit?: TenantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TenantInclude<ExtArgs> | null
-    where?: TenantWhereInput
-  }
-
-  /**
    * Document.property
    */
   export type Document$propertyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10060,6 +10041,25 @@ export namespace Prisma {
      */
     include?: PropertyInclude<ExtArgs> | null
     where?: PropertyWhereInput
+  }
+
+  /**
+   * Document.tenant
+   */
+  export type Document$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
   }
 
   /**
@@ -10269,8 +10269,8 @@ export namespace Prisma {
     createdAt?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10282,8 +10282,8 @@ export namespace Prisma {
     createdAt?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10295,8 +10295,8 @@ export namespace Prisma {
     createdAt?: boolean
     tenantId?: boolean
     propertyId?: boolean
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectScalar = {
@@ -10312,23 +10312,23 @@ export namespace Prisma {
 
   export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "message" | "read" | "priority" | "createdAt" | "tenantId" | "propertyId", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }
   export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }
   export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tenant?: boolean | Notification$tenantArgs<ExtArgs>
     property?: boolean | Notification$propertyArgs<ExtArgs>
+    tenant?: boolean | Notification$tenantArgs<ExtArgs>
   }
 
   export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Notification"
     objects: {
-      tenant: Prisma.$TenantPayload<ExtArgs> | null
       property: Prisma.$PropertyPayload<ExtArgs> | null
+      tenant: Prisma.$TenantPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10733,8 +10733,8 @@ export namespace Prisma {
    */
   export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tenant<T extends Notification$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Notification$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     property<T extends Notification$propertyArgs<ExtArgs> = {}>(args?: Subset<T, Notification$propertyArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends Notification$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Notification$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11168,25 +11168,6 @@ export namespace Prisma {
   }
 
   /**
-   * Notification.tenant
-   */
-  export type Notification$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Tenant
-     */
-    select?: TenantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Tenant
-     */
-    omit?: TenantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TenantInclude<ExtArgs> | null
-    where?: TenantWhereInput
-  }
-
-  /**
    * Notification.property
    */
   export type Notification$propertyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11203,6 +11184,25 @@ export namespace Prisma {
      */
     include?: PropertyInclude<ExtArgs> | null
     where?: PropertyWhereInput
+  }
+
+  /**
+   * Notification.tenant
+   */
+  export type Notification$tenantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
   }
 
   /**
@@ -11465,13 +11465,13 @@ export namespace Prisma {
     address?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    documents?: DocumentListRelationFilter
     invoices?: InvoiceListRelationFilter
-    payments?: PaymentListRelationFilter
-    properties?: PropertyListRelationFilter
     leaseAgreements?: LeaseAgreementListRelationFilter
     maintenanceRequests?: MaintenanceRequestListRelationFilter
-    documents?: DocumentListRelationFilter
     notifications?: NotificationListRelationFilter
+    payments?: PaymentListRelationFilter
+    properties?: PropertyListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -11482,13 +11482,13 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    documents?: DocumentOrderByRelationAggregateInput
     invoices?: InvoiceOrderByRelationAggregateInput
-    payments?: PaymentOrderByRelationAggregateInput
-    properties?: PropertyOrderByRelationAggregateInput
     leaseAgreements?: LeaseAgreementOrderByRelationAggregateInput
     maintenanceRequests?: MaintenanceRequestOrderByRelationAggregateInput
-    documents?: DocumentOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    payments?: PaymentOrderByRelationAggregateInput
+    properties?: PropertyOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -11502,13 +11502,13 @@ export namespace Prisma {
     address?: StringNullableFilter<"Tenant"> | string | null
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
+    documents?: DocumentListRelationFilter
     invoices?: InvoiceListRelationFilter
-    payments?: PaymentListRelationFilter
-    properties?: PropertyListRelationFilter
     leaseAgreements?: LeaseAgreementListRelationFilter
     maintenanceRequests?: MaintenanceRequestListRelationFilter
-    documents?: DocumentListRelationFilter
     notifications?: NotificationListRelationFilter
+    payments?: PaymentListRelationFilter
+    properties?: PropertyListRelationFilter
   }, "id" | "email">
 
   export type TenantOrderByWithAggregationInput = {
@@ -11551,12 +11551,12 @@ export namespace Prisma {
     status?: StringFilter<"Property"> | string
     createdAt?: DateTimeFilter<"Property"> | Date | string
     updatedAt?: DateTimeFilter<"Property"> | Date | string
-    tenants?: TenantListRelationFilter
-    invoices?: InvoiceListRelationFilter
-    maintenanceRequests?: MaintenanceRequestListRelationFilter
     documents?: DocumentListRelationFilter
+    invoices?: InvoiceListRelationFilter
     leaseAgreements?: LeaseAgreementListRelationFilter
+    maintenanceRequests?: MaintenanceRequestListRelationFilter
     notifications?: NotificationListRelationFilter
+    tenants?: TenantListRelationFilter
   }
 
   export type PropertyOrderByWithRelationInput = {
@@ -11570,12 +11570,12 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    tenants?: TenantOrderByRelationAggregateInput
-    invoices?: InvoiceOrderByRelationAggregateInput
-    maintenanceRequests?: MaintenanceRequestOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
+    invoices?: InvoiceOrderByRelationAggregateInput
     leaseAgreements?: LeaseAgreementOrderByRelationAggregateInput
+    maintenanceRequests?: MaintenanceRequestOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    tenants?: TenantOrderByRelationAggregateInput
   }
 
   export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -11592,12 +11592,12 @@ export namespace Prisma {
     status?: StringFilter<"Property"> | string
     createdAt?: DateTimeFilter<"Property"> | Date | string
     updatedAt?: DateTimeFilter<"Property"> | Date | string
-    tenants?: TenantListRelationFilter
-    invoices?: InvoiceListRelationFilter
-    maintenanceRequests?: MaintenanceRequestListRelationFilter
     documents?: DocumentListRelationFilter
+    invoices?: InvoiceListRelationFilter
     leaseAgreements?: LeaseAgreementListRelationFilter
+    maintenanceRequests?: MaintenanceRequestListRelationFilter
     notifications?: NotificationListRelationFilter
+    tenants?: TenantListRelationFilter
   }, "id">
 
   export type PropertyOrderByWithAggregationInput = {
@@ -11648,8 +11648,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Invoice"> | string | null
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     updatedAt?: DateTimeFilter<"Invoice"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     payments?: PaymentListRelationFilter
   }
 
@@ -11664,8 +11664,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    tenant?: TenantOrderByWithRelationInput
     property?: PropertyOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
     payments?: PaymentOrderByRelationAggregateInput
   }
 
@@ -11683,8 +11683,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Invoice"> | string | null
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     updatedAt?: DateTimeFilter<"Invoice"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     payments?: PaymentListRelationFilter
   }, "id">
 
@@ -11822,8 +11822,8 @@ export namespace Prisma {
     status?: StringFilter<"LeaseAgreement"> | string
     createdAt?: DateTimeFilter<"LeaseAgreement"> | Date | string
     updatedAt?: DateTimeFilter<"LeaseAgreement"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }
 
   export type LeaseAgreementOrderByWithRelationInput = {
@@ -11838,8 +11838,8 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    tenant?: TenantOrderByWithRelationInput
     property?: PropertyOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type LeaseAgreementWhereUniqueInput = Prisma.AtLeast<{
@@ -11857,8 +11857,8 @@ export namespace Prisma {
     status?: StringFilter<"LeaseAgreement"> | string
     createdAt?: DateTimeFilter<"LeaseAgreement"> | Date | string
     updatedAt?: DateTimeFilter<"LeaseAgreement"> | Date | string
-    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     property?: XOR<PropertyScalarRelationFilter, PropertyWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
   }, "id">
 
   export type LeaseAgreementOrderByWithAggregationInput = {
@@ -11987,8 +11987,8 @@ export namespace Prisma {
     status?: StringFilter<"Document"> | string
     tenantId?: StringNullableFilter<"Document"> | string | null
     propertyId?: StringNullableFilter<"Document"> | string | null
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }
 
   export type DocumentOrderByWithRelationInput = {
@@ -12000,8 +12000,8 @@ export namespace Prisma {
     status?: SortOrder
     tenantId?: SortOrderInput | SortOrder
     propertyId?: SortOrderInput | SortOrder
-    tenant?: TenantOrderByWithRelationInput
     property?: PropertyOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -12016,8 +12016,8 @@ export namespace Prisma {
     status?: StringFilter<"Document"> | string
     tenantId?: StringNullableFilter<"Document"> | string | null
     propertyId?: StringNullableFilter<"Document"> | string | null
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }, "id">
 
   export type DocumentOrderByWithAggregationInput = {
@@ -12060,8 +12060,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Notification"> | Date | string
     tenantId?: StringNullableFilter<"Notification"> | string | null
     propertyId?: StringNullableFilter<"Notification"> | string | null
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }
 
   export type NotificationOrderByWithRelationInput = {
@@ -12073,8 +12073,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     tenantId?: SortOrderInput | SortOrder
     propertyId?: SortOrderInput | SortOrder
-    tenant?: TenantOrderByWithRelationInput
     property?: PropertyOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -12089,8 +12089,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Notification"> | Date | string
     tenantId?: StringNullableFilter<"Notification"> | string | null
     propertyId?: StringNullableFilter<"Notification"> | string | null
-    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
   }, "id">
 
   export type NotificationOrderByWithAggregationInput = {
@@ -12129,13 +12129,13 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
     invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
     maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
     notifications?: NotificationCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -12146,13 +12146,13 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
     maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
   }
 
   export type TenantUpdateInput = {
@@ -12163,13 +12163,13 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
     maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
     notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -12180,13 +12180,13 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
     maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -12230,12 +12230,12 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     documents?: DocumentCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     notifications?: NotificationCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateInput = {
@@ -12249,12 +12249,12 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUpdateInput = {
@@ -12268,12 +12268,12 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateInput = {
@@ -12287,12 +12287,12 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyCreateManyInput = {
@@ -12343,8 +12343,8 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutInvoicesInput
     property: PropertyCreateNestedOneWithoutInvoicesInput
+    tenant: TenantCreateNestedOneWithoutInvoicesInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
   }
 
@@ -12371,8 +12371,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     property?: PropertyUpdateOneRequiredWithoutInvoicesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
   }
 
@@ -12526,8 +12526,8 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutLeaseAgreementsInput
     property: PropertyCreateNestedOneWithoutLeaseAgreementsInput
+    tenant: TenantCreateNestedOneWithoutLeaseAgreementsInput
   }
 
   export type LeaseAgreementUncheckedCreateInput = {
@@ -12554,8 +12554,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutLeaseAgreementsNestedInput
     property?: PropertyUpdateOneRequiredWithoutLeaseAgreementsNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutLeaseAgreementsNestedInput
   }
 
   export type LeaseAgreementUncheckedUpdateInput = {
@@ -12701,8 +12701,8 @@ export namespace Prisma {
     fileName: string
     uploadDate?: Date | string
     status?: string
-    tenant?: TenantCreateNestedOneWithoutDocumentsInput
     property?: PropertyCreateNestedOneWithoutDocumentsInput
+    tenant?: TenantCreateNestedOneWithoutDocumentsInput
   }
 
   export type DocumentUncheckedCreateInput = {
@@ -12723,8 +12723,8 @@ export namespace Prisma {
     fileName?: StringFieldUpdateOperationsInput | string
     uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
-    tenant?: TenantUpdateOneWithoutDocumentsNestedInput
     property?: PropertyUpdateOneWithoutDocumentsNestedInput
+    tenant?: TenantUpdateOneWithoutDocumentsNestedInput
   }
 
   export type DocumentUncheckedUpdateInput = {
@@ -12776,8 +12776,8 @@ export namespace Prisma {
     read?: boolean
     priority?: string
     createdAt?: Date | string
-    tenant?: TenantCreateNestedOneWithoutNotificationsInput
     property?: PropertyCreateNestedOneWithoutNotificationsInput
+    tenant?: TenantCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateInput = {
@@ -12798,8 +12798,8 @@ export namespace Prisma {
     read?: BoolFieldUpdateOperationsInput | boolean
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneWithoutNotificationsNestedInput
     property?: PropertyUpdateOneWithoutNotificationsNestedInput
+    tenant?: TenantUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateInput = {
@@ -12885,22 +12885,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DocumentListRelationFilter = {
+    every?: DocumentWhereInput
+    some?: DocumentWhereInput
+    none?: DocumentWhereInput
+  }
+
   export type InvoiceListRelationFilter = {
     every?: InvoiceWhereInput
     some?: InvoiceWhereInput
     none?: InvoiceWhereInput
-  }
-
-  export type PaymentListRelationFilter = {
-    every?: PaymentWhereInput
-    some?: PaymentWhereInput
-    none?: PaymentWhereInput
-  }
-
-  export type PropertyListRelationFilter = {
-    every?: PropertyWhereInput
-    some?: PropertyWhereInput
-    none?: PropertyWhereInput
   }
 
   export type LeaseAgreementListRelationFilter = {
@@ -12915,16 +12909,22 @@ export namespace Prisma {
     none?: MaintenanceRequestWhereInput
   }
 
-  export type DocumentListRelationFilter = {
-    every?: DocumentWhereInput
-    some?: DocumentWhereInput
-    none?: DocumentWhereInput
-  }
-
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
     none?: NotificationWhereInput
+  }
+
+  export type PaymentListRelationFilter = {
+    every?: PaymentWhereInput
+    some?: PaymentWhereInput
+    none?: PaymentWhereInput
+  }
+
+  export type PropertyListRelationFilter = {
+    every?: PropertyWhereInput
+    some?: PropertyWhereInput
+    none?: PropertyWhereInput
   }
 
   export type SortOrderInput = {
@@ -12932,15 +12932,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type DocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type InvoiceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type PaymentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type PropertyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12952,11 +12948,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type DocumentOrderByRelationAggregateInput = {
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type NotificationOrderByRelationAggregateInput = {
+  export type PaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PropertyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13172,14 +13172,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type TenantScalarRelationFilter = {
-    is?: TenantWhereInput
-    isNot?: TenantWhereInput
-  }
-
   export type PropertyScalarRelationFilter = {
     is?: PropertyWhereInput
     isNot?: PropertyWhereInput
+  }
+
+  export type TenantScalarRelationFilter = {
+    is?: TenantWhereInput
+    isNot?: TenantWhereInput
   }
 
   export type InvoiceCountOrderByAggregateInput = {
@@ -13387,14 +13387,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type TenantNullableScalarRelationFilter = {
-    is?: TenantWhereInput | null
-    isNot?: TenantWhereInput | null
-  }
-
   export type PropertyNullableScalarRelationFilter = {
     is?: PropertyWhereInput | null
     isNot?: PropertyWhereInput | null
+  }
+
+  export type TenantNullableScalarRelationFilter = {
+    is?: TenantWhereInput | null
+    isNot?: TenantWhereInput | null
   }
 
   export type DocumentCountOrderByAggregateInput = {
@@ -13476,24 +13476,18 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DocumentCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
+    createMany?: DocumentCreateManyTenantInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
   export type InvoiceCreateNestedManyWithoutTenantInput = {
     create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
     createMany?: InvoiceCreateManyTenantInputEnvelope
     connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-  }
-
-  export type PaymentCreateNestedManyWithoutTenantInput = {
-    create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
-    createMany?: PaymentCreateManyTenantInputEnvelope
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-  }
-
-  export type PropertyCreateNestedManyWithoutTenantsInput = {
-    create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
-    connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
-    connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
   }
 
   export type LeaseAgreementCreateNestedManyWithoutTenantInput = {
@@ -13510,13 +13504,6 @@ export namespace Prisma {
     connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
   }
 
-  export type DocumentCreateNestedManyWithoutTenantInput = {
-    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
-    createMany?: DocumentCreateManyTenantInputEnvelope
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-  }
-
   export type NotificationCreateNestedManyWithoutTenantInput = {
     create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
@@ -13524,24 +13511,31 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type InvoiceUncheckedCreateNestedManyWithoutTenantInput = {
-    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
-    createMany?: InvoiceCreateManyTenantInputEnvelope
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-  }
-
-  export type PaymentUncheckedCreateNestedManyWithoutTenantInput = {
+  export type PaymentCreateNestedManyWithoutTenantInput = {
     create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
     createMany?: PaymentCreateManyTenantInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
-  export type PropertyUncheckedCreateNestedManyWithoutTenantsInput = {
+  export type PropertyCreateNestedManyWithoutTenantsInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
     connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
+    createMany?: DocumentCreateManyTenantInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
   }
 
   export type LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput = {
@@ -13558,18 +13552,24 @@ export namespace Prisma {
     connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
   }
 
-  export type DocumentUncheckedCreateNestedManyWithoutTenantInput = {
-    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
-    createMany?: DocumentCreateManyTenantInputEnvelope
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-  }
-
   export type NotificationUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
     createMany?: NotificationCreateManyTenantInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type PaymentUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
+    createMany?: PaymentCreateManyTenantInputEnvelope
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type PropertyUncheckedCreateNestedManyWithoutTenantsInput = {
+    create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
+    connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
+    connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13584,6 +13584,20 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type DocumentUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutTenantInput | DocumentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DocumentCreateManyTenantInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutTenantInput | DocumentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutTenantInput | DocumentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
   export type InvoiceUpdateManyWithoutTenantNestedInput = {
     create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
@@ -13596,33 +13610,6 @@ export namespace Prisma {
     update?: InvoiceUpdateWithWhereUniqueWithoutTenantInput | InvoiceUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: InvoiceUpdateManyWithWhereWithoutTenantInput | InvoiceUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-  }
-
-  export type PaymentUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
-    upsert?: PaymentUpsertWithWhereUniqueWithoutTenantInput | PaymentUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: PaymentCreateManyTenantInputEnvelope
-    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
-    update?: PaymentUpdateWithWhereUniqueWithoutTenantInput | PaymentUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: PaymentUpdateManyWithWhereWithoutTenantInput | PaymentUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-  }
-
-  export type PropertyUpdateManyWithoutTenantsNestedInput = {
-    create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
-    connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
-    upsert?: PropertyUpsertWithWhereUniqueWithoutTenantsInput | PropertyUpsertWithWhereUniqueWithoutTenantsInput[]
-    set?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
-    disconnect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
-    delete?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
-    connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
-    update?: PropertyUpdateWithWhereUniqueWithoutTenantsInput | PropertyUpdateWithWhereUniqueWithoutTenantsInput[]
-    updateMany?: PropertyUpdateManyWithWhereWithoutTenantsInput | PropertyUpdateManyWithWhereWithoutTenantsInput[]
-    deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
   }
 
   export type LeaseAgreementUpdateManyWithoutTenantNestedInput = {
@@ -13653,20 +13640,6 @@ export namespace Prisma {
     deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
   }
 
-  export type DocumentUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutTenantInput | DocumentUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: DocumentCreateManyTenantInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutTenantInput | DocumentUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutTenantInput | DocumentUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
   export type NotificationUpdateManyWithoutTenantNestedInput = {
     create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
@@ -13681,21 +13654,7 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type InvoiceUncheckedUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
-    upsert?: InvoiceUpsertWithWhereUniqueWithoutTenantInput | InvoiceUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: InvoiceCreateManyTenantInputEnvelope
-    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    update?: InvoiceUpdateWithWhereUniqueWithoutTenantInput | InvoiceUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: InvoiceUpdateManyWithWhereWithoutTenantInput | InvoiceUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-  }
-
-  export type PaymentUncheckedUpdateManyWithoutTenantNestedInput = {
+  export type PaymentUpdateManyWithoutTenantNestedInput = {
     create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
     upsert?: PaymentUpsertWithWhereUniqueWithoutTenantInput | PaymentUpsertWithWhereUniqueWithoutTenantInput[]
@@ -13709,7 +13668,7 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
-  export type PropertyUncheckedUpdateManyWithoutTenantsNestedInput = {
+  export type PropertyUpdateManyWithoutTenantsNestedInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
     upsert?: PropertyUpsertWithWhereUniqueWithoutTenantsInput | PropertyUpsertWithWhereUniqueWithoutTenantsInput[]
@@ -13720,6 +13679,34 @@ export namespace Prisma {
     update?: PropertyUpdateWithWhereUniqueWithoutTenantsInput | PropertyUpdateWithWhereUniqueWithoutTenantsInput[]
     updateMany?: PropertyUpdateManyWithWhereWithoutTenantsInput | PropertyUpdateManyWithWhereWithoutTenantsInput[]
     deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutTenantInput | DocumentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DocumentCreateManyTenantInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutTenantInput | DocumentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutTenantInput | DocumentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<InvoiceCreateWithoutTenantInput, InvoiceUncheckedCreateWithoutTenantInput> | InvoiceCreateWithoutTenantInput[] | InvoiceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutTenantInput | InvoiceCreateOrConnectWithoutTenantInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutTenantInput | InvoiceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: InvoiceCreateManyTenantInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutTenantInput | InvoiceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutTenantInput | InvoiceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
   export type LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -13750,20 +13737,6 @@ export namespace Prisma {
     deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
   }
 
-  export type DocumentUncheckedUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput> | DocumentCreateWithoutTenantInput[] | DocumentUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutTenantInput | DocumentCreateOrConnectWithoutTenantInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutTenantInput | DocumentUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: DocumentCreateManyTenantInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutTenantInput | DocumentUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutTenantInput | DocumentUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
   export type NotificationUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<NotificationCreateWithoutTenantInput, NotificationUncheckedCreateWithoutTenantInput> | NotificationCreateWithoutTenantInput[] | NotificationUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutTenantInput | NotificationCreateOrConnectWithoutTenantInput[]
@@ -13778,28 +13751,35 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type PaymentUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput> | PaymentCreateWithoutTenantInput[] | PaymentUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PaymentCreateOrConnectWithoutTenantInput | PaymentCreateOrConnectWithoutTenantInput[]
+    upsert?: PaymentUpsertWithWhereUniqueWithoutTenantInput | PaymentUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PaymentCreateManyTenantInputEnvelope
+    set?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    disconnect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    delete?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+    update?: PaymentUpdateWithWhereUniqueWithoutTenantInput | PaymentUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PaymentUpdateManyWithWhereWithoutTenantInput | PaymentUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type PropertyUncheckedUpdateManyWithoutTenantsNestedInput = {
+    create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
+    connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
+    upsert?: PropertyUpsertWithWhereUniqueWithoutTenantsInput | PropertyUpsertWithWhereUniqueWithoutTenantsInput[]
+    set?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+    disconnect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+    delete?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+    connect?: PropertyWhereUniqueInput | PropertyWhereUniqueInput[]
+    update?: PropertyUpdateWithWhereUniqueWithoutTenantsInput | PropertyUpdateWithWhereUniqueWithoutTenantsInput[]
+    updateMany?: PropertyUpdateManyWithWhereWithoutTenantsInput | PropertyUpdateManyWithWhereWithoutTenantsInput[]
+    deleteMany?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
+  }
+
   export type PropertyCreateamenitiesInput = {
     set: string[]
-  }
-
-  export type TenantCreateNestedManyWithoutPropertiesInput = {
-    create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-  }
-
-  export type InvoiceCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
-    createMany?: InvoiceCreateManyPropertyInputEnvelope
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-  }
-
-  export type MaintenanceRequestCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
-    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
-    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
   }
 
   export type DocumentCreateNestedManyWithoutPropertyInput = {
@@ -13809,6 +13789,13 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
+  export type InvoiceCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
+    createMany?: InvoiceCreateManyPropertyInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
   export type LeaseAgreementCreateNestedManyWithoutPropertyInput = {
     create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
@@ -13816,7 +13803,55 @@ export namespace Prisma {
     connect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
   }
 
+  export type MaintenanceRequestCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
+    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
+    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+  }
+
   export type NotificationCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
+    createMany?: NotificationCreateManyPropertyInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type TenantCreateNestedManyWithoutPropertiesInput = {
+    create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
+  export type InvoiceUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
+    createMany?: InvoiceCreateManyPropertyInputEnvelope
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+  }
+
+  export type LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
+    createMany?: LeaseAgreementCreateManyPropertyInputEnvelope
+    connect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
+  }
+
+  export type MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
+    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
+    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutPropertyInput = {
     create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
     createMany?: NotificationCreateManyPropertyInputEnvelope
@@ -13827,41 +13862,6 @@ export namespace Prisma {
     create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
     connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-  }
-
-  export type InvoiceUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
-    createMany?: InvoiceCreateManyPropertyInputEnvelope
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-  }
-
-  export type MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
-    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
-    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-  }
-
-  export type DocumentUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
-    createMany?: DocumentCreateManyPropertyInputEnvelope
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-  }
-
-  export type LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
-    createMany?: LeaseAgreementCreateManyPropertyInputEnvelope
-    connect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
-  }
-
-  export type NotificationUncheckedCreateNestedManyWithoutPropertyInput = {
-    create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
-    createMany?: NotificationCreateManyPropertyInputEnvelope
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -13885,17 +13885,18 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type TenantUpdateManyWithoutPropertiesNestedInput = {
-    create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
-    upsert?: TenantUpsertWithWhereUniqueWithoutPropertiesInput | TenantUpsertWithWhereUniqueWithoutPropertiesInput[]
-    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    update?: TenantUpdateWithWhereUniqueWithoutPropertiesInput | TenantUpdateWithWhereUniqueWithoutPropertiesInput[]
-    updateMany?: TenantUpdateManyWithWhereWithoutPropertiesInput | TenantUpdateManyWithWhereWithoutPropertiesInput[]
-    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  export type DocumentUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
   export type InvoiceUpdateManyWithoutPropertyNestedInput = {
@@ -13912,34 +13913,6 @@ export namespace Prisma {
     deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
   }
 
-  export type MaintenanceRequestUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
-    upsert?: MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
-    set?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    disconnect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    delete?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    update?: MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput | MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
-  }
-
-  export type DocumentUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: DocumentCreateManyPropertyInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
   export type LeaseAgreementUpdateManyWithoutPropertyNestedInput = {
     create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
@@ -13954,7 +13927,104 @@ export namespace Prisma {
     deleteMany?: LeaseAgreementScalarWhereInput | LeaseAgreementScalarWhereInput[]
   }
 
+  export type MaintenanceRequestUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
+    upsert?: MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
+    set?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    disconnect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    delete?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    update?: MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput | MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
+  }
+
   export type NotificationUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutPropertyInput | NotificationUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: NotificationCreateManyPropertyInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutPropertyInput | NotificationUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutPropertyInput | NotificationUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type TenantUpdateManyWithoutPropertiesNestedInput = {
+    create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutPropertiesInput | TenantUpsertWithWhereUniqueWithoutPropertiesInput[]
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutPropertiesInput | TenantUpdateWithWhereUniqueWithoutPropertiesInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutPropertiesInput | TenantUpdateManyWithWhereWithoutPropertiesInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
+  export type InvoiceUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
+    upsert?: InvoiceUpsertWithWhereUniqueWithoutPropertyInput | InvoiceUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: InvoiceCreateManyPropertyInputEnvelope
+    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
+    update?: InvoiceUpdateWithWhereUniqueWithoutPropertyInput | InvoiceUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: InvoiceUpdateManyWithWhereWithoutPropertyInput | InvoiceUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
+  }
+
+  export type LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
+    upsert?: LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput | LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: LeaseAgreementCreateManyPropertyInputEnvelope
+    set?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
+    disconnect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
+    delete?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
+    connect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
+    update?: LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput | LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: LeaseAgreementUpdateManyWithWhereWithoutPropertyInput | LeaseAgreementUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: LeaseAgreementScalarWhereInput | LeaseAgreementScalarWhereInput[]
+  }
+
+  export type MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
+    upsert?: MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
+    set?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    disconnect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    delete?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
+    update?: MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput | MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutPropertyNestedInput = {
     create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
     upsert?: NotificationUpsertWithWhereUniqueWithoutPropertyInput | NotificationUpsertWithWhereUniqueWithoutPropertyInput[]
@@ -13981,86 +14051,16 @@ export namespace Prisma {
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
   }
 
-  export type InvoiceUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput> | InvoiceCreateWithoutPropertyInput[] | InvoiceUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: InvoiceCreateOrConnectWithoutPropertyInput | InvoiceCreateOrConnectWithoutPropertyInput[]
-    upsert?: InvoiceUpsertWithWhereUniqueWithoutPropertyInput | InvoiceUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: InvoiceCreateManyPropertyInputEnvelope
-    set?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    disconnect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    delete?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    connect?: InvoiceWhereUniqueInput | InvoiceWhereUniqueInput[]
-    update?: InvoiceUpdateWithWhereUniqueWithoutPropertyInput | InvoiceUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: InvoiceUpdateManyWithWhereWithoutPropertyInput | InvoiceUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: InvoiceScalarWhereInput | InvoiceScalarWhereInput[]
-  }
-
-  export type MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput> | MaintenanceRequestCreateWithoutPropertyInput[] | MaintenanceRequestUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: MaintenanceRequestCreateOrConnectWithoutPropertyInput | MaintenanceRequestCreateOrConnectWithoutPropertyInput[]
-    upsert?: MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: MaintenanceRequestCreateManyPropertyInputEnvelope
-    set?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    disconnect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    delete?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    connect?: MaintenanceRequestWhereUniqueInput | MaintenanceRequestWhereUniqueInput[]
-    update?: MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput | MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput | MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: MaintenanceRequestScalarWhereInput | MaintenanceRequestScalarWhereInput[]
-  }
-
-  export type DocumentUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
-    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: DocumentCreateManyPropertyInputEnvelope
-    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
-    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-  }
-
-  export type LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput> | LeaseAgreementCreateWithoutPropertyInput[] | LeaseAgreementUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: LeaseAgreementCreateOrConnectWithoutPropertyInput | LeaseAgreementCreateOrConnectWithoutPropertyInput[]
-    upsert?: LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput | LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: LeaseAgreementCreateManyPropertyInputEnvelope
-    set?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
-    disconnect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
-    delete?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
-    connect?: LeaseAgreementWhereUniqueInput | LeaseAgreementWhereUniqueInput[]
-    update?: LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput | LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: LeaseAgreementUpdateManyWithWhereWithoutPropertyInput | LeaseAgreementUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: LeaseAgreementScalarWhereInput | LeaseAgreementScalarWhereInput[]
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutPropertyNestedInput = {
-    create?: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput> | NotificationCreateWithoutPropertyInput[] | NotificationUncheckedCreateWithoutPropertyInput[]
-    connectOrCreate?: NotificationCreateOrConnectWithoutPropertyInput | NotificationCreateOrConnectWithoutPropertyInput[]
-    upsert?: NotificationUpsertWithWhereUniqueWithoutPropertyInput | NotificationUpsertWithWhereUniqueWithoutPropertyInput[]
-    createMany?: NotificationCreateManyPropertyInputEnvelope
-    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
-    update?: NotificationUpdateWithWhereUniqueWithoutPropertyInput | NotificationUpdateWithWhereUniqueWithoutPropertyInput[]
-    updateMany?: NotificationUpdateManyWithWhereWithoutPropertyInput | NotificationUpdateManyWithWhereWithoutPropertyInput[]
-    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  export type PropertyCreateNestedOneWithoutInvoicesInput = {
+    create?: XOR<PropertyCreateWithoutInvoicesInput, PropertyUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: PropertyCreateOrConnectWithoutInvoicesInput
+    connect?: PropertyWhereUniqueInput
   }
 
   export type TenantCreateNestedOneWithoutInvoicesInput = {
     create?: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
     connectOrCreate?: TenantCreateOrConnectWithoutInvoicesInput
     connect?: TenantWhereUniqueInput
-  }
-
-  export type PropertyCreateNestedOneWithoutInvoicesInput = {
-    create?: XOR<PropertyCreateWithoutInvoicesInput, PropertyUncheckedCreateWithoutInvoicesInput>
-    connectOrCreate?: PropertyCreateOrConnectWithoutInvoicesInput
-    connect?: PropertyWhereUniqueInput
   }
 
   export type PaymentCreateNestedManyWithoutInvoiceInput = {
@@ -14085,20 +14085,20 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type TenantUpdateOneRequiredWithoutInvoicesNestedInput = {
-    create?: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutInvoicesInput
-    upsert?: TenantUpsertWithoutInvoicesInput
-    connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutInvoicesInput, TenantUpdateWithoutInvoicesInput>, TenantUncheckedUpdateWithoutInvoicesInput>
-  }
-
   export type PropertyUpdateOneRequiredWithoutInvoicesNestedInput = {
     create?: XOR<PropertyCreateWithoutInvoicesInput, PropertyUncheckedCreateWithoutInvoicesInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutInvoicesInput
     upsert?: PropertyUpsertWithoutInvoicesInput
     connect?: PropertyWhereUniqueInput
     update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutInvoicesInput, PropertyUpdateWithoutInvoicesInput>, PropertyUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutInvoicesNestedInput = {
+    create?: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutInvoicesInput
+    upsert?: TenantUpsertWithoutInvoicesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutInvoicesInput, TenantUpdateWithoutInvoicesInput>, TenantUncheckedUpdateWithoutInvoicesInput>
   }
 
   export type PaymentUpdateManyWithoutInvoiceNestedInput = {
@@ -14157,24 +14157,16 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPaymentsInput, TenantUpdateWithoutPaymentsInput>, TenantUncheckedUpdateWithoutPaymentsInput>
   }
 
-  export type TenantCreateNestedOneWithoutLeaseAgreementsInput = {
-    create?: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutLeaseAgreementsInput
-    connect?: TenantWhereUniqueInput
-  }
-
   export type PropertyCreateNestedOneWithoutLeaseAgreementsInput = {
     create?: XOR<PropertyCreateWithoutLeaseAgreementsInput, PropertyUncheckedCreateWithoutLeaseAgreementsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutLeaseAgreementsInput
     connect?: PropertyWhereUniqueInput
   }
 
-  export type TenantUpdateOneRequiredWithoutLeaseAgreementsNestedInput = {
+  export type TenantCreateNestedOneWithoutLeaseAgreementsInput = {
     create?: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutLeaseAgreementsInput
-    upsert?: TenantUpsertWithoutLeaseAgreementsInput
     connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutLeaseAgreementsInput, TenantUpdateWithoutLeaseAgreementsInput>, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
   }
 
   export type PropertyUpdateOneRequiredWithoutLeaseAgreementsNestedInput = {
@@ -14183,6 +14175,14 @@ export namespace Prisma {
     upsert?: PropertyUpsertWithoutLeaseAgreementsInput
     connect?: PropertyWhereUniqueInput
     update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutLeaseAgreementsInput, PropertyUpdateWithoutLeaseAgreementsInput>, PropertyUncheckedUpdateWithoutLeaseAgreementsInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutLeaseAgreementsNestedInput = {
+    create?: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLeaseAgreementsInput
+    upsert?: TenantUpsertWithoutLeaseAgreementsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutLeaseAgreementsInput, TenantUpdateWithoutLeaseAgreementsInput>, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
   }
 
   export type PropertyCreateNestedOneWithoutMaintenanceRequestsInput = {
@@ -14213,26 +14213,16 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutMaintenanceRequestsInput, TenantUpdateWithoutMaintenanceRequestsInput>, TenantUncheckedUpdateWithoutMaintenanceRequestsInput>
   }
 
-  export type TenantCreateNestedOneWithoutDocumentsInput = {
-    create?: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutDocumentsInput
-    connect?: TenantWhereUniqueInput
-  }
-
   export type PropertyCreateNestedOneWithoutDocumentsInput = {
     create?: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: PropertyCreateOrConnectWithoutDocumentsInput
     connect?: PropertyWhereUniqueInput
   }
 
-  export type TenantUpdateOneWithoutDocumentsNestedInput = {
+  export type TenantCreateNestedOneWithoutDocumentsInput = {
     create?: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutDocumentsInput
-    upsert?: TenantUpsertWithoutDocumentsInput
-    disconnect?: TenantWhereInput | boolean
-    delete?: TenantWhereInput | boolean
     connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDocumentsInput, TenantUpdateWithoutDocumentsInput>, TenantUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type PropertyUpdateOneWithoutDocumentsNestedInput = {
@@ -14245,10 +14235,14 @@ export namespace Prisma {
     update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutDocumentsInput, PropertyUpdateWithoutDocumentsInput>, PropertyUncheckedUpdateWithoutDocumentsInput>
   }
 
-  export type TenantCreateNestedOneWithoutNotificationsInput = {
-    create?: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
-    connectOrCreate?: TenantCreateOrConnectWithoutNotificationsInput
+  export type TenantUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDocumentsInput
+    upsert?: TenantUpsertWithoutDocumentsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
     connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDocumentsInput, TenantUpdateWithoutDocumentsInput>, TenantUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type PropertyCreateNestedOneWithoutNotificationsInput = {
@@ -14257,18 +14251,14 @@ export namespace Prisma {
     connect?: PropertyWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type TenantUpdateOneWithoutNotificationsNestedInput = {
+  export type TenantCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutNotificationsInput
-    upsert?: TenantUpsertWithoutNotificationsInput
-    disconnect?: TenantWhereInput | boolean
-    delete?: TenantWhereInput | boolean
     connect?: TenantWhereUniqueInput
-    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationsInput, TenantUpdateWithoutNotificationsInput>, TenantUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type PropertyUpdateOneWithoutNotificationsNestedInput = {
@@ -14279,6 +14269,16 @@ export namespace Prisma {
     delete?: PropertyWhereInput | boolean
     connect?: PropertyWhereUniqueInput
     update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutNotificationsInput, PropertyUpdateWithoutNotificationsInput>, PropertyUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type TenantUpdateOneWithoutNotificationsNestedInput = {
+    create?: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationsInput
+    upsert?: TenantUpsertWithoutNotificationsInput
+    disconnect?: TenantWhereInput | boolean
+    delete?: TenantWhereInput | boolean
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationsInput, TenantUpdateWithoutNotificationsInput>, TenantUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14473,6 +14473,36 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DocumentCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    filePath: string
+    fileName: string
+    uploadDate?: Date | string
+    status?: string
+    property?: PropertyCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: string
+    filePath: string
+    fileName: string
+    uploadDate?: Date | string
+    status?: string
+    propertyId?: string | null
+  }
+
+  export type DocumentCreateOrConnectWithoutTenantInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DocumentCreateManyTenantInputEnvelope = {
+    data: DocumentCreateManyTenantInput | DocumentCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type InvoiceCreateWithoutTenantInput = {
     id?: string
     amount: number
@@ -14507,81 +14537,6 @@ export namespace Prisma {
   export type InvoiceCreateManyTenantInputEnvelope = {
     data: InvoiceCreateManyTenantInput | InvoiceCreateManyTenantInput[]
     skipDuplicates?: boolean
-  }
-
-  export type PaymentCreateWithoutTenantInput = {
-    id?: string
-    amount: number
-    status?: string
-    paymentDate?: Date | string
-    method: string
-    reference?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
-  }
-
-  export type PaymentUncheckedCreateWithoutTenantInput = {
-    id?: string
-    invoiceId: string
-    amount: number
-    status?: string
-    paymentDate?: Date | string
-    method: string
-    reference?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type PaymentCreateOrConnectWithoutTenantInput = {
-    where: PaymentWhereUniqueInput
-    create: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput>
-  }
-
-  export type PaymentCreateManyTenantInputEnvelope = {
-    data: PaymentCreateManyTenantInput | PaymentCreateManyTenantInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PropertyCreateWithoutTenantsInput = {
-    id?: string
-    address: string
-    type: string
-    size?: number | null
-    bedrooms?: number | null
-    bathrooms?: number | null
-    amenities?: PropertyCreateamenitiesInput | string[]
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
-    documents?: DocumentCreateNestedManyWithoutPropertyInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
-    notifications?: NotificationCreateNestedManyWithoutPropertyInput
-  }
-
-  export type PropertyUncheckedCreateWithoutTenantsInput = {
-    id?: string
-    address: string
-    type: string
-    size?: number | null
-    bedrooms?: number | null
-    bathrooms?: number | null
-    amenities?: PropertyCreateamenitiesInput | string[]
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
-  }
-
-  export type PropertyCreateOrConnectWithoutTenantsInput = {
-    where: PropertyWhereUniqueInput
-    create: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput>
   }
 
   export type LeaseAgreementCreateWithoutTenantInput = {
@@ -14652,36 +14607,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DocumentCreateWithoutTenantInput = {
-    id?: string
-    type: string
-    filePath: string
-    fileName: string
-    uploadDate?: Date | string
-    status?: string
-    property?: PropertyCreateNestedOneWithoutDocumentsInput
-  }
-
-  export type DocumentUncheckedCreateWithoutTenantInput = {
-    id?: string
-    type: string
-    filePath: string
-    fileName: string
-    uploadDate?: Date | string
-    status?: string
-    propertyId?: string | null
-  }
-
-  export type DocumentCreateOrConnectWithoutTenantInput = {
-    where: DocumentWhereUniqueInput
-    create: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput>
-  }
-
-  export type DocumentCreateManyTenantInputEnvelope = {
-    data: DocumentCreateManyTenantInput | DocumentCreateManyTenantInput[]
-    skipDuplicates?: boolean
-  }
-
   export type NotificationCreateWithoutTenantInput = {
     id?: string
     type: string
@@ -14710,6 +14635,111 @@ export namespace Prisma {
   export type NotificationCreateManyTenantInputEnvelope = {
     data: NotificationCreateManyTenantInput | NotificationCreateManyTenantInput[]
     skipDuplicates?: boolean
+  }
+
+  export type PaymentCreateWithoutTenantInput = {
+    id?: string
+    amount: number
+    status?: string
+    paymentDate?: Date | string
+    method: string
+    reference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+  }
+
+  export type PaymentUncheckedCreateWithoutTenantInput = {
+    id?: string
+    invoiceId: string
+    amount: number
+    status?: string
+    paymentDate?: Date | string
+    method: string
+    reference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PaymentCreateOrConnectWithoutTenantInput = {
+    where: PaymentWhereUniqueInput
+    create: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PaymentCreateManyTenantInputEnvelope = {
+    data: PaymentCreateManyTenantInput | PaymentCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PropertyCreateWithoutTenantsInput = {
+    id?: string
+    address: string
+    type: string
+    size?: number | null
+    bedrooms?: number | null
+    bathrooms?: number | null
+    amenities?: PropertyCreateamenitiesInput | string[]
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
+    notifications?: NotificationCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyUncheckedCreateWithoutTenantsInput = {
+    id?: string
+    address: string
+    type: string
+    size?: number | null
+    bedrooms?: number | null
+    bathrooms?: number | null
+    amenities?: PropertyCreateamenitiesInput | string[]
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+  }
+
+  export type PropertyCreateOrConnectWithoutTenantsInput = {
+    where: PropertyWhereUniqueInput
+    create: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput>
+  }
+
+  export type DocumentUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DocumentWhereUniqueInput
+    update: XOR<DocumentUpdateWithoutTenantInput, DocumentUncheckedUpdateWithoutTenantInput>
+    create: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DocumentUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DocumentWhereUniqueInput
+    data: XOR<DocumentUpdateWithoutTenantInput, DocumentUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DocumentUpdateManyWithWhereWithoutTenantInput = {
+    where: DocumentScalarWhereInput
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DocumentScalarWhereInput = {
+    AND?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+    OR?: DocumentScalarWhereInput[]
+    NOT?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+    id?: StringFilter<"Document"> | string
+    type?: StringFilter<"Document"> | string
+    filePath?: StringFilter<"Document"> | string
+    fileName?: StringFilter<"Document"> | string
+    uploadDate?: DateTimeFilter<"Document"> | Date | string
+    status?: StringFilter<"Document"> | string
+    tenantId?: StringNullableFilter<"Document"> | string | null
+    propertyId?: StringNullableFilter<"Document"> | string | null
   }
 
   export type InvoiceUpsertWithWhereUniqueWithoutTenantInput = {
@@ -14742,70 +14772,6 @@ export namespace Prisma {
     description?: StringNullableFilter<"Invoice"> | string | null
     createdAt?: DateTimeFilter<"Invoice"> | Date | string
     updatedAt?: DateTimeFilter<"Invoice"> | Date | string
-  }
-
-  export type PaymentUpsertWithWhereUniqueWithoutTenantInput = {
-    where: PaymentWhereUniqueInput
-    update: XOR<PaymentUpdateWithoutTenantInput, PaymentUncheckedUpdateWithoutTenantInput>
-    create: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput>
-  }
-
-  export type PaymentUpdateWithWhereUniqueWithoutTenantInput = {
-    where: PaymentWhereUniqueInput
-    data: XOR<PaymentUpdateWithoutTenantInput, PaymentUncheckedUpdateWithoutTenantInput>
-  }
-
-  export type PaymentUpdateManyWithWhereWithoutTenantInput = {
-    where: PaymentScalarWhereInput
-    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutTenantInput>
-  }
-
-  export type PaymentScalarWhereInput = {
-    AND?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    OR?: PaymentScalarWhereInput[]
-    NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
-    id?: StringFilter<"Payment"> | string
-    invoiceId?: StringFilter<"Payment"> | string
-    tenantId?: StringFilter<"Payment"> | string
-    amount?: FloatFilter<"Payment"> | number
-    status?: StringFilter<"Payment"> | string
-    paymentDate?: DateTimeFilter<"Payment"> | Date | string
-    method?: StringFilter<"Payment"> | string
-    reference?: StringNullableFilter<"Payment"> | string | null
-    createdAt?: DateTimeFilter<"Payment"> | Date | string
-    updatedAt?: DateTimeFilter<"Payment"> | Date | string
-  }
-
-  export type PropertyUpsertWithWhereUniqueWithoutTenantsInput = {
-    where: PropertyWhereUniqueInput
-    update: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
-    create: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput>
-  }
-
-  export type PropertyUpdateWithWhereUniqueWithoutTenantsInput = {
-    where: PropertyWhereUniqueInput
-    data: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
-  }
-
-  export type PropertyUpdateManyWithWhereWithoutTenantsInput = {
-    where: PropertyScalarWhereInput
-    data: XOR<PropertyUpdateManyMutationInput, PropertyUncheckedUpdateManyWithoutTenantsInput>
-  }
-
-  export type PropertyScalarWhereInput = {
-    AND?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
-    OR?: PropertyScalarWhereInput[]
-    NOT?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
-    id?: StringFilter<"Property"> | string
-    address?: StringFilter<"Property"> | string
-    type?: StringFilter<"Property"> | string
-    size?: FloatNullableFilter<"Property"> | number | null
-    bedrooms?: IntNullableFilter<"Property"> | number | null
-    bathrooms?: FloatNullableFilter<"Property"> | number | null
-    amenities?: StringNullableListFilter<"Property">
-    status?: StringFilter<"Property"> | string
-    createdAt?: DateTimeFilter<"Property"> | Date | string
-    updatedAt?: DateTimeFilter<"Property"> | Date | string
   }
 
   export type LeaseAgreementUpsertWithWhereUniqueWithoutTenantInput = {
@@ -14872,36 +14838,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MaintenanceRequest"> | Date | string
   }
 
-  export type DocumentUpsertWithWhereUniqueWithoutTenantInput = {
-    where: DocumentWhereUniqueInput
-    update: XOR<DocumentUpdateWithoutTenantInput, DocumentUncheckedUpdateWithoutTenantInput>
-    create: XOR<DocumentCreateWithoutTenantInput, DocumentUncheckedCreateWithoutTenantInput>
-  }
-
-  export type DocumentUpdateWithWhereUniqueWithoutTenantInput = {
-    where: DocumentWhereUniqueInput
-    data: XOR<DocumentUpdateWithoutTenantInput, DocumentUncheckedUpdateWithoutTenantInput>
-  }
-
-  export type DocumentUpdateManyWithWhereWithoutTenantInput = {
-    where: DocumentScalarWhereInput
-    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutTenantInput>
-  }
-
-  export type DocumentScalarWhereInput = {
-    AND?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-    OR?: DocumentScalarWhereInput[]
-    NOT?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
-    id?: StringFilter<"Document"> | string
-    type?: StringFilter<"Document"> | string
-    filePath?: StringFilter<"Document"> | string
-    fileName?: StringFilter<"Document"> | string
-    uploadDate?: DateTimeFilter<"Document"> | Date | string
-    status?: StringFilter<"Document"> | string
-    tenantId?: StringNullableFilter<"Document"> | string | null
-    propertyId?: StringNullableFilter<"Document"> | string | null
-  }
-
   export type NotificationUpsertWithWhereUniqueWithoutTenantInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutTenantInput, NotificationUncheckedUpdateWithoutTenantInput>
@@ -14932,41 +14868,98 @@ export namespace Prisma {
     propertyId?: StringNullableFilter<"Notification"> | string | null
   }
 
-  export type TenantCreateWithoutPropertiesInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
-    notifications?: NotificationCreateNestedManyWithoutTenantInput
+  export type PaymentUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PaymentWhereUniqueInput
+    update: XOR<PaymentUpdateWithoutTenantInput, PaymentUncheckedUpdateWithoutTenantInput>
+    create: XOR<PaymentCreateWithoutTenantInput, PaymentUncheckedCreateWithoutTenantInput>
   }
 
-  export type TenantUncheckedCreateWithoutPropertiesInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+  export type PaymentUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PaymentWhereUniqueInput
+    data: XOR<PaymentUpdateWithoutTenantInput, PaymentUncheckedUpdateWithoutTenantInput>
   }
 
-  export type TenantCreateOrConnectWithoutPropertiesInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput>
+  export type PaymentUpdateManyWithWhereWithoutTenantInput = {
+    where: PaymentScalarWhereInput
+    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PaymentScalarWhereInput = {
+    AND?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+    OR?: PaymentScalarWhereInput[]
+    NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+    id?: StringFilter<"Payment"> | string
+    invoiceId?: StringFilter<"Payment"> | string
+    tenantId?: StringFilter<"Payment"> | string
+    amount?: FloatFilter<"Payment"> | number
+    status?: StringFilter<"Payment"> | string
+    paymentDate?: DateTimeFilter<"Payment"> | Date | string
+    method?: StringFilter<"Payment"> | string
+    reference?: StringNullableFilter<"Payment"> | string | null
+    createdAt?: DateTimeFilter<"Payment"> | Date | string
+    updatedAt?: DateTimeFilter<"Payment"> | Date | string
+  }
+
+  export type PropertyUpsertWithWhereUniqueWithoutTenantsInput = {
+    where: PropertyWhereUniqueInput
+    update: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
+    create: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput>
+  }
+
+  export type PropertyUpdateWithWhereUniqueWithoutTenantsInput = {
+    where: PropertyWhereUniqueInput
+    data: XOR<PropertyUpdateWithoutTenantsInput, PropertyUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type PropertyUpdateManyWithWhereWithoutTenantsInput = {
+    where: PropertyScalarWhereInput
+    data: XOR<PropertyUpdateManyMutationInput, PropertyUncheckedUpdateManyWithoutTenantsInput>
+  }
+
+  export type PropertyScalarWhereInput = {
+    AND?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
+    OR?: PropertyScalarWhereInput[]
+    NOT?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
+    id?: StringFilter<"Property"> | string
+    address?: StringFilter<"Property"> | string
+    type?: StringFilter<"Property"> | string
+    size?: FloatNullableFilter<"Property"> | number | null
+    bedrooms?: IntNullableFilter<"Property"> | number | null
+    bathrooms?: FloatNullableFilter<"Property"> | number | null
+    amenities?: StringNullableListFilter<"Property">
+    status?: StringFilter<"Property"> | string
+    createdAt?: DateTimeFilter<"Property"> | Date | string
+    updatedAt?: DateTimeFilter<"Property"> | Date | string
+  }
+
+  export type DocumentCreateWithoutPropertyInput = {
+    id?: string
+    type: string
+    filePath: string
+    fileName: string
+    uploadDate?: Date | string
+    status?: string
+    tenant?: TenantCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    type: string
+    filePath: string
+    fileName: string
+    uploadDate?: Date | string
+    status?: string
+    tenantId?: string | null
+  }
+
+  export type DocumentCreateOrConnectWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type DocumentCreateManyPropertyInputEnvelope = {
+    data: DocumentCreateManyPropertyInput | DocumentCreateManyPropertyInput[]
+    skipDuplicates?: boolean
   }
 
   export type InvoiceCreateWithoutPropertyInput = {
@@ -15002,68 +14995,6 @@ export namespace Prisma {
 
   export type InvoiceCreateManyPropertyInputEnvelope = {
     data: InvoiceCreateManyPropertyInput | InvoiceCreateManyPropertyInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MaintenanceRequestCreateWithoutPropertyInput = {
-    id?: string
-    type: string
-    priority: string
-    status?: string
-    description: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutMaintenanceRequestsInput
-  }
-
-  export type MaintenanceRequestUncheckedCreateWithoutPropertyInput = {
-    id?: string
-    tenantId: string
-    type: string
-    priority: string
-    status?: string
-    description: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MaintenanceRequestCreateOrConnectWithoutPropertyInput = {
-    where: MaintenanceRequestWhereUniqueInput
-    create: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type MaintenanceRequestCreateManyPropertyInputEnvelope = {
-    data: MaintenanceRequestCreateManyPropertyInput | MaintenanceRequestCreateManyPropertyInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DocumentCreateWithoutPropertyInput = {
-    id?: string
-    type: string
-    filePath: string
-    fileName: string
-    uploadDate?: Date | string
-    status?: string
-    tenant?: TenantCreateNestedOneWithoutDocumentsInput
-  }
-
-  export type DocumentUncheckedCreateWithoutPropertyInput = {
-    id?: string
-    type: string
-    filePath: string
-    fileName: string
-    uploadDate?: Date | string
-    status?: string
-    tenantId?: string | null
-  }
-
-  export type DocumentCreateOrConnectWithoutPropertyInput = {
-    where: DocumentWhereUniqueInput
-    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type DocumentCreateManyPropertyInputEnvelope = {
-    data: DocumentCreateManyPropertyInput | DocumentCreateManyPropertyInput[]
     skipDuplicates?: boolean
   }
 
@@ -15103,6 +15034,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MaintenanceRequestCreateWithoutPropertyInput = {
+    id?: string
+    type: string
+    priority: string
+    status?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMaintenanceRequestsInput
+  }
+
+  export type MaintenanceRequestUncheckedCreateWithoutPropertyInput = {
+    id?: string
+    tenantId: string
+    type: string
+    priority: string
+    status?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MaintenanceRequestCreateOrConnectWithoutPropertyInput = {
+    where: MaintenanceRequestWhereUniqueInput
+    create: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type MaintenanceRequestCreateManyPropertyInputEnvelope = {
+    data: MaintenanceRequestCreateManyPropertyInput | MaintenanceRequestCreateManyPropertyInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NotificationCreateWithoutPropertyInput = {
     id?: string
     type: string
@@ -15131,6 +15094,123 @@ export namespace Prisma {
   export type NotificationCreateManyPropertyInputEnvelope = {
     data: NotificationCreateManyPropertyInput | NotificationCreateManyPropertyInput[]
     skipDuplicates?: boolean
+  }
+
+  export type TenantCreateWithoutPropertiesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPropertiesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPropertiesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput>
+  }
+
+  export type DocumentUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    update: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
+    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type DocumentUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    data: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type DocumentUpdateManyWithWhereWithoutPropertyInput = {
+    where: DocumentScalarWhereInput
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type InvoiceUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: InvoiceWhereUniqueInput
+    update: XOR<InvoiceUpdateWithoutPropertyInput, InvoiceUncheckedUpdateWithoutPropertyInput>
+    create: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type InvoiceUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: InvoiceWhereUniqueInput
+    data: XOR<InvoiceUpdateWithoutPropertyInput, InvoiceUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type InvoiceUpdateManyWithWhereWithoutPropertyInput = {
+    where: InvoiceScalarWhereInput
+    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: LeaseAgreementWhereUniqueInput
+    update: XOR<LeaseAgreementUpdateWithoutPropertyInput, LeaseAgreementUncheckedUpdateWithoutPropertyInput>
+    create: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: LeaseAgreementWhereUniqueInput
+    data: XOR<LeaseAgreementUpdateWithoutPropertyInput, LeaseAgreementUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type LeaseAgreementUpdateManyWithWhereWithoutPropertyInput = {
+    where: LeaseAgreementScalarWhereInput
+    data: XOR<LeaseAgreementUpdateManyMutationInput, LeaseAgreementUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: MaintenanceRequestWhereUniqueInput
+    update: XOR<MaintenanceRequestUpdateWithoutPropertyInput, MaintenanceRequestUncheckedUpdateWithoutPropertyInput>
+    create: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: MaintenanceRequestWhereUniqueInput
+    data: XOR<MaintenanceRequestUpdateWithoutPropertyInput, MaintenanceRequestUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput = {
+    where: MaintenanceRequestScalarWhereInput
+    data: XOR<MaintenanceRequestUpdateManyMutationInput, MaintenanceRequestUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutPropertyInput, NotificationUncheckedUpdateWithoutPropertyInput>
+    create: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutPropertyInput, NotificationUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutPropertyInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutPropertyInput>
   }
 
   export type TenantUpsertWithWhereUniqueWithoutPropertiesInput = {
@@ -15162,123 +15242,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
   }
 
-  export type InvoiceUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: InvoiceWhereUniqueInput
-    update: XOR<InvoiceUpdateWithoutPropertyInput, InvoiceUncheckedUpdateWithoutPropertyInput>
-    create: XOR<InvoiceCreateWithoutPropertyInput, InvoiceUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type InvoiceUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: InvoiceWhereUniqueInput
-    data: XOR<InvoiceUpdateWithoutPropertyInput, InvoiceUncheckedUpdateWithoutPropertyInput>
-  }
-
-  export type InvoiceUpdateManyWithWhereWithoutPropertyInput = {
-    where: InvoiceScalarWhereInput
-    data: XOR<InvoiceUpdateManyMutationInput, InvoiceUncheckedUpdateManyWithoutPropertyInput>
-  }
-
-  export type MaintenanceRequestUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: MaintenanceRequestWhereUniqueInput
-    update: XOR<MaintenanceRequestUpdateWithoutPropertyInput, MaintenanceRequestUncheckedUpdateWithoutPropertyInput>
-    create: XOR<MaintenanceRequestCreateWithoutPropertyInput, MaintenanceRequestUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type MaintenanceRequestUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: MaintenanceRequestWhereUniqueInput
-    data: XOR<MaintenanceRequestUpdateWithoutPropertyInput, MaintenanceRequestUncheckedUpdateWithoutPropertyInput>
-  }
-
-  export type MaintenanceRequestUpdateManyWithWhereWithoutPropertyInput = {
-    where: MaintenanceRequestScalarWhereInput
-    data: XOR<MaintenanceRequestUpdateManyMutationInput, MaintenanceRequestUncheckedUpdateManyWithoutPropertyInput>
-  }
-
-  export type DocumentUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: DocumentWhereUniqueInput
-    update: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
-    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type DocumentUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: DocumentWhereUniqueInput
-    data: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
-  }
-
-  export type DocumentUpdateManyWithWhereWithoutPropertyInput = {
-    where: DocumentScalarWhereInput
-    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutPropertyInput>
-  }
-
-  export type LeaseAgreementUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: LeaseAgreementWhereUniqueInput
-    update: XOR<LeaseAgreementUpdateWithoutPropertyInput, LeaseAgreementUncheckedUpdateWithoutPropertyInput>
-    create: XOR<LeaseAgreementCreateWithoutPropertyInput, LeaseAgreementUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type LeaseAgreementUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: LeaseAgreementWhereUniqueInput
-    data: XOR<LeaseAgreementUpdateWithoutPropertyInput, LeaseAgreementUncheckedUpdateWithoutPropertyInput>
-  }
-
-  export type LeaseAgreementUpdateManyWithWhereWithoutPropertyInput = {
-    where: LeaseAgreementScalarWhereInput
-    data: XOR<LeaseAgreementUpdateManyMutationInput, LeaseAgreementUncheckedUpdateManyWithoutPropertyInput>
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutPropertyInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutPropertyInput, NotificationUncheckedUpdateWithoutPropertyInput>
-    create: XOR<NotificationCreateWithoutPropertyInput, NotificationUncheckedCreateWithoutPropertyInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutPropertyInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutPropertyInput, NotificationUncheckedUpdateWithoutPropertyInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutPropertyInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutPropertyInput>
-  }
-
-  export type TenantCreateWithoutInvoicesInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
-    notifications?: NotificationCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutInvoicesInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutInvoicesInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
-  }
-
   export type PropertyCreateWithoutInvoicesInput = {
     id?: string
     address: string
@@ -15290,11 +15253,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     documents?: DocumentCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     notifications?: NotificationCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateWithoutInvoicesInput = {
@@ -15308,16 +15271,53 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyCreateOrConnectWithoutInvoicesInput = {
     where: PropertyWhereUniqueInput
     create: XOR<PropertyCreateWithoutInvoicesInput, PropertyUncheckedCreateWithoutInvoicesInput>
+  }
+
+  export type TenantCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantUncheckedCreateWithoutInvoicesInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantCreateOrConnectWithoutInvoicesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
   }
 
   export type PaymentCreateWithoutInvoiceInput = {
@@ -15354,49 +15354,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TenantUpsertWithoutInvoicesInput = {
-    update: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
-    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutInvoicesInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
-  }
-
-  export type TenantUpdateWithoutInvoicesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutInvoicesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
   export type PropertyUpsertWithoutInvoicesInput = {
     update: XOR<PropertyUpdateWithoutInvoicesInput, PropertyUncheckedUpdateWithoutInvoicesInput>
     create: XOR<PropertyCreateWithoutInvoicesInput, PropertyUncheckedCreateWithoutInvoicesInput>
@@ -15419,11 +15376,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutInvoicesInput = {
@@ -15437,11 +15394,54 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type TenantUpsertWithoutInvoicesInput = {
+    update: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
+    create: XOR<TenantCreateWithoutInvoicesInput, TenantUncheckedCreateWithoutInvoicesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutInvoicesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutInvoicesInput, TenantUncheckedUpdateWithoutInvoicesInput>
+  }
+
+  export type TenantUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutInvoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -15469,8 +15469,8 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenant: TenantCreateNestedOneWithoutInvoicesInput
     property: PropertyCreateNestedOneWithoutInvoicesInput
+    tenant: TenantCreateNestedOneWithoutInvoicesInput
   }
 
   export type InvoiceUncheckedCreateWithoutPaymentsInput = {
@@ -15499,12 +15499,12 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
     invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
     maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
     notifications?: NotificationCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentsInput = {
@@ -15515,12 +15515,12 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
     maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentsInput = {
@@ -15548,8 +15548,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
     property?: PropertyUpdateOneRequiredWithoutInvoicesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutInvoicesNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
@@ -15584,12 +15584,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
     maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
     notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentsInput = {
@@ -15600,49 +15600,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
     maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantCreateWithoutLeaseAgreementsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
-    notifications?: NotificationCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutLeaseAgreementsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutLeaseAgreementsInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
   }
 
   export type PropertyCreateWithoutLeaseAgreementsInput = {
@@ -15656,11 +15619,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
     invoices?: InvoiceCreateNestedManyWithoutPropertyInput
     maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
-    documents?: DocumentCreateNestedManyWithoutPropertyInput
     notifications?: NotificationCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateWithoutLeaseAgreementsInput = {
@@ -15674,11 +15637,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
     maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyCreateOrConnectWithoutLeaseAgreementsInput = {
@@ -15686,47 +15649,41 @@ export namespace Prisma {
     create: XOR<PropertyCreateWithoutLeaseAgreementsInput, PropertyUncheckedCreateWithoutLeaseAgreementsInput>
   }
 
-  export type TenantUpsertWithoutLeaseAgreementsInput = {
-    update: XOR<TenantUpdateWithoutLeaseAgreementsInput, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
+  export type TenantCreateWithoutLeaseAgreementsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantUncheckedCreateWithoutLeaseAgreementsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantCreateOrConnectWithoutLeaseAgreementsInput = {
+    where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutLeaseAgreementsInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutLeaseAgreementsInput, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
-  }
-
-  export type TenantUpdateWithoutLeaseAgreementsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutLeaseAgreementsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PropertyUpsertWithoutLeaseAgreementsInput = {
@@ -15751,11 +15708,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
     invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
     maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
-    documents?: DocumentUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLeaseAgreementsInput = {
@@ -15769,11 +15726,54 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
     maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type TenantUpsertWithoutLeaseAgreementsInput = {
+    update: XOR<TenantUpdateWithoutLeaseAgreementsInput, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
+    create: XOR<TenantCreateWithoutLeaseAgreementsInput, TenantUncheckedCreateWithoutLeaseAgreementsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutLeaseAgreementsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutLeaseAgreementsInput, TenantUncheckedUpdateWithoutLeaseAgreementsInput>
+  }
+
+  export type TenantUpdateWithoutLeaseAgreementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutLeaseAgreementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
   }
 
   export type PropertyCreateWithoutMaintenanceRequestsInput = {
@@ -15787,11 +15787,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
     documents?: DocumentCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
     notifications?: NotificationCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateWithoutMaintenanceRequestsInput = {
@@ -15805,11 +15805,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
     documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyCreateOrConnectWithoutMaintenanceRequestsInput = {
@@ -15825,12 +15825,12 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
     invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
     payments?: PaymentCreateNestedManyWithoutTenantInput
     properties?: PropertyCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
-    notifications?: NotificationCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMaintenanceRequestsInput = {
@@ -15841,12 +15841,12 @@ export namespace Prisma {
     address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
     payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMaintenanceRequestsInput = {
@@ -15876,11 +15876,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutMaintenanceRequestsInput = {
@@ -15894,11 +15894,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
   }
 
   export type TenantUpsertWithoutMaintenanceRequestsInput = {
@@ -15920,12 +15920,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
     payments?: PaymentUpdateManyWithoutTenantNestedInput
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMaintenanceRequestsInput = {
@@ -15936,49 +15936,12 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantCreateWithoutDocumentsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    notifications?: NotificationCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutDocumentsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutDocumentsInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
   }
 
   export type PropertyCreateWithoutDocumentsInput = {
@@ -15992,11 +15955,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
     invoices?: InvoiceCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     notifications?: NotificationCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateWithoutDocumentsInput = {
@@ -16010,11 +15973,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
     invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyCreateOrConnectWithoutDocumentsInput = {
@@ -16022,47 +15985,41 @@ export namespace Prisma {
     create: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
   }
 
-  export type TenantUpsertWithoutDocumentsInput = {
-    update: XOR<TenantUpdateWithoutDocumentsInput, TenantUncheckedUpdateWithoutDocumentsInput>
+  export type TenantCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantCreateOrConnectWithoutDocumentsInput = {
+    where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutDocumentsInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutDocumentsInput, TenantUncheckedUpdateWithoutDocumentsInput>
-  }
-
-  export type TenantUpdateWithoutDocumentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutDocumentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PropertyUpsertWithoutDocumentsInput = {
@@ -16087,11 +16044,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
     invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutDocumentsInput = {
@@ -16105,48 +16062,54 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
     invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
   }
 
-  export type TenantCreateWithoutNotificationsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceCreateNestedManyWithoutTenantInput
-    payments?: PaymentCreateNestedManyWithoutTenantInput
-    properties?: PropertyCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
-    documents?: DocumentCreateNestedManyWithoutTenantInput
+  export type TenantUpsertWithoutDocumentsInput = {
+    update: XOR<TenantUpdateWithoutDocumentsInput, TenantUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<TenantCreateWithoutDocumentsInput, TenantUncheckedCreateWithoutDocumentsInput>
+    where?: TenantWhereInput
   }
 
-  export type TenantUncheckedCreateWithoutNotificationsInput = {
-    id?: string
-    name: string
-    email: string
-    phone?: string | null
-    address?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
-    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
-    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
-    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+  export type TenantUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDocumentsInput, TenantUncheckedUpdateWithoutDocumentsInput>
   }
 
-  export type TenantCreateOrConnectWithoutNotificationsInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+  export type TenantUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
   }
 
   export type PropertyCreateWithoutNotificationsInput = {
@@ -16160,11 +16123,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
     documents?: DocumentCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutPropertyInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyUncheckedCreateWithoutNotificationsInput = {
@@ -16178,11 +16141,11 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
-    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
-    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
     documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutPropertyInput
     leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutPropertyInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutPropertyInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
   }
 
   export type PropertyCreateOrConnectWithoutNotificationsInput = {
@@ -16190,47 +16153,41 @@ export namespace Prisma {
     create: XOR<PropertyCreateWithoutNotificationsInput, PropertyUncheckedCreateWithoutNotificationsInput>
   }
 
-  export type TenantUpsertWithoutNotificationsInput = {
-    update: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
+  export type TenantCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutTenantInput
+    payments?: PaymentCreateNestedManyWithoutTenantInput
+    properties?: PropertyCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    name: string
+    email: string
+    phone?: string | null
+    address?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    documents?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    leaseAgreements?: LeaseAgreementUncheckedCreateNestedManyWithoutTenantInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutTenantInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
+  }
+
+  export type TenantCreateOrConnectWithoutNotificationsInput = {
+    where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
-    where?: TenantWhereInput
-  }
-
-  export type TenantUpdateToOneWithWhereWithoutNotificationsInput = {
-    where?: TenantWhereInput
-    data: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
-  }
-
-  export type TenantUpdateWithoutNotificationsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutNotificationsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PropertyUpsertWithoutNotificationsInput = {
@@ -16255,11 +16212,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutNotificationsInput = {
@@ -16273,11 +16230,64 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
-    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
     leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type TenantUpsertWithoutNotificationsInput = {
+    update: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<TenantCreateWithoutNotificationsInput, TenantUncheckedCreateWithoutNotificationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutNotificationsInput, TenantUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type TenantUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUpdateManyWithoutTenantsNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
+  }
+
+  export type DocumentCreateManyTenantInput = {
+    id?: string
+    type: string
+    filePath: string
+    fileName: string
+    uploadDate?: Date | string
+    status?: string
+    propertyId?: string | null
   }
 
   export type InvoiceCreateManyTenantInput = {
@@ -16288,18 +16298,6 @@ export namespace Prisma {
     dueDate: Date | string
     status?: string
     description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type PaymentCreateManyTenantInput = {
-    id?: string
-    invoiceId: string
-    amount: number
-    status?: string
-    paymentDate?: Date | string
-    method: string
-    reference?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16328,16 +16326,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type DocumentCreateManyTenantInput = {
-    id?: string
-    type: string
-    filePath: string
-    fileName: string
-    uploadDate?: Date | string
-    status?: string
-    propertyId?: string | null
-  }
-
   export type NotificationCreateManyTenantInput = {
     id?: string
     type: string
@@ -16346,6 +16334,48 @@ export namespace Prisma {
     priority?: string
     createdAt?: Date | string
     propertyId?: string | null
+  }
+
+  export type PaymentCreateManyTenantInput = {
+    id?: string
+    invoiceId: string
+    amount: number
+    status?: string
+    paymentDate?: Date | string
+    method: string
+    reference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    property?: PropertyUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    propertyId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    propertyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceUpdateWithoutTenantInput = {
@@ -16382,91 +16412,6 @@ export namespace Prisma {
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PaymentUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
-    reference?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
-  }
-
-  export type PaymentUncheckedUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
-    reference?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PaymentUncheckedUpdateManyWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    method?: StringFieldUpdateOperationsInput | string
-    reference?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PropertyUpdateWithoutTenantsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    size?: NullableFloatFieldUpdateOperationsInput | number | null
-    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
-    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
-    amenities?: PropertyUpdateamenitiesInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
-    documents?: DocumentUpdateManyWithoutPropertyNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
-    notifications?: NotificationUpdateManyWithoutPropertyNestedInput
-  }
-
-  export type PropertyUncheckedUpdateWithoutTenantsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    size?: NullableFloatFieldUpdateOperationsInput | number | null
-    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
-    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
-    amenities?: PropertyUpdateamenitiesInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
-  }
-
-  export type PropertyUncheckedUpdateManyWithoutTenantsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    size?: NullableFloatFieldUpdateOperationsInput | number | null
-    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
-    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
-    amenities?: PropertyUpdateamenitiesInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16543,36 +16488,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DocumentUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    property?: PropertyUpdateOneWithoutDocumentsNestedInput
-  }
-
-  export type DocumentUncheckedUpdateWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    propertyId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type DocumentUncheckedUpdateManyWithoutTenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    propertyId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type NotificationUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -16603,27 +16518,89 @@ export namespace Prisma {
     propertyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type InvoiceCreateManyPropertyInput = {
-    id?: string
-    tenantId: string
-    amount: number
-    paidAmount?: number
-    dueDate: Date | string
-    status?: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type PaymentUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
-  export type MaintenanceRequestCreateManyPropertyInput = {
-    id?: string
-    tenantId: string
-    type: string
-    priority: string
-    status?: string
-    description: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type PaymentUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    method?: StringFieldUpdateOperationsInput | string
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PropertyUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
+    amenities?: PropertyUpdateamenitiesInput | string[]
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUpdateManyWithoutPropertyNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutPropertyNestedInput
+    notifications?: NotificationUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyUncheckedUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
+    amenities?: PropertyUpdateamenitiesInput | string[]
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutPropertyNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutPropertyNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutPropertyNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutPropertyNestedInput
+  }
+
+  export type PropertyUncheckedUpdateManyWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    bedrooms?: NullableIntFieldUpdateOperationsInput | number | null
+    bathrooms?: NullableFloatFieldUpdateOperationsInput | number | null
+    amenities?: PropertyUpdateamenitiesInput | string[]
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DocumentCreateManyPropertyInput = {
@@ -16634,6 +16611,18 @@ export namespace Prisma {
     uploadDate?: Date | string
     status?: string
     tenantId?: string | null
+  }
+
+  export type InvoiceCreateManyPropertyInput = {
+    id?: string
+    tenantId: string
+    amount: number
+    paidAmount?: number
+    dueDate: Date | string
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LeaseAgreementCreateManyPropertyInput = {
@@ -16649,6 +16638,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MaintenanceRequestCreateManyPropertyInput = {
+    id?: string
+    tenantId: string
+    type: string
+    priority: string
+    status?: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type NotificationCreateManyPropertyInput = {
     id?: string
     type: string
@@ -16659,46 +16659,34 @@ export namespace Prisma {
     tenantId?: string | null
   }
 
-  export type TenantUpdateWithoutPropertiesInput = {
+  export type DocumentUpdateWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUpdateManyWithoutTenantNestedInput
-    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tenant?: TenantUpdateOneWithoutDocumentsNestedInput
   }
 
-  export type TenantUncheckedUpdateWithoutPropertiesInput = {
+  export type DocumentUncheckedUpdateWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
-    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
-    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
-    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TenantUncheckedUpdateManyWithoutPropertiesInput = {
+  export type DocumentUncheckedUpdateManyWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceUpdateWithoutPropertyInput = {
@@ -16737,69 +16725,6 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MaintenanceRequestUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tenant?: TenantUpdateOneRequiredWithoutMaintenanceRequestsNestedInput
-  }
-
-  export type MaintenanceRequestUncheckedUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MaintenanceRequestUncheckedUpdateManyWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DocumentUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    tenant?: TenantUpdateOneWithoutDocumentsNestedInput
-  }
-
-  export type DocumentUncheckedUpdateWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type DocumentUncheckedUpdateManyWithoutPropertyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    fileName?: StringFieldUpdateOperationsInput | string
-    uploadDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
-    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeaseAgreementUpdateWithoutPropertyInput = {
@@ -16841,6 +16766,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MaintenanceRequestUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMaintenanceRequestsNestedInput
+  }
+
+  export type MaintenanceRequestUncheckedUpdateWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceRequestUncheckedUpdateManyWithoutPropertyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificationUpdateWithoutPropertyInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -16869,6 +16827,48 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TenantUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    documents?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    leaseAgreements?: LeaseAgreementUncheckedUpdateManyWithoutTenantNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateManyWithoutPropertiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PaymentCreateManyInvoiceInput = {
