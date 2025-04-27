@@ -108,9 +108,15 @@ function handleError(err: unknown) {
       { status: 400 }
     );
   }
-  console.error(err);
+  // Log the full error for debugging
+  console.error('API Error:', err);
+  
+  // Return a more specific error message
   return NextResponse.json(
-    { error: 'Internal Server Error' },
+    { 
+      error: 'Internal Server Error',
+      message: 'An unexpected error occurred while processing your request'
+    },
     { status: 500 }
   );
 }
@@ -136,6 +142,13 @@ export async function GET(request: NextRequest) {
       include: listInclude,
       orderBy: { createdAt: 'desc' },
     });
+
+    if (!tenants) {
+      return NextResponse.json(
+        { error: 'No tenants found' },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json(tenants);
   } catch (err) {
