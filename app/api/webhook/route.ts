@@ -2,6 +2,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
+import { PrismaClient, Prisma } from '@prisma/client';
 
 // truly dynamic, no cache
 export const dynamic = "force-dynamic";
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const updatedPayment = await prisma.$transaction(async (tx) => {
+    const updatedPayment = await prisma.$transaction(async (tx: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">) => {
       // 1️⃣ Update payment status
       const payment = await tx.payment.update({
         where: { id: data.paymentId },
