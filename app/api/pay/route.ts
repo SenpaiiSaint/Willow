@@ -1,55 +1,95 @@
-import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from 'next/server';
+import prisma from '@/lib/prisma';
+import { z } from 'zod';
+import { createPaymentSchema } from '@/lib/validations/payment';
+import { PrismaClient } from '@prisma/client';
 
-export async function POST(req: Request) {
+// Force truly dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
-    const { tenantId, amount } = body;
+    // Parse & validate body
+    const body = await request.json();
+    const validated = createPaymentSchema.parse(body);
 
-    if (!tenantId || !amount) {
-      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
-    }
-
+    // Find the oldest unpaid invoice for this tenant
     const invoice = await prisma.invoice.findFirst({
       where: {
-        tenantId: Number(tenantId),
-        status: "UNPAID",
+        tenantId: validated.tenantId,
+        status: 'UNPAID',
       },
-      orderBy: { dueDate: "asc" },
+      include: {
+        payments: {
+          select: {
+            amount: true,
+          },
+        },
+      },
+      orderBy: { dueDate: 'asc' },
     });
 
     if (!invoice) {
-      return NextResponse.json({ error: "No unpaid invoice found" }, { status: 404 });
+      return NextResponse.json(
+        { error: 'No unpaid invoice found for this tenant' },
+        { status: 404 }
+      );
     }
 
-    // Create the payment record
-    const payment = await prisma.rentPayment.create({
-      data: {
-        tenantId,
-        amount,
-        status: "PENDING",
-        invoiceId: invoice.id,
-      },
+    // Calculate total paid amount from payments
+    const totalPaid = invoice.payments.reduce((sum, payment) => sum + payment.amount, 0);
+    const updatedPaid = totalPaid + validated.amount;
+    const newStatus = updatedPaid >= invoice.amount ? 'PAID' : 'PARTIALLY_PAID';
+
+    // Wrap creation + invoice update in a transaction
+    const result = await prisma.$transaction(async (tx: PrismaClient) => {
+      // Create payment
+      const payment = await tx.payment.create({
+        data: {
+          tenantId: validated.tenantId,
+          amount: validated.amount,
+          status: 'PENDING',
+          invoiceId: invoice.id,
+        },
+        include: {
+          tenant: { select: { name: true, email: true } },
+          invoice: {
+            select: {
+              amount: true,
+              paidAmount: true,
+              dueDate: true,
+            },
+          },
+        },
+      });
+
+      // Update invoice
+      await tx.invoice.update({
+        where: { id: invoice.id },
+        data: {
+          paidAmount: updatedPaid,
+          status: newStatus,
+        },
+      });
+
+      return payment;
     });
 
-    // Update the invoice payment amount and status
-    const updatedPaidAmount = invoice.paidAmount.toNumber() + amount;
-    const newInvoiceStatus =
-      updatedPaidAmount >= invoice.amount.toNumber() ? "PAID" : "UNPAID";
+    return NextResponse.json(result, { status: 201 });
+  } catch (err) {
+    console.error('Error processing payment:', err);
 
-    await prisma.invoice.update({
-      where: { id: invoice.id },
-      data: {
-        paidAmount: updatedPaidAmount,
-        status: newInvoiceStatus,
-      },
-    });
-
-    return NextResponse.json(payment, { status: 201 });
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (err instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input data', details: err.errors },
+        { status: 400 }
+      );
     }
-    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: 'Failed to process payment' },
+      { status: 500 }
+    );
   }
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -117,10 +117,10 @@ export default function Home() {
             </Link>
           </motion.div>
           <nav className="hidden md:flex space-x-8">
-            {["Home", "Features", "Pricing", "Contact"].map((item) => (
+            {["Home", "Features", "Pricing", "Contact", "Dashboard"].map((item) => (
               <Link
                 key={item}
-                href={`/${item.toLowerCase()}`}
+                href={item === "Dashboard" ? "/dashboard" : `/${item.toLowerCase()}`}
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
                 {item}
@@ -131,8 +131,9 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-colors"
+            onClick={() => window.location.href = "/dashboard"}
           >
-            Sign In
+            Dashboard
           </motion.button>
         </div>
       </header>
@@ -360,7 +361,7 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-gray-700 italic">"{testimonial.text}"</p>
+                  <p className="text-gray-700 italic">&ldquo;{testimonial.text}&rdquo;</p>
                 </motion.div>
               ))}
             </div>

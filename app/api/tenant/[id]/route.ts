@@ -1,91 +1,118 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
+import { z } from 'zod';
 
+// Force truly dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+// Zod schema for the `id` path parameter
+const idParamSchema = z.object({
+  id: z.string().uuid(),
+});
+
+// Zod schema for tenant creation
+const createTenantSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email address'),
+});
+
+// GET /api/tenant/[id]
 export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  // Await the params promise to get the id value
-  const { id } = await params;
-  const tenantId = Number(id);
-  if (isNaN(tenantId)) {
-    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  // Validate and coerce the `id` param
+  const parseId = idParamSchema.safeParse(params);
+  if (!parseId.success) {
+    return NextResponse.json(
+      { error: 'Invalid tenant ID', details: parseId.error.errors },
+      { status: 400 }
+    );
   }
-
-  console.log(`➡️ Fetching tenant with ID: ${tenantId}`);
+  const tenantId = parseId.data.id;
 
   try {
     const tenant = await prisma.tenant.findUnique({
       where: { id: tenantId },
-      include: { invoices: true, payments: true },
+      include: {
+        invoices: { orderBy: { dueDate: 'asc' } },
+        payments: { orderBy: { createdAt: 'desc' } },
+      },
     });
 
     if (!tenant) {
-      console.error(`❌ Tenant not found for ID: ${tenantId}`);
-      return NextResponse.json({ error: 'Tenant not found' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Tenant not found' },
+        { status: 404 }
+      );
     }
 
-    console.log(`✅ Tenant fetched successfully:`, tenant);
     return NextResponse.json(tenant);
-  } catch (error) {
-    console.error('❌ Error fetching tenant:', error);
+  } catch (err) {
+    console.error('Error fetching tenant:', err);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { error: err instanceof Error ? err.message : 'Unknown error' },
       { status: 500 }
     );
   }
 }
 
-
-export async function POST(req: Request) {
+// POST /api/tenant
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
+    const body = await request.json();
+    const validated = createTenantSchema.parse(body);
 
-    if (!body.name || !body.email) {
+    const newTenant = await prisma.tenant.create({
+      data: {
+        name: validated.name,
+        email: validated.email,
+      },
+    });
+
+    return NextResponse.json(newTenant, { status: 201 });
+  } catch (err) {
+    console.error('Error creating tenant:', err);
+
+    if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Missing name or email field' },
+        { error: 'Invalid input data', details: err.errors },
         { status: 400 }
       );
     }
 
-    const newTenant = await prisma.tenant.create({
-      data: {
-        name: body.name,
-        email: body.email,
-      },
-    });
-
-    console.log(`✅ Tenant created successfully:`, newTenant);
-    return NextResponse.json(newTenant, { status: 201 });
-  } catch (error) {
-    console.error('❌ Error creating tenant:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { error: err instanceof Error ? err.message : 'Unknown error' },
       { status: 500 }
     );
   }
 }
 
+// DELETE /api/tenant/[id]
 export async function DELETE(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  // Await the params promise to extract the id
-  const { id } = await params;
-  const tenantId = Number(id);
-  if (isNaN(tenantId)) {
-    return NextResponse.json({ error: 'Invalid tenant ID' }, { status: 400 });
+  // Validate and coerce the `id` param
+  const parseId = idParamSchema.safeParse(params);
+  if (!parseId.success) {
+    return NextResponse.json(
+      { error: 'Invalid tenant ID', details: parseId.error.errors },
+      { status: 400 }
+    );
   }
+  const tenantId = parseId.data.id;
 
   try {
-    const deletedTenant = await prisma.tenant.delete({
+    const deleted = await prisma.tenant.delete({
       where: { id: tenantId },
     });
-
-    return NextResponse.json(deletedTenant, { status: 200 });
-  } catch (error) {
+    return NextResponse.json(deleted);
+  } catch (err) {
+    console.error('Error deleting tenant:', err);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'An unknown error occurred' },
+      { error: err instanceof Error ? err.message : 'Unknown error' },
       { status: 500 }
     );
   }

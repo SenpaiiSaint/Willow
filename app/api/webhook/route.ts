@@ -1,63 +1,78 @@
 // app/api/webhook/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
+import { z } from "zod";
+import { PrismaClient } from "@prisma/client";
 
-export async function POST(req: Request) {
+// Force truly dynamic rendering
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+// Zod schema for webhook payload
+const webhookSchema = z.object({
+  paymentId: z.string().uuid(),
+  status: z.enum(["PENDING", "COMPLETED", "FAILED"]),
+});
+
+export async function POST(request: NextRequest) {
+  let payload;
   try {
-    const body = await req.json();
-    const { paymentId, status } = body;
-
-    if (!paymentId || !status) {
+    payload = webhookSchema.parse(await request.json());
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      console.error("Invalid webhook payload:", err.errors);
       return NextResponse.json(
-        { error: "Missing paymentId or status in request body" },
+        { error: "Invalid payload", details: err.errors },
         { status: 400 }
       );
     }
+    throw err;
+  }
 
-    const validStatus = ["PENDING", "COMPLETED", "FAILED"];
-    if (!validStatus.includes(status)) {
-      return NextResponse.json(
-        { error: "Invalid status value" },
-        { status: 400 }
-      );
-    }
-
-    // Update the payment status based on webhook notification
-    const payment = await prisma.rentPayment.update({
-      where: { id: paymentId },
-      data: { status },
-    });
-
-    // If the payment is now COMPLETED and it's linked to an invoice, update the invoice accordingly.
-    if (status === "COMPLETED" && payment.invoiceId) {
-      const invoice = await prisma.invoice.findUnique({
-        where: { id: payment.invoiceId },
+  try {
+    const updatedPayment = await prisma.$transaction(async (tx: PrismaClient) => {
+      // 1️⃣ Update payment status
+      const payment = await tx.rentPayment.update({
+        where: { id: payload.paymentId },
+        data: { status: payload.status },
+        include: {
+          invoice: {
+            select: {
+              id: true,
+              amount: true,
+              paidAmount: true,
+              status: true,
+            },
+          },
+        },
       });
 
-      if (invoice) {
-        const newPaidAmount =
-          invoice.paidAmount.toNumber() + payment.amount.toNumber();
-        const updatedStatus =
-          newPaidAmount >= invoice.amount.toNumber() ? "PAID" : invoice.status;
+      // 2️⃣ If completed and linked to an invoice, bump its paidAmount & maybe mark PAID
+      if (payload.status === "COMPLETED" && payment.invoice) {
+        const inv = payment.invoice;
+        // invoice.amount & paidAmount are Decimal instances
+        const newPaid = inv.paidAmount.plus(payment.amount);
+        const newStatus =
+          newPaid.gte(inv.amount) ? "PAID" : inv.status;
 
-        await prisma.invoice.update({
-          where: { id: invoice.id },
+        await tx.invoice.update({
+          where: { id: inv.id },
           data: {
-            paidAmount: { increment: payment.amount },
-            status: updatedStatus,
+            paidAmount: { set: newPaid },
+            status: newStatus,
           },
         });
       }
-    }
 
-    return NextResponse.json(payment, { status: 200 });
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error processing webhook:', error.message);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    } else {
-      console.error('Unexpected error processing webhook:', error);
-      return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
-    }
+      return payment;
+    });
+
+    return NextResponse.json(updatedPayment, { status: 200 });
+  } catch (err) {
+    console.error("Error processing webhook:", err);
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Unknown error" },
+      { status: 500 }
+    );
   }
 }
