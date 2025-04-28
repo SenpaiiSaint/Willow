@@ -75,12 +75,12 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Michael Chen",
+      name: "Marlene Thomas",
       role: "Real Estate Investor",
       image: "/testimonial-2.jpg",
       text: "The reporting features are incredible. I can track all my properties' performance in real-time and make data-driven decisions.",
       rating: 5,
-      company: "Chen Investments",
+      company: "Aura Investments",
     },
     {
       id: 3,
@@ -196,11 +196,24 @@ export default function Home() {
                 transition={{ delay: 0.8 }}
               >
                 <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map((i) => (
+                  {[
+                    '/images/profiles/profile1.jpg',
+                    '/images/profiles/profile2.jpg',
+                    '/images/profiles/profile3.jpg',
+                    '/images/profiles/profile4.jpg'
+                  ].map((src, i) => (
                     <div
                       key={i}
-                      className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white"
-                    />
+                      className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white"
+                    >
+                      <Image
+                        src={src}
+                        alt={`Profile ${i + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="32px"
+                      />
+                    </div>
                   ))}
                 </div>
                 <span>Trusted by 1000+ property managers</span>

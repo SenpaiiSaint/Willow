@@ -26,14 +26,13 @@ const features = [
     id: 'property-management',
     title: 'Property Management',
     description: 'Efficiently manage all your properties in one place with our comprehensive dashboard.',
-    icon: BuildingOfficeIcon,
     benefits: [
       'Centralized property information',
       'Automated rent collection',
       'Maintenance tracking',
       'Document storage',
     ],
-    image: '/features/property-management.jpg',
+    image: '/images/tulum.jpg',
   },
   {
     id: 'lease-management',
@@ -181,7 +180,7 @@ export default function FeaturesPage() {
             <div className="flex">
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="text-2xl font-bold text-indigo-600">
-                  RentPlatform
+                  RentPay
                 </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -288,7 +287,9 @@ export default function FeaturesPage() {
                 onClick={() => setActiveFeature(feature)}
               >
                 <div className="flex items-center gap-x-4">
-                  <feature.icon className="h-12 w-12 text-indigo-600" aria-hidden="true" />
+                  {feature.icon && (
+                    <feature.icon className="h-12 w-12 text-indigo-600" aria-hidden="true" />
+                  )}
                   <div>
                     <h3 className="text-lg font-semibold leading-6 text-gray-900">
                       {feature.title}
