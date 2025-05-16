@@ -3,6 +3,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import { Prisma } from '@prisma/client';
 import {
   createTenantSchema,
   updateTenantSchema,
@@ -24,7 +25,7 @@ const deleteTenantQuery = z.object({
 
 //–– Shared Prisma include definitions
 
-const listInclude = {
+const listInclude: Prisma.TenantInclude = {
   properties: {
     select: { id: true, address: true, type: true, status: true },
   },
@@ -71,7 +72,7 @@ const listInclude = {
   },
 };
 
-const detailInclude = {
+const detailInclude: Prisma.TenantInclude = {
   properties: { select: { address: true } },
   invoices: {
     select: { id: true, amount: true, paidAmount: true, status: true, dueDate: true },

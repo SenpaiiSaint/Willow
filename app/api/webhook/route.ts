@@ -15,7 +15,8 @@ const webhookSchema = z.object({
   status: z.enum(["PENDING", "COMPLETED", "FAILED"]),
 });
 
-const paymentInclude = {
+//–– Shared Prisma include definitions
+const paymentInclude: Prisma.PaymentInclude = {
   invoice: {
     select: {
       id: true,

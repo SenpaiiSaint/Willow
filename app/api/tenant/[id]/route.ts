@@ -27,7 +27,7 @@ export async function GET(
   const parsed = idParamSchema.safeParse({ id });
   if (!parsed.success) {
     return NextResponse.json(
-      { error: parsed.error.errors.map(e => e.message).join(', ') },
+      { error: parsed.error.errors.map((e: { message: string }) => e.message).join(', ') },
       { status: 400 }
     );
   }

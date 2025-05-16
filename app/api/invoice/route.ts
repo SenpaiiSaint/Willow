@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import { Prisma } from '@prisma/client';
 import {
   createInvoiceSchema,
   updateInvoiceSchema,
@@ -12,7 +13,7 @@ export const revalidate = 30;
 
 // -- shared config/validators --
 
-const invoiceInclude = {
+const invoiceInclude: Prisma.InvoiceInclude = {
   tenant:   { select: { name: true, email: true } },
   property: { select: { address: true } },
 };
@@ -81,8 +82,8 @@ export async function GET(request: NextRequest) {
     }
 
     // build a `where` only with defined filters
-    const where: Record<string, string> = {};
-    if (tenantId)   where.tenantId   = tenantId;
+    const where: Prisma.InvoiceWhereInput = {};
+    if (tenantId) where.tenantId = tenantId;
     if (propertyId) where.propertyId = propertyId;
 
     const invoices = await prisma.invoice.findMany({
