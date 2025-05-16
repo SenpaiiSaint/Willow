@@ -14,7 +14,7 @@ export default function TermsPage() {
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
       <div className="prose">
         <p className="mb-4">
-          Welcome to RentPlatform. By accessing or using our service, you agree to be bound by these terms.
+          Welcome to RentPlatfaorm. By accessing or using our service, you agree to be bound by these terms.
         </p>
         <h2 className="text-xl font-semibold mb-2">1. Service Description</h2>
         <p className="mb-4">
