@@ -16,6 +16,7 @@ import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
   CheckCircleIcon,
+  BuildingOfficeIcon,
 } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/lib/utils/format";
 
@@ -30,18 +31,18 @@ interface Tenant {
 }
 
 interface DashboardStats {
+  totalProperties: number;
   totalTenants: number;
-  totalInvoices: number;
-  totalRevenue: number;
-  pendingInvoices: number;
+  activeLeases: number;
+  upcomingPayments: number;
 }
 
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats>({
+    totalProperties: 0,
     totalTenants: 0,
-    totalInvoices: 0,
-    totalRevenue: 0,
-    pendingInvoices: 0,
+    activeLeases: 0,
+    upcomingPayments: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,29 +52,19 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("/api/tenant", {
-          headers: { "Content-Type": "application/json" },
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/dashboard/stats', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || "Failed to fetch tenants");
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch dashboard stats');
         }
-        const tenants: Tenant[] = await res.json();
 
-        // Compute metrics
-        const totalTenants = tenants.length;
-        const allInvoices = tenants.flatMap((t) => t.invoices);
-
-        const totalInvoices = allInvoices.length;
-        const totalRevenue = allInvoices.reduce(
-          (sum, inv) => sum + Number(inv.paidAmount),
-          0
-        );
-        const pendingInvoices = allInvoices.filter(
-          (inv) => inv.status === "UNPAID"
-        ).length;
-
-        setStats({ totalTenants, totalInvoices, totalRevenue, pendingInvoices });
+        const data = await response.json();
+        setStats(data);
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
         setError(err instanceof Error ? err.message : "Failed to load data");
@@ -105,26 +96,26 @@ export default function Dashboard() {
 
   const statsCards = [
     {
-      name: "Total Tenants",
-      value: stats.totalTenants,
-      icon: UserGroupIcon,
+      name: "Total Properties",
+      value: stats.totalProperties,
+      icon: BuildingOfficeIcon,
       change: "+4.75%",
       changeType: "positive",
       gradient: "from-blue-100 to-blue-50",
       iconColor: "text-blue-600",
     },
     {
-      name: "Total Revenue",
-      value: formatCurrency(stats.totalRevenue),
-      icon: CurrencyDollarIcon,
+      name: "Total Tenants",
+      value: stats.totalTenants,
+      icon: UsersIcon,
       change: "+54.02%",
       changeType: "positive",
       gradient: "from-purple-100 to-purple-50",
       iconColor: "text-purple-600",
     },
     {
-      name: "Total Invoices",
-      value: stats.totalInvoices,
+      name: "Active Leases",
+      value: stats.activeLeases,
       icon: DocumentTextIcon,
       change: "-1.39%",
       changeType: "negative",
@@ -132,8 +123,8 @@ export default function Dashboard() {
       iconColor: "text-indigo-600",
     },
     {
-      name: "Pending Invoices",
-      value: stats.pendingInvoices,
+      name: "Upcoming Payments",
+      value: stats.upcomingPayments,
       icon: ClockIcon,
       change: "+10.18%",
       changeType: "negative",

@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Rent Payment Platform",
-  description: "A full-stack demo using Next.js 14+, Tailwind CSS, and Framer Motion",
+  title: "RentPlatform - Modern Property Management",
+  description: "Streamline your property management with our comprehensive platform. Handle properties, tenants, leases, and payments all in one place.",
 };
 
 export default function RootLayout({
@@ -18,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen bg-white text-gray-900">{children}</body>
+    <html lang="en">
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }

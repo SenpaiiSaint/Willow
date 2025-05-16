@@ -1,65 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { HomeIcon, BuildingOfficeIcon, UserGroupIcon, DocumentTextIcon, CreditCardIcon } from '@heroicons/react/24/outline'
+import Navigation from './components/Navigation';
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const features = [
     {
-      title: "Automated Rent Collection",
-      description:
-        "Set up recurring payments and automated reminders to ensure timely rent collection.",
-      icon: "💰",
-      stats: "98% on-time payments",
+      name: 'Property Management',
+      description: 'Easily manage your properties, track maintenance requests, and handle tenant communications all in one place.',
+      icon: BuildingOfficeIcon,
+      stats: '98% satisfaction rate',
     },
     {
-      title: "Tenant Management",
-      description:
-        "Easily manage tenant information, lease agreements, and communication in one place.",
-      icon: "👥",
-      stats: "5000+ active tenants",
+      name: 'Tenant Portal',
+      description: 'Provide your tenants with a secure portal to pay rent, submit maintenance requests, and communicate with property managers.',
+      icon: UserGroupIcon,
+      stats: '5000+ active tenants',
     },
     {
-      title: "Payment Tracking",
-      description:
-        "Track all payments, generate receipts, and maintain detailed financial records.",
-      icon: "📊",
-      stats: "100% payment visibility",
+      name: 'Lease Management',
+      description: 'Create, track, and manage leases digitally. Store all lease documents securely and access them anytime.',
+      icon: DocumentTextIcon,
+      stats: '100% digital process',
     },
     {
-      title: "Automated Reminders",
-      description:
-        "Send automated payment reminders to tenants and receive notifications for late payments.",
-      icon: "⏰",
-      stats: "80% reduction in late payments",
-    },
-    {
-      title: "Financial Reporting",
-      description:
-        "Generate comprehensive reports and analytics for better financial management.",
-      icon: "📈",
-      stats: "Real-time analytics",
-    },
-    {
-      title: "Secure Payments",
-      description:
-        "Bank-level security for all transactions with multiple payment options.",
-      icon: "🔒",
-      stats: "100% secure transactions",
+      name: 'Payment Processing',
+      description: 'Accept rent payments online, track payment history, and automate late fee calculations.',
+      icon: CreditCardIcon,
+      stats: '80% reduction in late payments',
     },
   ];
 
@@ -95,374 +69,192 @@ export default function Home() {
 
   return (
     <>
-      {/* Header */}
-      <header
-        className={`fixed w-full z-50 transition-all duration-300 backdrop-blur-md ${
-          isScrolled ? "bg-white/80 shadow-md py-2" : "bg-transparent py-4"
-        }`}
-      >
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link
-              href="/"
-              className="text-2xl font-bold text-gray-900 flex items-center gap-2"
-            >
-              <span className="text-4xl font-bold bg bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                RentPay
-              </span>
-            </Link>
-          </motion.div>
-          <nav className="hidden md:flex space-x-8">
-            {["About Us", "Features", "Pricing", "Contact", "Dashboard"].map((item) => (
-              <Link
-                key={item}
-                href={item === "Dashboard" ? "/dashboard" : item === "About Us" ? "/about-us" : `/${item.toLowerCase()}`}
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
-              >
-                {item}
-              </Link>
-            ))}
-          </nav>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-colors"
-            onClick={() => window.location.href = "/dashboard"}
-          >
-            Dashboard
-          </motion.button>
-        </div>
-      </header>
-
-      <main>
-        {/* Hero Section */}
-        <section className="relative min-h-screen border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div className="absolute inset-0 bg-black/5" />
-          <div className="relative container mx-auto px-4 h-full flex flex-col justify-center pt-32">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-3xl"
-            >
-              <motion.h1
-                className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                Streamline Your Property Management with{" "}
-                <span className="text-blue-600">Smart Automation</span>
-              </motion.h1>
-              <motion.p
-                className="text-xl text-gray-600 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                Automate rent collection, manage tenants, and track payments
-                with our secure platform. Built for property managers who value
-                efficiency and reliability.
-              </motion.p>
-              <motion.div
-                className="flex flex-col md:flex-row gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <input
-                  type="text"
-                  placeholder="Enter your email to get started..."
-                  className="flex-1 p-4 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
-                >
-                  Get Started Free
-                </motion.button>
-              </motion.div>
-              <motion.div
-                className="mt-8 flex items-center gap-4 text-gray-600"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-                <div className="flex -space-x-2">
-                  {[
-                    '/images/profiles/profile1.jpg',
-                    '/images/profiles/profile2.jpg',
-                    '/images/profiles/profile3.jpg',
-                    '/images/profiles/profile4.jpg'
-                  ].map((src, i) => (
-                    <div
-                      key={i}
-                      className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white"
+      <Navigation />
+      <main className="pt-16">
+        {/* Hero section */}
+        <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
+          <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+            <div className="px-6 lg:px-0 lg:pt-4">
+              <div className="mx-auto max-w-2xl">
+                <div className="max-w-lg">
+                  <motion.h1 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+                  >
+                    Modern Property Management
+                  </motion.h1>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="mt-6 text-lg leading-8 text-gray-600"
+                  >
+                    Streamline your property management with our comprehensive platform. Handle properties, tenants, leases, and payments all in one place.
+                  </motion.p>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="mt-10 flex items-center gap-x-6"
+                  >
+                    <Link
+                      href="/register"
+                      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      <Image
-                        src={src}
-                        alt={`Profile ${i + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="32px"
-                      />
-                    </div>
-                  ))}
+                      Get started
+                    </Link>
+                    <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+                      Sign in <span aria-hidden="true">→</span>
+                    </Link>
+                  </motion.div>
                 </div>
-                <span>Trusted by 1000+ property managers</span>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
 
-        {/* Features Section */}
-        <section className="py-24 border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto mb-16"
-            >
-              <h2 className="text-3xl font-bold mb-4">
-                Powerful Features for Property Managers
-              </h2>
-              <p className="text-gray-600">
-                Everything you need to manage your properties efficiently
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Feature section */}
+        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-2xl lg:text-center"
+          >
+            <h2 className="text-base font-semibold leading-7 text-indigo-600">Everything you need</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Comprehensive Property Management
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Our platform provides all the tools you need to manage your properties efficiently and effectively.
+            </p>
+          </motion.div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
               {features.map((feature, index) => (
                 <motion.div
-                  key={feature.title}
+                  key={feature.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -10 }}
-                  className={`bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all cursor-pointer ${
-                    activeFeature === index ? "ring-2 ring-blue-500" : ""
+                  className={`flex flex-col p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all ${
+                    activeFeature === index ? "ring-2 ring-indigo-500" : ""
                   }`}
                   onClick={() => setActiveFeature(index)}
                 >
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{feature.description}</p>
-                  <div className="text-blue-600 font-semibold">
-                    {feature.stats}
-                  </div>
+                  <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                    <feature.icon className="h-5 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                    {feature.name}
+                  </dt>
+                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                    <p className="flex-auto">{feature.description}</p>
+                    <p className="mt-4 text-sm font-semibold text-indigo-600">{feature.stats}</p>
+                  </dd>
                 </motion.div>
               ))}
-            </div>
+            </dl>
           </div>
-        </section>
+        </div>
 
-        {/* How It Works */}
-        <section className="py-24 border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto mb-16"
-            >
-              <h2 className="text-3xl font-bold mb-4">
-                Simple Setup, Powerful Results
-              </h2>
-              <p className="text-gray-600">
-                Get started in minutes and see the difference
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                {
-                  step: "1",
-                  title: "Sign Up",
-                  description: "Create your account and add your properties",
-                },
-                {
-                  step: "2",
-                  title: "Add Tenants",
-                  description:
-                    "Invite tenants and set up their payment methods",
-                },
-                {
-                  step: "3",
-                  title: "Automate",
-                  description: "Set up automated rent collection and reminders",
-                },
-                {
-                  step: "4",
-                  title: "Manage",
-                  description:
-                    "Track payments and manage your properties efficiently",
-                },
-              ].map((step, index) => (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">
-                    {step.step}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className="py-24 border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto mb-16"
-            >
-              <h2 className="text-3xl font-bold mb-4">What Our Clients Say</h2>
-              <p className="text-gray-600">
-                Join thousands of satisfied property managers
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <motion.figure
-                  key={testimonial.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all"
-                >
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 rounded-full bg-gray-200 mr-4 overflow-hidden">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        width={64}
-                        height={64}
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-gray-600">{testimonial.role}</p>
-                      <p className="text-sm text-gray-500">
-                        {testimonial.company}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400">
-                        ⭐
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-gray-700 italic">&ldquo;{testimonial.text}&rdquo;</p>
-                </motion.figure>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-24 border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="max-w-3xl mx-auto"
-            >
-              <h2 className="text-3xl font-bold mb-4">
-                Ready to Streamline Your Property Management?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Join thousands of property managers who have simplified their
-                rent collection and tenant management.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+        {/* Testimonials section */}
+        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-2xl lg:text-center"
+          >
+            <h2 className="text-base font-semibold leading-7 text-indigo-600">Testimonials</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Trusted by Property Managers
+            </p>
+          </motion.div>
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {testimonials.map((testimonial, index) => (
+              <motion.figure
+                key={testimonial.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-900/5"
               >
-                Start Free Trial
-              </motion.button>
-            </motion.div>
+                <div className="flex items-center gap-x-4">
+                  <Image
+                    className="h-10 w-10 rounded-full bg-gray-50"
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    width={40}
+                    height={40}
+                  />
+                  <div>
+                    <div className="font-semibold">{testimonial.name}</div>
+                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+                  </div>
+                </div>
+                <blockquote className="mt-6 text-gray-900">
+                  <p>{testimonial.text}</p>
+                </blockquote>
+                <div className="mt-4 flex items-center gap-x-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className="text-yellow-400">★</span>
+                  ))}
+                </div>
+              </motion.figure>
+            ))}
           </div>
-        </section>
+        </div>
+
+        {/* CTA section */}
+        <div className="mx-auto mt-32 max-w-7xl sm:mt-56">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-center shadow-2xl sm:rounded-3xl sm:px-16"
+          >
+            <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Start managing your properties today
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
+              Join thousands of property managers who trust our platform to handle their rental properties.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Link
+                href="/register"
+                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Get started
+              </Link>
+              <Link href="/login" className="text-sm font-semibold leading-6 text-white">
+                Sign in <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50 text-gray-900 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="text-blue-600">RentPay</span>
-              </h3>
-              <p className="text-gray-600">
-                Your trusted partner in property management and rent collection.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                {["About Us", "Features", "Pricing", "Contact"].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href={item === "About Us" ? "/about-us" : `/${item.toLowerCase()}`}
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li>Email: support@rentplatform.com</li>
-                <li>Phone: (123) 456-7890</li>
-                <li>Address: 123 Business Ave, Suite 100</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
-              <div className="flex space-x-4">
-                {["Facebook", "Twitter", "LinkedIn"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-gray-600 hover:text-blue-600 transition-colors"
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
+      <footer className="bg-white mt-32">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+          <div className="flex justify-center space-x-6 md:order-2">
+            <Link href="/privacy" className="text-gray-400 hover:text-gray-500">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-gray-400 hover:text-gray-500">
+              Terms
+            </Link>
+            <Link href="/contact" className="text-gray-400 hover:text-gray-500">
+              Contact
+            </Link>
           </div>
-          <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-600">
-            <p>
-              &copy; {new Date().getFullYear()} RentPlatform. All rights
-              reserved.
+          <div className="mt-8 md:order-1 md:mt-0">
+            <p className="text-center text-xs leading-5 text-gray-500">
+              &copy; {new Date().getFullYear()} RentPlatform. All rights reserved.
             </p>
           </div>
         </div>
