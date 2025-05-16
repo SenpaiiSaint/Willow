@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
 // Force truly dynamic rendering
@@ -13,8 +13,9 @@ const idParamSchema = z.object({
 
 // Zod schema for tenant creation
 const createTenantSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
+  userId: z.string().uuid('Invalid user ID'),
+  propertyId: z.string().uuid('Invalid property ID'),
+  leaseId: z.string().uuid('Invalid lease ID').optional(),
 });
 
 // GET /api/tenant/[id]
@@ -36,8 +37,11 @@ export async function GET(
     const tenant = await prisma.tenant.findUnique({
       where: { id },
       include: {
-        invoices: { orderBy: { dueDate: 'asc' } },
-        payments: { orderBy: { createdAt: 'desc' } },
+        lease: {
+          include: {
+            payments: { orderBy: { createdAt: 'desc' } }
+          }
+        }
       },
     });
 
@@ -63,8 +67,9 @@ export async function POST(request: NextRequest) {
 
     const newTenant = await prisma.tenant.create({
       data: {
-        name: validated.name,
-        email: validated.email,
+        userId: validated.userId,
+        propertyId: validated.propertyId,
+        leaseId: validated.leaseId,
       },
     });
 

@@ -1,13 +1,9 @@
 // app/api/tenant/route.ts
 
 import { NextResponse, NextRequest } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 import { Prisma } from '@prisma/client';
-import {
-  createTenantSchema,
-  updateTenantSchema,
-} from '@/lib/validations/tenant';
 
 // truly dynamic + no caching
 export const dynamic    = 'force-dynamic';
@@ -23,65 +19,44 @@ const deleteTenantQuery = z.object({
   id: z.string().uuid('Invalid tenant ID'),
 });
 
+const createTenantSchema = z.object({
+  userId: z.string().uuid('Invalid user ID'),
+  propertyId: z.string().uuid('Invalid property ID'),
+});
+
+const updateTenantSchema = z.object({
+  id: z.string().uuid('Invalid tenant ID'),
+  propertyId: z.string().uuid('Invalid property ID'),
+});
+
 //–– Shared Prisma include definitions
 
 const listInclude: Prisma.TenantInclude = {
-  properties: {
-    select: { id: true, address: true, type: true, status: true },
+  property: {
+    select: { id: true, address: true },
   },
-  leaseAgreements: {
+  user: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+  },
+  lease: {
     select: {
       id: true,
       startDate: true,
       endDate: true,
       rentAmount: true,
       status: true,
-      terms: true,
-    },
-  },
-  invoices: {
-    select: {
-      id: true,
-      amount: true,
-      paidAmount: true,
-      status: true,
-      dueDate: true,
-      createdAt: true,
-    },
-    orderBy: { dueDate: 'asc' as const },
-  },
-  payments: {
-    select: {
-      id: true,
-      amount: true,
-      status: true,
-      createdAt: true,
-      method: true,
-    },
-    orderBy: { createdAt: 'desc' as const },
-  },
-  maintenanceRequests: {
-    select: {
-      id: true,
-      type: true,
-      priority: true,
-      status: true,
-      description: true,
-      createdAt: true,
     },
   },
 };
 
 const detailInclude: Prisma.TenantInclude = {
-  properties: { select: { address: true } },
-  invoices: {
-    select: { id: true, amount: true, paidAmount: true, status: true, dueDate: true },
-    orderBy: { dueDate: 'asc' as const },
-  },
-  payments: {
-    select: { id: true, amount: true, status: true, createdAt: true },
-    orderBy: { createdAt: 'desc' as const },
-  },
+  property: { select: { address: true } },
+  user: { select: { name: true, email: true } },
+  lease: { select: { id: true, status: true } },
 };
 
 //–– Error utilities
@@ -135,7 +110,7 @@ export async function GET(request: NextRequest) {
 
     // build `where` only if propertyId is provided
     const where = q.propertyId
-      ? { properties: { some: { id: q.propertyId } } }
+      ? { propertyId: q.propertyId }
       : {};
 
     const tenants = await prisma.tenant.findMany({
@@ -163,16 +138,30 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const dto = createTenantSchema.parse(await request.json());
+    const body = await request.json();
+    const validatedData = createTenantSchema.parse(body);
 
     const tenant = await prisma.tenant.create({
-      data: dto,
+      data: {
+        userId: validatedData.userId,
+        propertyId: validatedData.propertyId,
+      },
       include: detailInclude,
     });
 
-    return NextResponse.json(tenant, { status: 201 });
-  } catch (err) {
-    return handleError(err);
+    return NextResponse.json(tenant);
+  } catch (error) {
+    console.error('Error creating tenant:', error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: error.errors.map((e: { message: string }) => e.message).join(', ') },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: 'Failed to create tenant' },
+      { status: 500 }
+    );
   }
 }
 
@@ -182,18 +171,30 @@ export async function POST(request: NextRequest) {
  */
 export async function PATCH(request: NextRequest) {
   try {
-    const dto = updateTenantSchema.parse(await request.json());
-    const { id, ...updates } = dto;
+    const body = await request.json();
+    const validatedData = updateTenantSchema.parse(body);
 
     const tenant = await prisma.tenant.update({
-      where: { id },
-      data: updates,
+      where: { id: validatedData.id },
+      data: {
+        propertyId: validatedData.propertyId,
+      },
       include: detailInclude,
     });
 
     return NextResponse.json(tenant);
-  } catch (err) {
-    return handleError(err);
+  } catch (error) {
+    console.error('Error updating tenant:', error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: error.errors.map((e: { message: string }) => e.message).join(', ') },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json(
+      { error: 'Failed to update tenant' },
+      { status: 500 }
+    );
   }
 }
 
