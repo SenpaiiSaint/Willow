@@ -9,6 +9,7 @@ export async function POST(req: Request) {
   try {
     // Parse request body
     const body = await req.json();
+    console.log('Login attempt for:', body.email);
     
     // Validate input using shared schema
     const { email, password } = await signInSchema.parseAsync(body);
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
+      console.log('User not found:', email);
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
@@ -32,11 +34,14 @@ export async function POST(req: Request) {
     // Verify password
     const isValidPassword = await bcrypt.compare(password, user.password || '');
     if (!isValidPassword) {
+      console.log('Invalid password for user:', email);
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       );
     }
+
+    console.log('User authenticated:', { id: user.id, email: user.email, role: user.role?.name });
 
     // Update last login
     await prisma.user.update({
@@ -68,15 +73,29 @@ export async function POST(req: Request) {
       },
     });
 
-    // Set token in cookie
-    response.cookies.set('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+    // Set token in cookie with development-friendly settings
+    response.cookies.set({
+      name: 'token',
+      value: token,
+      httpOnly: false, // Changed to false for development to allow client-side access
+      secure: false, // Changed to false for development
+      sameSite: 'lax',
       maxAge: 24 * 60 * 60, // 24 hours
       path: '/',
     });
 
+    // Also set a non-httpOnly cookie for development debugging
+    response.cookies.set({
+      name: 'token_debug',
+      value: token,
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60,
+      path: '/',
+    });
+
+    console.log('Login successful, cookies set for user:', email);
     return response;
   } catch (error) {
     console.error('Login error:', error);
