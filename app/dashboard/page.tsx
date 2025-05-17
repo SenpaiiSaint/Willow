@@ -143,13 +143,13 @@ export default function Dashboard() {
     switch (user.role) {
       case 'ADMIN':
         return [
-          {
+    {
             name: "Total Organizations",
             value: stats.totalOrganizations || 0,
             icon: BuildingOfficeIcon,
-            gradient: "from-blue-100 to-blue-50",
-            iconColor: "text-blue-600",
-          },
+      gradient: "from-blue-100 to-blue-50",
+      iconColor: "text-blue-600",
+    },
           {
             name: "Total Properties",
             value: stats.totalProperties || 0,
@@ -164,10 +164,10 @@ export default function Dashboard() {
             gradient: "from-indigo-100 to-indigo-50",
             iconColor: "text-indigo-600",
           },
-          {
-            name: "Total Revenue",
+    {
+      name: "Total Revenue",
             value: formatCurrency(stats.totalRevenue || 0),
-            icon: CurrencyDollarIcon,
+      icon: CurrencyDollarIcon,
             gradient: "from-green-100 to-green-50",
             iconColor: "text-green-600",
           },
@@ -207,24 +207,24 @@ export default function Dashboard() {
             name: "Total Tenants",
             value: stats.totalTenants || 0,
             icon: UsersIcon,
-            gradient: "from-purple-100 to-purple-50",
-            iconColor: "text-purple-600",
-          },
-          {
+      gradient: "from-purple-100 to-purple-50",
+      iconColor: "text-purple-600",
+    },
+    {
             name: "Active Leases",
             value: stats.activeLeases || 0,
-            icon: DocumentTextIcon,
-            gradient: "from-indigo-100 to-indigo-50",
-            iconColor: "text-indigo-600",
-          },
-          {
+      icon: DocumentTextIcon,
+      gradient: "from-indigo-100 to-indigo-50",
+      iconColor: "text-indigo-600",
+    },
+    {
             name: "Upcoming Payments",
             value: stats.upcomingPayments || 0,
-            icon: ClockIcon,
-            gradient: "from-pink-100 to-pink-50",
-            iconColor: "text-pink-600",
-          },
-        ];
+      icon: ClockIcon,
+      gradient: "from-pink-100 to-pink-50",
+      iconColor: "text-pink-600",
+    },
+  ];
     }
   };
 
@@ -243,11 +243,11 @@ export default function Dashboard() {
         ];
       default:
         return [
-          { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-          { name: 'Tenants', href: '/dashboard/tenants', icon: UsersIcon },
-          { name: 'Invoices', href: '/dashboard/invoices', icon: DocumentTextIcon },
-          { name: 'Payments', href: '/dashboard/payments', icon: CreditCardIcon },
-        ];
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+    { name: 'Tenants', href: '/dashboard/tenants', icon: UsersIcon },
+    { name: 'Invoices', href: '/dashboard/invoices', icon: DocumentTextIcon },
+    { name: 'Payments', href: '/dashboard/payments', icon: CreditCardIcon },
+  ];
     }
   };
 
@@ -346,46 +346,46 @@ export default function Dashboard() {
       {/* Main content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6 mb-8">
-            <div className="flex flex-col space-y-2">
-              <h1 className="text-3xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6 mb-8">
+          <div className="flex flex-col space-y-2">
+            <h1 className="text-3xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {user?.role === 'ADMIN' ? 'System Dashboard' : 'Dashboard'}
-              </h1>
-              <p className="text-sm text-gray-500">
+            </h1>
+            <p className="text-sm text-gray-500">
                 {user?.role === 'ADMIN' 
                   ? 'Welcome back! Here\'s an overview of your rental platform.'
                   : 'Welcome back! Here\'s what\'s happening with your properties.'}
-              </p>
-            </div>
+            </p>
           </div>
+        </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {statsCards.map((item) => (
-              <div
+            <div
                 key={item.name}
                 className={`bg-gradient-to-br ${item.gradient} rounded-lg shadow-sm p-6`}
-              >
+            >
                 <div className="flex items-center">
                   <div className={`flex-shrink-0 p-3 rounded-md ${item.iconColor} bg-white/50`}>
                     <item.icon className="h-6 w-6" aria-hidden="true" />
-                  </div>
+                </div>
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">{item.name}</dt>
                       <dd className="text-lg font-semibold text-gray-900">{item.value}</dd>
                     </dl>
-                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
           {user?.role === 'ADMIN' && (
-            <div className="mt-8">
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="mt-8">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm p-6">
+            <h2 className="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   System Status
-                </h2>
+            </h2>
                 <div className="mt-4">
                   <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                     stats.systemHealth?.status === 'healthy'
@@ -396,8 +396,8 @@ export default function Dashboard() {
                   }`}>
                     {stats.systemHealth?.message || 'All systems operational'}
                   </div>
-                </div>
-              </div>
+                  </div>
+                  </div>
             </div>
           )}
         </div>

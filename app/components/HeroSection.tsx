@@ -1,0 +1,20 @@
+import React from 'react';
+import Link from 'next/link';
+
+export default function HeroSection() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+      <img
+        src="/hero-bg.jpg"
+        alt="Modern property management"
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+      />
+      <div className="relative z-10 max-w-3xl mx-auto text-center text-white py-24 px-4">
+        <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">A website makes it real</h1>
+        <p className="text-lg md:text-2xl font-light mb-8">Modern property management, made simple. Manage, rent, and grow—all in one place.</p>
+        <Link href="/register" className="inline-block rounded-full bg-white text-black font-bold px-8 py-4 text-lg shadow-lg hover:bg-gray-100 transition">Get Started</Link>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent" />
+    </section>
+  );
+} 
