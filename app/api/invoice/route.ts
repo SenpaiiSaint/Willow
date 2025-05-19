@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
-import { Prisma, PaymentStatus } from '@prisma/client';
+
 import {
   createInvoiceSchema,
   updateInvoiceSchema,
@@ -13,7 +13,7 @@ export const revalidate = 30;
 
 // -- shared config/validators --
 
-const paymentInclude: Prisma.PaymentInclude = {
+const paymentInclude = {
   tenant:   { select: { name: true, email: true } },
   property: { select: { address: true } },
 };
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
     }
 
     // build a `where` only with defined filters
-    const where: Prisma.PaymentWhereInput = {};
+    const where: Record<string, unknown> = {};
     if (tenantId) where.tenantId = tenantId;
     if (propertyId) where.propertyId = propertyId;
 
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
   try {
     const dto = createInvoiceSchema.parse(await request.json());
     const payment = await prisma.payment.create({
-      data: { ...dto, status: PaymentStatus.PENDING },
+      data: { ...dto, status: 'PENDING' },
       include: paymentInclude,
     });
     return NextResponse.json(payment, { status: 201 });
