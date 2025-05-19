@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     prisma.user.update({
       where: { id: user.id },
       data: { lastLogin: new Date() },
-    }).catch((updateError) => {
+    }).catch((updateError: unknown) => {
       console.error('Database error during lastLogin update:', updateError);
     });
 

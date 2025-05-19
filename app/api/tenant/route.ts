@@ -31,7 +31,7 @@ const updateTenantSchema = z.object({
 
 //–– Shared Prisma include definitions
 
-const listInclude: Prisma.TenantInclude = {
+const listInclude = {
   property: {
     select: { id: true, address: true },
   },
@@ -53,7 +53,7 @@ const listInclude: Prisma.TenantInclude = {
   },
 };
 
-const detailInclude: Prisma.TenantInclude = {
+const detailInclude = {
   property: { select: { address: true } },
   user: { select: { name: true, email: true } },
   lease: { select: { id: true, status: true } },
