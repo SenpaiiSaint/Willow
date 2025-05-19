@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { boska } from '../fonts';
 
 const faqs = [
   {
-    question: 'How do I get started with RentPlatform?',
+    question: 'How do I get started with Willow?',
     answer: 'Simply sign up for a free account, add your properties, and start managing tenants, payments, and maintenance requests from your dashboard.'
   },
   {
     question: 'Can I collect rent online?',
-    answer: 'Yes! RentPlatform allows you to collect rent payments online securely and automatically, with reminders for tenants and instant notifications for you.'
+    answer: 'Yes! Willow allows you to collect rent payments online securely and automatically, with reminders for tenants and instant notifications for you.'
   },
   {
     question: 'Is there support if I need help?',
@@ -65,11 +66,11 @@ const supportOptions = [
 export default function FAQAccordion() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   return (
-    <section className="py-20 bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-16 items-start md:items-stretch">
+    <section className="py-24 md:py-32 bg-black text-white">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-20 items-start md:items-stretch">
         {/* Title on the left */}
         <div className="flex-1 flex flex-col justify-start items-start w-full max-w-md mx-auto md:mx-0 mb-12 md:mb-0">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4 text-left">Frequently Asked Questions</h2>
+          <h2 className={`${boska.className} font-extrabold text-4xl md:text-6xl text-white mb-8 text-left drop-shadow-lg`}>Frequently Asked Questions</h2>
         </div>
         {/* FAQ accordion on the right */}
         <div className="flex-1 w-full max-w-2xl mx-auto md:mx-0">
@@ -77,13 +78,13 @@ export default function FAQAccordion() {
             {faqs.map((faq, idx) => {
               const isOpen = openIdx === idx;
               return (
-                <div key={faq.question}>
+                <div key={faq.question} className="mb-2">
                   <button
                     className="w-full flex justify-between items-center py-6 text-left focus:outline-none group"
                     onClick={() => setOpenIdx(isOpen ? null : idx)}
                     aria-expanded={isOpen}
                   >
-                    <span className="text-lg md:text-xl font-medium text-white group-hover:text-white transition-colors">{faq.question}</span>
+                    <span className="text-lg md:text-xl font-semibold text-white group-hover:text-indigo-300 transition-colors">{faq.question}</span>
                     <span
                       className={`ml-4 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
                     >
@@ -94,10 +95,10 @@ export default function FAQAccordion() {
                     </span>
                   </button>
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-40 opacity-100 bg-gray-800 rounded-xl shadow-lg border border-gray-700' : 'max-h-0 opacity-0'} pl-4 pr-8`}
                     aria-hidden={!isOpen}
                   >
-                    <p className="text-gray-300 text-base font-light pb-6 pl-1 pr-8">{faq.answer}</p>
+                    <p className="text-gray-200 text-lg font-light pb-6 pt-2">{faq.answer}</p>
                   </div>
                 </div>
               );
@@ -107,18 +108,18 @@ export default function FAQAccordion() {
       </div>
       {/* 24/7 Support Section */}
       <div className="max-w-7xl mx-auto px-4 mt-24">
-        <h3 className="text-2xl md:text-3xl font-black text-white mb-4 text-left">24/7 Support</h3>
-        <p className="text-base md:text-lg text-gray-300 font-light mb-10 text-left max-w-2xl">
+        <h3 className={`${boska.className} font-extrabold text-3xl md:text-5xl text-white mb-8 text-left drop-shadow-lg`}>24/7 Support</h3>
+        <p className="text-lg md:text-xl text-gray-300 font-light mb-12 text-left max-w-2xl">
           Our team is always here to help. Choose the support option that works best for you.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {supportOptions.map((option) => (
-            <div key={option.title} className="bg-black text-white border border-white rounded-none p-8 flex flex-col items-start justify-between h-full">
+            <div key={option.title} className="bg-black text-white border-2 border-sky-400 rounded-xl p-8 flex flex-col items-start justify-between h-full shadow-xl">
               <h4 className="text-lg md:text-xl font-bold mb-2">{option.title}</h4>
               <p className="text-base font-light mb-6 text-left">{option.description}</p>
               <a
                 href={option.href}
-                className="inline-block rounded-full border border-white bg-white text-black font-bold px-6 py-2 text-base shadow hover:bg-gray-100 hover:text-black transition"
+                className="inline-block rounded-full border border-sky-600 bg-sky-600 text-white font-bold px-6 py-2 text-base shadow hover:bg-sky-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all duration-200"
               >
                 {option.cta}
               </a>
