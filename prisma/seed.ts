@@ -1,4 +1,4 @@
-import { PrismaClient, RoleType, Currency, PaymentStatus, PaymentMethod, MaintenanceStatus, LeaseStatus } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -6,27 +6,27 @@ const prisma = new PrismaClient();
 async function main() {
   // Create roles first
   const adminRole = await prisma.role.upsert({
-    where: { name: RoleType.ADMIN },
+    where: { name: 'ADMIN' },
     update: {},
-    create: { name: RoleType.ADMIN },
+    create: { name: 'ADMIN' },
   });
 
   const ownerRole = await prisma.role.upsert({
-    where: { name: RoleType.OWNER },
+    where: { name: 'OWNER' },
     update: {},
-    create: { name: RoleType.OWNER },
+    create: { name: 'OWNER' },
   });
 
   const managerRole = await prisma.role.upsert({
-    where: { name: RoleType.PROPERTY_MANAGER },
+    where: { name: 'PROPERTY_MANAGER' },
     update: {},
-    create: { name: RoleType.PROPERTY_MANAGER },
+    create: { name: 'PROPERTY_MANAGER' },
   });
 
   const tenantRole = await prisma.role.upsert({
-    where: { name: RoleType.TENANT },
+    where: { name: 'TENANT' },
     update: {},
-    create: { name: RoleType.TENANT },
+    create: { name: 'TENANT' },
   });
 
   // Create users with roles
@@ -48,7 +48,7 @@ async function main() {
     update: {},
     create: {
       name: 'Demo Property Management',
-      currency: Currency.USD,
+      currency: 'USD',
       timezone: 'America/New_York',
       users: {
         connect: { id: admin.id }
@@ -160,9 +160,9 @@ async function main() {
     create: {
       propertyId: property.id,
       tenantId: tenantRecord.id,
-      status: LeaseStatus.ACTIVE,
+      status: 'ACTIVE',
       rentAmount: 2000.00,
-      currency: Currency.USD,
+      currency: 'USD',
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-12-31'),
       deposit: 2000.00,
@@ -190,8 +190,8 @@ async function main() {
       propertyId: property.id,
       tenantId: tenant.id,
       amount: 2000.00,
-      status: PaymentStatus.PAID,
-      method: PaymentMethod.BANK_TRANSFER,
+      status: 'PAID',
+      method: 'BANK_TRANSFER',
       dueDate: new Date('2024-01-01'),
       paidAt: new Date('2024-01-01'),
     },
@@ -211,7 +211,7 @@ async function main() {
       tenantId: tenant.id,
       assignedTo: manager.id,
       type: 'Plumbing',
-      status: MaintenanceStatus.PENDING,
+      status: 'PENDING',
       description: 'Leaking faucet in kitchen',
     },
   });
