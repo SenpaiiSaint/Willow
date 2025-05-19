@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { PaymentStatus } from '@prisma/client';
 
 export const createInvoiceSchema = z.object({
   tenantId: z.string().uuid(),
@@ -13,7 +12,7 @@ export const updateInvoiceSchema = z.object({
   id: z.string().uuid(),
   amount: z.number().positive().optional(),
   dueDate: z.string().datetime().optional(),
-  status: z.nativeEnum(PaymentStatus).optional(),
+  status: z.enum(['PENDING', 'PAID', 'FAILED']).optional(),
   description: z.string().optional(),
 });
 
