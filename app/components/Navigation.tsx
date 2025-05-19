@@ -34,17 +34,17 @@ export default function Navigation() {
           {
             title: "Property Management",
             items: [
-              { name: "Property Listings", href: "/features/listings" },
-              { name: "Tenant Screening", href: "/features/screening" },
-              { name: "Maintenance Requests", href: "/features/maintenance" },
+              { name: "Property Listings", href: "/features" },
+              { name: "Tenant Screening", href: "/features" },
+              { name: "Maintenance Requests", href: "/features" },
             ],
           },
           {
             title: "Financial Tools",
             items: [
-              { name: "Rent Collection", href: "/features/rent-collection" },
-              { name: "Expense Tracking", href: "/features/expenses" },
-              { name: "Financial Reports", href: "/features/reports" },
+              { name: "Rent Collection", href: "/features" },
+              { name: "Expense Tracking", href: "/features" },
+              { name: "Financial Reports", href: "/features" },
             ],
           },
         ],
@@ -60,9 +60,9 @@ export default function Navigation() {
           {
             title: "Plans",
             items: [
-              { name: "Starter", href: "/pricing/starter" },
-              { name: "Professional", href: "/pricing/professional" },
-              { name: "Enterprise", href: "/pricing/enterprise" },
+              { name: "Starter", href: "/pricing" },
+              { name: "Professional", href: "/pricing" },
+              { name: "Enterprise", href: "/pricing" },
             ],
           },
         ],
@@ -120,18 +120,27 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <div key={item.name} className="relative">
-                <button
-                  className={`group inline-flex items-center gap-x-1 text-lg font-light leading-6 border-transparent hover:text-sky-300 ${
-                    isScrolled ? "text-gray-900" : "text-white"
-                  } hover:opacity-90 transition-all`}
-                  onMouseEnter={() => setActiveMegaMenu(item.name)}
-                  onMouseLeave={() => setActiveMegaMenu(null)}
-                >
-                  {item.name}
-                  {item.megaMenu && (
+                {item.megaMenu ? (
+                  <button
+                    className={`group inline-flex items-center gap-x-1 text-lg font-light leading-6 border-transparent hover:text-sky-300 ${
+                      isScrolled ? "text-gray-900" : "text-white"
+                    } hover:opacity-90 transition-all`}
+                    onMouseEnter={() => setActiveMegaMenu(item.name)}
+                    onMouseLeave={() => setActiveMegaMenu(null)}
+                  >
+                    {item.name}
                     <ChevronDownIcon className="h-4 w-4 transition-transform group-hover:rotate-180" />
-                  )}
-                </button>
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={`group inline-flex items-center gap-x-1 text-lg font-light leading-6 border-transparent hover:text-sky-300 ${
+                      isScrolled ? "text-gray-900" : "text-white"
+                    } hover:opacity-90 transition-all`}
+                  >
+                    {item.name}
+                  </Link>
+                )}
 
                 {/* Mega Menu */}
                 {item.megaMenu && (
@@ -189,7 +198,7 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-8">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="/register"
+                href="/signin"
                 className={`rounded-full px-6 py-2.5 text-base font-bold  shadow-lg  hover:text-stone-400 focus:outline-none ${isScrolled ? 'text-black' : 'text-white'}`}
               >
                 Sign In 
@@ -219,7 +228,7 @@ export default function Navigation() {
               <div className="flex items-center justify-between">
                 <Link href="/" className="-m-1.5 p-1.5">
                   <span className="text-2xl font-black text-gray-900 tracking-tight">
-                    RentPlatform
+                    Willow
                   </span>
                 </Link>
                 <button
@@ -274,14 +283,14 @@ export default function Navigation() {
                   </div>
                   <div className="py-6">
                     <Link
-                      href="/login"
+                      href="/signin"
                       className="-mx-3 block px-3 py-2.5 text-base font-medium leading-7 text-gray-900 hover:bg-gray-50 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Sign in
                     </Link>
                     <Link
-                      href="/register"
+                      href="/signup"
                       className="mt-4 block rounded-full bg-black px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-900 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >

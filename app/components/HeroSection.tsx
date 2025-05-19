@@ -16,7 +16,7 @@ export default function HeroSection() {
           Revenue. Upkeep
         </h1>
         <p className="text-xl md:text-2xl font-light mb-10 drop-shadow-md">Modern property management, made simple. Manage, rent, and grow—all in one place.</p>
-        <Link href="/register" className="inline-block rounded-xl bg-white text-black font-bold px-8 py-3 text-xl shadow-xl hover:bg-gray-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Get Started</Link>
+        <Link href="/signup" className="inline-block rounded-xl bg-white text-black font-bold px-8 py-3 text-xl shadow-xl hover:bg-gray-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Get Started</Link>
       </div>
     </section>
   );

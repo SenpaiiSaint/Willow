@@ -180,7 +180,7 @@ export default function FeaturesPage() {
             <div className="flex">
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="text-2xl font-bold text-indigo-600">
-                  RentPay
+                  Willow
                 </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -415,7 +415,7 @@ export default function FeaturesPage() {
               href="/dashboard"
               className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              Get started
+              Sign Up
             </Link>
             <Link href="/contact" className="text-sm font-semibold leading-6 text-white">
               Contact us <span aria-hidden="true">→</span>
