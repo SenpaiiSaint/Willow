@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
 const reviews = [
   {
@@ -78,7 +79,7 @@ const reviews = [
   },
 ];
 
-export default function LoginPage() {
+export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -177,6 +178,7 @@ export default function LoginPage() {
           {/* Google OAuth Button */}
           <button
             type="button"
+            onClick={() => signIn('google', { redirectTo: '/directive' })}
             className="w-full flex items-center justify-center gap-2 mb-3 rounded-md border border-gray-300 bg-white py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
             // TODO: Google OAuth handler
           >

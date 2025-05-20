@@ -198,7 +198,7 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-8">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="/signin"
+                href="/signIn"
                 className={`rounded-full px-6 py-2.5 text-base font-bold  shadow-lg  hover:text-stone-400 focus:outline-none ${isScrolled ? 'text-black' : 'text-white'}`}
               >
                 Sign In 
