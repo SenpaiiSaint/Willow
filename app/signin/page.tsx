@@ -135,19 +135,19 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Left Side - Login form */}
-      <div className="w-1/2 bg-white flex flex-col justify-center px-16 py-12">
+      <div className="w-full md:w-1/2 bg-white flex flex-col justify-center px-4 py-8 sm:px-8 md:px-16 md:py-12 min-h-screen md:min-h-0">
         <div className="max-w-md mx-auto w-full">
-          <div className="mb-10 flex justify-center">
-            <div className="relative w-60 h-30 sm:w-56 sm:h-24 md:w-64 md:h-28 lg:w-80 lg:h-32">
+          <div className="mb-8 flex justify-center">
+            <div className="relative w-32 h-16 sm:w-40 sm:h-20 md:w-56 md:h-24 lg:w-64 lg:h-28">
               <Image
                 src="/logos/logo5.png"
                 alt="Homvana"
                 fill
                 style={{ objectFit: 'contain' }}
                 priority
-                sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 320px"
+                sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, (max-width: 1024px) 224px, 256px"
               />
             </div>
           </div>
@@ -199,9 +199,9 @@ export default function SignInPage() {
             Continue with Google
           </button>
 
-          <div className="relative mb-6 flex items-center text-gray-400">
+          <div className="relative mb-4 mt-5 flex items-center text-gray-400 text-xs sm:text-sm">
             <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-3 text-xs">or</span>
+            <span className="mx-3">or</span>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
@@ -246,13 +246,13 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded bg-green-600 py-3 text-sm font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded bg-green-600 py-3 text-base sm:text-sm font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-600">
+          <p className="mt-6 text-center text-xs sm:text-sm text-gray-600">
             Don&apos;t have an account?{' '}
             <Link href="/signup" className="font-semibold text-sky-500 hover:underline">
               Sign Up
