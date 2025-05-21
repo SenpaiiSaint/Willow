@@ -18,7 +18,11 @@ export default function Directive() {
   
     const setRole = (role: 'owner' | 'tenant') => {
       localStorage.setItem('user-role', role);
-      router.push('/dashboard');
+      if ( role === 'owner' ) {
+        router.push('/dashboard');
+      } else {
+        router.push('/dashboard/tenant-dashboard');
+      }
     };
   
     if (showLoader) {
