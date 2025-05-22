@@ -10,18 +10,19 @@ import { useDebouncedCallback } from "use-debounce"
 interface FilterBarProps {
   globalFilter: string
   setGlobalFilter: (value: string) => void
-  registeredOnly: boolean
-  setRegisteredOnly: (checked: boolean) => void
+  // registeredOnly: boolean
+  // setRegisteredOnly: (checked: boolean) => void
 }
 
 export function Filterbar({
   globalFilter,
   setGlobalFilter,
-  registeredOnly,
-  setRegisteredOnly,
+  // registeredOnly,
+  // setRegisteredOnly,
 }: FilterBarProps) {
   const [searchTerm, setSearchTerm] = useState(globalFilter)
   const searchInputRef = useRef<HTMLInputElement>(null)
+  const [switchOn, setSwitchOn] = useState(false)
 
   const debouncedSetGlobalFilter = useDebouncedCallback((value) => {
     setGlobalFilter(value)
@@ -64,14 +65,14 @@ export function Filterbar({
         <Switch
           size="small"
           id="registered"
-          checked={registeredOnly}
-          onCheckedChange={setRegisteredOnly}
+          checked={switchOn}
+          onCheckedChange={() => setSwitchOn((v) => !v)}
         />
         <Label
           htmlFor="registered"
           className="text-base text-gray-600 sm:text-sm"
         >
-          Registered agents only
+          Show only active tenants
         </Label>
       </div>
     </div>

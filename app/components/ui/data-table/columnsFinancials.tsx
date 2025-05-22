@@ -10,9 +10,14 @@ export const columnsFinancials: ColumnDef<FinancialData, any>[] = [
     id: "type",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Type" />,
     cell: ({ row }) => (
-      <Badge variant={row.original.type === "rent" ? "success" : "warning"}>
-        {row.original.type.charAt(0).toUpperCase() + row.original.type.slice(1)}
-      </Badge>
+      <div className="flex items-center gap-2">
+        <Badge variant={row.original.type === "rent" ? "success" : "warning"}>
+          {row.original.type.charAt(0).toUpperCase() + row.original.type.slice(1)}
+        </Badge>
+        {row.original.isLate && (
+          <Badge variant="error">Late</Badge>
+        )}
+      </div>
     ),
     enableSorting: true,
   }),

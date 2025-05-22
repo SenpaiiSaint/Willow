@@ -8,8 +8,12 @@ import { Input } from "@/app/components/Input";
 import { Checkbox } from "@/app/components/Checkbox";
 import { Button } from "@/app/components/Button";
 import { Dialog, DialogContent, DialogTitle } from "@/app/components/Dialog";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { TabNavigation, TabNavigationLink } from "@/app/components/TabNavigation";
 
 export default function TenantsPage() {
+  const pathname = usePathname();
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [search, setSearch] = useState("");
   const [activeOnly, setActiveOnly] = useState(false);
@@ -55,7 +59,24 @@ export default function TenantsPage() {
         </div>
         <Button variant="primary" onClick={() => setDialogOpen(true)}>Add Tenant</Button>
       </div>
-      <div className="flex items-center gap-4 mb-4">
+      <TabNavigation className="overflow-x-auto px-2 sm:px-6 md:px-8">
+        <TabNavigationLink asChild active={pathname === "/dashboard"}>
+          <Link href="/dashboard">Overview</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/properties"}>
+          <Link href="/dashboard/properties">Properties</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/tenants"}>
+          <Link href="/dashboard/tenants">Tenants</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/maintenance"}>
+          <Link href="/dashboard/maintenance">Maintenance</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/financials"}>
+          <Link href="/dashboard/financials">Financials</Link>
+        </TabNavigationLink>
+      </TabNavigation>
+      <div className="flex items-center gap-4  mt-4 mb-4">
         <Input
           className="w-80"
           placeholder="Search all columns..."

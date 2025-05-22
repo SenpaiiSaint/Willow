@@ -8,10 +8,15 @@ import { Card } from "@/app/components/Card";
 import { Badge } from "@/app/components/Badge";
 import { ProgressCircle } from "@/app/components/ProgressCircle";
 import { valueFormatter } from "@/lib/formatters";
+import { TabNavigation, TabNavigationLink } from "@/app/components/TabNavigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState<Property[]>([]);
   useEffect(() => { getProperties().then(setProperties); }, []);
+  const pathname = usePathname();
 
   // Analytics
   const total = properties.length;
@@ -28,8 +33,25 @@ export default function PropertiesPage() {
         <h1 className="text-2xl font-bold">Properties Overview</h1>
         <p className="text-gray-400">Monitor your property portfolio, occupancy, and operational status at a glance.</p>
       </div>
+      <TabNavigation className="overflow-x-auto px-2 sm:px-6 md:px-8">
+        <TabNavigationLink asChild active={pathname === "/dashboard"}>
+          <Link href="/dashboard">Overview</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/properties"}>
+          <Link href="/dashboard/properties">Properties</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/tenants"}>
+          <Link href="/dashboard/tenants">Tenants</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/maintenance"}>
+          <Link href="/dashboard/maintenance">Maintenance</Link>
+        </TabNavigationLink>
+        <TabNavigationLink asChild active={pathname === "/dashboard/financials"}>
+          <Link href="/dashboard/financials">Financials</Link>
+        </TabNavigationLink>
+      </TabNavigation>
       {/* Analytics cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-4 mb-8">
         <Card>
           <div className="flex items-center justify-between">
             <div>
