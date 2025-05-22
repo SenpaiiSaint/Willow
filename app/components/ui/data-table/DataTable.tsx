@@ -85,10 +85,6 @@ export function DataTable<TData>({ columns, data }: DataTableProps<TData>) {
       <Filterbar
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
-        registeredOnly={Boolean(registeredFilterValue)}
-        setRegisteredOnly={(checked: boolean) => {
-          table.getColumn("registered")?.setFilterValue(checked || null)
-        }}
       />
       <div className="relative overflow-hidden overflow-x-auto">
         <Table>
