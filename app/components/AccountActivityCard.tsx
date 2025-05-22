@@ -24,7 +24,7 @@ const demoActivity = [
 export function AccountActivityCard() {
   // For the CategoryBar visual breakdown
   const barValues = [demoSummary[0].value, demoSummary[1].value, demoSummary[2].value];
-  const barColors = ["blue", "emerald", "fuchsia"];
+  const barColors: Array<"blue" | "emerald" | "fuchsia"> = ["blue", "emerald", "fuchsia"];
 
   return (
     <Card className="mb-8 p-8 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
