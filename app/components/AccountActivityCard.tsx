@@ -105,15 +105,15 @@ export function AccountActivityCard() {
                 <TableCell>
                   <Badge variant={
                     item.type === "Rent Payment"
-                      ? "primary"
+                      ? "neutral"
                       : item.type === "Deposit"
-                      ? "info"
+                      ? "success"
                       : item.type === "Credit"
                       ? "success"
                       : item.type === "Hold"
                       ? "warning"
                       : item.type === "Refund"
-                      ? "neutral"
+                      ? "default"
                       : "default"
                   }>
                     {item.type}
