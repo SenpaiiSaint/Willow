@@ -467,7 +467,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\BlueSky Labs\\rentplatform-1\\prisma\\generated\\prisma",
+      "value": "C:\\BluSky Labs\\Willow\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -481,12 +481,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\BlueSky Labs\\rentplatform-1\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\BluSky Labs\\Willow\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
   "clientVersion": "6.8.2",
