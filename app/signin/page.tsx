@@ -79,9 +79,9 @@ const reviews = [
   },
 ];
 
-export default function SignInPage() {
+export default function SignIn() {
   const router = useRouter();
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedReview, setSelectedReview] = useState<typeof reviews[0] | null>(null);
 
@@ -92,45 +92,23 @@ export default function SignInPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
-
     const formData = new FormData(e.currentTarget);
-    const email = formData.get('email')?.toString().trim() ?? '';
-    const password = formData.get('password')?.toString() ?? '';
-
-    if (!email || !password) {
-      setError('Please provide both email and password.');
-      setLoading(false);
-      return;
-    }
-
+    
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include',
+      const res = await signIn('credentials', {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        redirect: false,
       });
 
-      const contentType = response.headers.get('content-type') || '';
-      if (!contentType.includes('application/json')) {
-        const text = await response.text();
-        throw new Error(`Unexpected response: ${text.substring(0, 100)}...`);
+      if (res?.error) {
+        setError('Invalid credentials');
+      } else {
+        router.push('/directive'); // Redirect to home page after successful login
+        router.refresh();
       }
-
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.error || 'Login failed');
-      }
-
-      localStorage.setItem('user', JSON.stringify(result.user));
-      router.push('/dashboard');
-      router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      setError('An error occurred during sign in');
     }
   };
 
@@ -206,6 +184,9 @@ export default function SignInPage() {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
+            {error && (
+              <div className="mb-4 rounded bg-red-100 p-3 text-center text-sm text-red-600">{error}</div>
+            )}
             <label htmlFor="email" className="mb-1 block text-xs font-medium text-gray-700">
               Email
             </label>
@@ -238,10 +219,6 @@ export default function SignInPage() {
                 Forgot Password?
               </Link>
             </div>
-
-            {error && (
-              <div className="mb-4 rounded bg-red-100 p-3 text-center text-sm text-red-600">{error}</div>
-            )}
 
             <button
               type="submit"
